@@ -276,7 +276,7 @@ const PROJECT_CASE_STUDIES = {
     skills: ['Intrusion detection', 'Model comparison', 'Dataset engineering', 'SOC automation thinking', 'GUI prototyping'],
     github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/ai-intrusion-detection/hermes-ids',
     githubLabel: 'GitHub Repository',
-    report: 'ai-intrusion-detection/hermes-ids/model-comparison.md',
+    report: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/blob/main/ai-intrusion-detection/hermes-ids/model-comparison.md',
     reportLabel: 'Model Comparison Writeup'
   },
 
@@ -338,7 +338,7 @@ const PROJECT_CASE_STUDIES = {
     skills: ['Feature selection', 'Evolutionary optimization', 'Multiclass intrusion detection', 'Imbalanced classification', 'Model evaluation'],
     github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/ai-intrusion-detection/bot-iot-ga-ids',
     githubLabel: 'GitHub Repository',
-    report: 'ai-intrusion-detection/bot-iot-ga-ids/README.md',
+    report: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/blob/main/ai-intrusion-detection/bot-iot-ga-ids/README.md',
     reportLabel: 'Project Writeup',
     pdf: 'ai-intrusion-detection/bot-iot-ga-ids/project-report.pdf',
     pdfLabel: 'Download Project Report PDF'
@@ -426,8 +426,8 @@ const PROJECT_CASE_STUDIES = {
     skills: ['Multi-Agent Systems', 'Anomaly Detection', 'Advertising Analytics', 'Statistical Thresholding', 'Rule Engine Engineering'],
     github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio',
     githubLabel: 'Portfolio Repository',
-    report: 'MSC_IQ_SCREENSHOT_QUERIES.md',
-    reportLabel: 'Production RCA Telemetry Specs'
+    report: '#',
+    reportLabel: 'Production AI System'
   },
 
   'category-mapper': {
@@ -821,7 +821,7 @@ const PROJECT_CASE_STUDIES = {
     skills: ['SIEM deployment', 'Log forwarding', 'SPL querying', 'Brute-force detection', 'Web scan detection', 'Alert tuning', 'Dashboarding'],
     github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/siem-investigations/splunk-siem-lab',
     githubLabel: 'GitHub Repository',
-    report: 'siem-investigations/splunk-siem-lab/README.md',
+    report: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/blob/main/siem-investigations/splunk-siem-lab/README.md',
     reportLabel: 'Lab README Writeup',
     pdf: 'siem-investigations/splunk-siem-lab/lab-writeup/Splunk_SIEM_Lab_Writeup.pdf',
     pdfLabel: 'Download Lab PDF Report'
@@ -909,7 +909,7 @@ const PROJECT_CASE_STUDIES = {
     skills: ['Packet analysis', 'Threat detection', 'Traffic baselining', 'Detection indicators', 'Evidence documentation'],
     github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/network-analysis/dos-attack-simulation',
     githubLabel: 'GitHub Repository',
-    report: 'network-analysis/dos-attack-simulation/wireshark-analysis.md',
+    report: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/blob/main/network-analysis/dos-attack-simulation/wireshark-analysis.md',
     reportLabel: 'Wireshark Analysis Writeup',
     pdf: 'network-analysis/dos-attack-simulation/reports/dos-attack-simulation.pdf',
     pdfLabel: 'Download Lab PDF Report'
@@ -1002,7 +1002,7 @@ const PROJECT_CASE_STUDIES = {
     skills: ['Digital forensics', 'Timeline analysis', 'Keyword search', 'Hex signature validation', 'Evidence reporting'],
     github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/digital-forensics/autopsy-disk-investigation',
     githubLabel: 'GitHub Repository',
-    report: 'digital-forensics/autopsy-disk-investigation/findings-summary.md',
+    report: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/blob/main/digital-forensics/autopsy-disk-investigation/findings-summary.md',
     reportLabel: 'Findings Summary Writeup',
     pdf: 'digital-forensics/autopsy-disk-investigation/reports/autopsy-disk-investigation.pdf',
     pdfLabel: 'Download Forensic PDF Report'
