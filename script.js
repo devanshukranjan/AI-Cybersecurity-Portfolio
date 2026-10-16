@@ -1173,14 +1173,8 @@ function initProjectCaseStudySystem() {
       }
     }
 
-    // 9. Links (GitHub & Report/PDF)
-    const githubBtn = document.getElementById('caseStudyGithub');
-    const githubLabel = document.getElementById('caseStudyGithubLabel');
-    if (githubBtn) {
-      githubBtn.href = data.github || 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio';
-      if (githubLabel) githubLabel.textContent = data.githubLabel || 'Project Repository';
-    }
-
+    // 9. Resources & Documentation (Report / PDF)
+    const resourcesBlock = document.getElementById('caseStudyResourcesBlock');
     const reportBtn = document.getElementById('caseStudyReport');
     const reportLabel = document.getElementById('caseStudyReportLabel');
     if (reportBtn) {
@@ -1188,12 +1182,15 @@ function initProjectCaseStudySystem() {
         reportBtn.href = data.pdf;
         reportBtn.style.display = 'inline-flex';
         if (reportLabel) reportLabel.textContent = data.pdfLabel || 'Download PDF Report';
+        if (resourcesBlock) resourcesBlock.style.display = '';
       } else if (data.report && data.report !== '#') {
         reportBtn.href = data.report;
         reportBtn.style.display = 'inline-flex';
         if (reportLabel) reportLabel.textContent = data.reportLabel || 'Technical Report';
+        if (resourcesBlock) resourcesBlock.style.display = '';
       } else {
         reportBtn.style.display = 'none';
+        if (resourcesBlock) resourcesBlock.style.display = 'none';
       }
     }
 
