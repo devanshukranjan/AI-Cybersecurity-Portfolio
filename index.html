@@ -308,7 +308,7 @@
                     </div>
                   </li>
                   <li>
-                    <strong>Multimodal Text &amp; Image Insight Pipeline (Amazon &amp; ONDC):</strong> Designed foundational category intelligence combining quantitative statistical analysis with Gemini 2.5 Flash inference for Amazon and ONDC product listings, establishing the baseline pipeline before full-time multi-marketplace expansion.
+                    <strong>Multimodal Text &amp; Image Insight Pipeline (Amazon &amp; ONDC):</strong> Designed foundational category intelligence combining quantitative statistical analysis with Gemini 2.5 Flash inference for Amazon and ONDC product listings.
                     <div class="exp-jump-row">
                       <a href="#proj-aplus-engine" class="exp-jump-pill" data-target="proj-aplus-engine">
                         <i class="fa-solid fa-arrow-down-right"></i> Jump to Multimodal Synthesis Card
@@ -674,6 +674,18 @@
               <li>Ingests structured product specs, pricing, ratings, reviews, and high-res media for Amazon, Walmart, ONDC, and eBay.</li>
             </ul>
 
+            <div class="screenshot-preview-strip">
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/mongodb-db_structure.png" data-title="MongoDB Database Schema &amp; Storage Collections" data-query="Collection: leaf_category_products &amp; browse_nodes">
+                <i class="fa-solid fa-database"></i> Database Architecture
+              </button>
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/mongobb_product_doc.png" data-title="MongoDB Scraped Product Document Schema" data-query="Document: scraped_product_details">
+                <i class="fa-solid fa-file-code"></i> Product Document
+              </button>
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/mongodb-category_doc.png" data-title="MongoDB Category Node Document Schema" data-query="Document: leaf_category_metadata">
+                <i class="fa-solid fa-folder-tree"></i> Category Document
+              </button>
+            </div>
+
             <div class="tech-stack">
               <span class="tech-tag">Zyte API</span>
               <span class="tech-tag">Python AsyncIO</span>
@@ -716,12 +728,6 @@
               <li>Mines visual strategy, safe text-overlay zones, and copy guidelines from top 25 category best-sellers.</li>
               <li>Architected for full roadmap scaling across Amazon's <strong>19 Standard modules</strong> and <strong>21 Premium modules</strong>.</li>
             </ul>
-
-            <div class="screenshot-preview-strip">
-              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/multimodal_content_insights.png" data-title="Multimodal A+ Content &amp; Best-Seller Copy Insights" data-query="Query: Analyze competitor A+ modules and highlight top buyer conversion triggers for Hiking Backpacks">
-                <i class="fa-solid fa-palette"></i> A+ Visual &amp; Copy Audit
-              </button>
-            </div>
 
             <div class="tech-stack">
               <span class="tech-tag">Gemini 2.5 Flash</span>

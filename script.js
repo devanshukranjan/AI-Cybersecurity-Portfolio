@@ -166,13 +166,7 @@ const PROJECT_CASE_STUDIES = {
       'Engineered View-based Contrastive Learning (View-CL) to maximize mutual information across augmented noisy sequence views, enabling the model to learn invariant representations despite aggressive DP noise.',
       'Simulated multi-client federated training across heterogeneous client partitions, evaluating ID-based and ID-free sequential recommendation models against baseline privacy attacks.'
     ],
-    screenshots: [
-      {
-        title: 'Taxonomy Embedding Space Mapping',
-        src: 'assets/screenshots/taxonomy_vector_mapping.png',
-        caption: 'Vector representation space clustering used during embedding projection and similarity evaluation.'
-      }
-    ],
+    screenshots: [],
     findings: [
       'Calibrated Laplace perturbation mechanism eliminated gradient divergence previously observed in Exponential Mechanism baselines.',
       'View-based Contrastive Learning (View-CL) recovered top-K recommendation recall (NDCG@10) within 4.2% of unperturbed centralized baselines while strictly enforcing (ε, δ)-differential privacy.',
@@ -536,9 +530,19 @@ const PROJECT_CASE_STUDIES = {
     ],
     screenshots: [
       {
-        title: 'Pipeline Diagnostics & Telemetry',
-        src: 'assets/screenshots/wasted_spend.png',
-        caption: 'Harvested marketplace catalog metrics used by downstream analytical and diagnostic systems.'
+        title: 'MongoDB Database Architecture & Collections',
+        src: 'assets/screenshots/mongodb-db_structure.png',
+        caption: 'MongoDB Atlas collections and storage schema indexing leaf category intelligence across marketplaces.'
+      },
+      {
+        title: 'MongoDB Scraped Product Document',
+        src: 'assets/screenshots/mongobb_product_doc.png',
+        caption: 'Extracted product document capturing pricing, ratings, buy box, variant hierarchy, and specs.'
+      },
+      {
+        title: 'MongoDB Category Node Document',
+        src: 'assets/screenshots/mongodb-category_doc.png',
+        caption: 'Category taxonomy node mapping leaf category browse URLs, hierarchy depth, and crawl status.'
       }
     ],
     findings: [
@@ -589,18 +593,7 @@ const PROJECT_CASE_STUDIES = {
       'Combined multimodal LLM insights with deterministic statistical scoring (readability index, bullet length compliance, keyword frequency).',
       'Automated the monthly execution cycle: runs recurrently as soon as monthly scraping finishes for a marketplace, extending from Amazon/ONDC to Walmart, Flipkart, and eBay.'
     ],
-    screenshots: [
-      {
-        title: 'Multimodal A+ Content Insights',
-        src: 'assets/screenshots/multimodal_content_insights.png',
-        caption: 'Multimodal analysis deconstructing competitor visual banner modules and copywriting strategies.'
-      },
-      {
-        title: 'AI Creative Generation Dispatcher',
-        src: 'assets/screenshots/agent_creative_generation.png',
-        caption: 'Downstream creative agent utilizing multimodal scorecards to generate conversion-optimized listing copy.'
-      }
-    ],
+    screenshots: [],
     findings: [
       'Standardized automated design audits across 19 Standard and 21 Premium Amazon A+ modules.',
       'Generated actionable visual scorecards highlighting text truncation risks and readability issues on mobile screens.',
