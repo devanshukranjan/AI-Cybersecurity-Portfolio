@@ -1398,9 +1398,24 @@
           <h3 class="lightbox-title" id="lightboxTitle">Production UI Telemetry Screenshot</h3>
           <p class="lightbox-subtitle" id="lightboxSubtitle">MSC IQ Diagnostic Interface &amp; Report</p>
         </div>
-        <button class="modal-close-btn" id="lightboxCloseBtn" aria-label="Close image modal">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+        <div class="lightbox-controls">
+          <span class="lightbox-zoom-level" id="lightboxZoomLevel" title="Current Zoom">100%</span>
+          <button class="lightbox-ctrl-btn" id="lightboxZoomInBtn" title="Zoom In (+)">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </button>
+          <button class="lightbox-ctrl-btn" id="lightboxZoomOutBtn" title="Zoom Out (-)">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+          </button>
+          <button class="lightbox-ctrl-btn" id="lightboxZoomResetBtn" title="Reset Zoom (100%)">
+            <i class="fa-solid fa-arrow-rotate-left"></i>
+          </button>
+          <a class="lightbox-ctrl-btn" id="lightboxOpenNewTabBtn" href="#" target="_blank" rel="noopener noreferrer" title="Open Full Image in New Tab">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          <button class="modal-close-btn" id="lightboxCloseBtn" aria-label="Close image modal">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
       </div>
       <div class="lightbox-img-container">
         <img id="lightboxImg" class="lightbox-img" src="" alt="Diagnostic Query Screenshot" />

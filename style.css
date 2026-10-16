@@ -1374,17 +1374,46 @@ section {
 }
 
 .case-study-thumb-img-wrap {
-  height: 130px;
+  height: 140px;
   background: #03060a;
   overflow: hidden;
   display: grid;
   place-items: center;
+  position: relative;
+  cursor: zoom-in;
+}
+
+.case-study-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 8, 16, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+
+.case-study-thumb-card:hover .case-study-thumb-overlay {
+  opacity: 1;
 }
 
 .case-study-thumb-img-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform var(--transition-fast);
+}
+
+.case-study-thumb-card:hover .case-study-thumb-img-wrap img {
+  transform: scale(1.05);
 }
 
 .case-study-thumb-info {
@@ -1545,59 +1574,130 @@ section {
   background: var(--bg-panel-elevated);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-lg);
-  max-width: 90vw;
+  width: 94vw;
+  max-width: 1400px;
+  height: 90vh;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.9);
   position: relative;
 }
 
 .lightbox-header {
-  padding: 1rem 1.4rem;
+  padding: 0.85rem 1.4rem;
   background: #090e16;
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  flex-shrink: 0;
 }
 
 .lightbox-title-wrap {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .lightbox-title {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .lightbox-subtitle {
   font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   color: var(--cyan);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lightbox-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.lightbox-zoom-level {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cyan);
+  background: rgba(111, 211, 255, 0.1);
+  border: 1px solid rgba(111, 211, 255, 0.25);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-pill);
+  min-width: 52px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.lightbox-ctrl-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.82rem;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.lightbox-ctrl-btn:hover {
+  background: rgba(111, 211, 255, 0.15);
+  border-color: var(--cyan);
+  color: var(--cyan);
+  transform: translateY(-1px);
 }
 
 .lightbox-img-container {
-  overflow-y: auto;
-  padding: 1.2rem;
+  overflow: hidden;
+  padding: 1.5rem;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  background: #05080d;
+  align-items: center;
+  background: #03060a;
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  user-select: none;
+  touch-action: none;
 }
 
 .lightbox-img {
   max-width: 100%;
-  max-height: 72vh;
+  max-height: 100%;
   object-fit: contain;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  transition: transform 0.16s cubic-bezier(0.2, 0, 0.2, 1);
+  transform-origin: center center;
+  cursor: zoom-in;
+  will-change: transform;
+}
+
+.lightbox-img.is-zoomed {
+  cursor: grab;
+}
+
+.lightbox-img.is-panning {
+  cursor: grabbing;
+  transition: none;
 }
 
 /* ==========================================================================
