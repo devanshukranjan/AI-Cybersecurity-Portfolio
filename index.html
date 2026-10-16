@@ -233,7 +233,7 @@
 
                 <ul class="role-bullet-list">
                   <li>
-                    <strong>Root Cause Analysis (RCA) Engine (Sole Owner):</strong> Architected an end-to-end AI diagnostics platform analyzing Amazon advertising performance. Integrated as the <code>rca_analytics</code> engine under a LangGraph multi-agent orchestrator, translating natural language seller queries (English &amp; Hinglish) into automated diagnostic investigations.
+                    <strong>Root Cause Analysis (RCA) Engine (Sole Owner &amp; Production Lead):</strong> Architected and deployed an end-to-end autonomous AI advertising diagnostic system under a LangGraph multi-agent orchestrator. Translates natural language seller queries (English &amp; Hinglish) into automated anomaly investigations. Shipped <strong>7 live diagnostics</strong> (ACOS Spike, Wasted Spend, CPC Spike, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop) across <strong>50+ root-cause rules</strong> (bid shifts, budget exhaustion, Buy Box loss, out-of-stock events) with dynamic per-account statistical thresholding ($\mu + 1.5\sigma$), dual equal-length baseline windows, and automated negative keyword recommendations with over-blocking protection.
                     <div class="exp-jump-row">
                       <a href="#proj-rca-engine" class="exp-jump-pill" data-target="proj-rca-engine">
                         <i class="fa-solid fa-arrow-down-right"></i> Jump to RCA Engine Card (4 Telemetry Screens)
@@ -241,36 +241,26 @@
                     </div>
                   </li>
                   <li>
-                    <strong>7 Live Diagnostics &amp; 50+ Root-Cause Rules:</strong> Shipped anomaly detectors for ACOS Spikes, Wasted Spend, CPC Spikes, Impressions Drop, CTR Drop, Ad CVR Drop, and ROAS Drop across Sponsored Products, Brands, and Display covering bid shifts, budget exhaustion, Buy Box loss, and inventory stock-outs.
-                    <div class="exp-jump-row">
-                      <a href="#proj-rca-engine" class="exp-jump-pill" data-target="proj-rca-engine">
-                        <i class="fa-solid fa-diagram-project"></i> Inspect 50+ Diagnostic Decision Rules
-                      </a>
-                    </div>
-                  </li>
-                  <li>
-                    <strong>Statistical Thresholding &amp; Spend Safeguards:</strong> Engineered dual equal-length window comparisons (current vs. baseline), dynamic per-account statistical thresholding ($\mu + 1.5\sigma$), minimum-data confidence guards, 4 severity tiers (Watch to Critical), and automated upload-ready negative keyword recommendations with over-blocking protection.
-                    <div class="exp-jump-row">
-                      <a href="#proj-rca-engine" class="exp-jump-pill" data-target="proj-rca-engine">
-                        <i class="fa-solid fa-shield-halved"></i> View Negative Keyword System &amp; Protection
-                      </a>
-                    </div>
-                  </li>
-                  <li>
-                    <strong>Multimodal A+ Content Intelligence:</strong> Built automated category-level strategy extraction pipeline analyzing competitor Amazon A+ modules (Standard Image &amp; Dark Text Overlay), extracting visual archetypes, layout geometry, and copy guidelines across 19 Standard and 21 Premium module templates.
-                    <div class="exp-jump-row">
-                      <a href="#proj-aplus-engine" class="exp-jump-pill" data-target="proj-aplus-engine">
-                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Multimodal A+ Intelligence Card
-                      </a>
-                    </div>
-                  </li>
-                  <li>
-                    <strong>Distributed Data Pipelines &amp; Team Mentorship:</strong> Scaled scraping and category embedding pipelines across Amazon, Walmart, eBay, Flipkart, and OnBuy; actively guiding and mentoring junior engineering teammates on pipeline maintenance, error telemetry, and production resilience.
+                    <strong>Automated Monthly Scraping &amp; Multimodal Text/Image Insights (Production Scheduling):</strong> Maintained and automated the end-to-end catalog intelligence cycle: as soon as the two-stage catalog scraper completes its monthly crawl for a marketplace, the multimodal text and image insights pipeline (combining quantitative statistical scoring with Gemini 2.5 Flash Vision) triggers automatically via scheduled cron workflows. Runs recurrently every month on an automated basis; engineering code updates are only required when onboarding schema adapters for newly added marketplaces.
                     <div class="exp-jump-row">
                       <a href="#proj-scraper-engine" class="exp-jump-pill" data-target="proj-scraper-engine">
-                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Distributed Scraping Engine
+                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Scraping Engine
+                      </a>
+                      <a href="#proj-aplus-engine" class="exp-jump-pill" data-target="proj-aplus-engine" style="margin-left: 0.4rem;">
+                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Multimodal A+ Engine
                       </a>
                     </div>
+                  </li>
+                  <li>
+                    <strong>Cross-Marketplace Expansion (Walmart, Flipkart, eBay):</strong> Extended both scraping and multimodal text/image analysis engines from their initial internship scope (Amazon &amp; ONDC) across Walmart, Flipkart, eBay, and OnBuy as monthly scraping completes for each platform. Deconstructed visual design archetypes, safe text-overlay zones, and copy effectiveness across 19 Standard and 21 Premium Amazon A+ modules and cross-marketplace layouts.
+                    <div class="exp-jump-row">
+                      <a href="#proj-aplus-engine" class="exp-jump-pill" data-target="proj-aplus-engine">
+                        <i class="fa-solid fa-diagram-project"></i> Inspect Multimodal Architecture
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <strong>Engineering Mentorship &amp; Pipeline Governance:</strong> Guiding and mentoring junior engineering teammates on marketplace adapter development, error recovery telemetry, Zyte rate-limit balancing, and scheduler pipeline health.
                   </li>
                 </ul>
               </div>
@@ -294,7 +284,7 @@
 
                 <ul class="role-bullet-list">
                   <li>
-                    <strong>Distributed Two-Stage Web Scraping Engine:</strong> Engineered high-volume catalog harvesting across Amazon.in, Amazon.com, Walmart.com, and ONDC; reduced full-catalog scraping time from <strong>2–3 months down to 1.5 weeks</strong> (90%+ latency reduction) via threaded Zyte API calls at <strong>1,000 req/min</strong> with MongoDB persistence.
+                    <strong>Distributed Two-Stage Web Scraping Engine:</strong> Engineered high-volume catalog harvesting across <strong>Amazon.in, Amazon.com, and ONDC</strong>; reduced full-catalog scraping time from <strong>2–3 months down to 1.5 weeks</strong> (90%+ latency reduction) via threaded Zyte API calls at <strong>1,000 req/min</strong> with MongoDB persistence.
                     <div class="exp-jump-row">
                       <a href="#proj-scraper-engine" class="exp-jump-pill" data-target="proj-scraper-engine">
                         <i class="fa-solid fa-arrow-down-right"></i> Jump to Two-Stage Scraping Architecture
@@ -318,7 +308,7 @@
                     </div>
                   </li>
                   <li>
-                    <strong>Hybrid Multimodal Insight Pipeline:</strong> Designed category intelligence combining quantitative statistical analysis with Gemini 2.5 Flash inference per category, using parallel project balancing to optimize rate limits.
+                    <strong>Multimodal Text &amp; Image Insight Pipeline (Amazon &amp; ONDC):</strong> Designed foundational category intelligence combining quantitative statistical analysis with Gemini 2.5 Flash inference for Amazon and ONDC product listings, establishing the baseline pipeline before full-time multi-marketplace expansion.
                     <div class="exp-jump-row">
                       <a href="#proj-aplus-engine" class="exp-jump-pill" data-target="proj-aplus-engine">
                         <i class="fa-solid fa-arrow-down-right"></i> Jump to Multimodal Synthesis Card
@@ -377,7 +367,7 @@
 
         <div class="cards-grid">
           <!-- Project 1: M.Tech Dissertation -->
-          <article class="project-card featured-card" id="proj-thesis-recsys" data-category="overlap">
+          <article class="project-card featured-card" id="proj-thesis-recsys" data-category="overlap" data-project="mtech-dissertation">
             <div class="provenance-badge badge-research">
               <i class="fa-solid fa-graduation-cap"></i> NIT Patna &bull; M.Tech Research Thesis
             </div>
@@ -387,8 +377,8 @@
                 M.Tech Research Thesis
               </span>
               <div class="project-links">
-                <button class="project-icon-link inspect-spec-btn" data-spec="mtech-dissertation" title="Inspect Architecture">
-                  <i class="fa-solid fa-diagram-project"></i>
+                <button class="project-icon-link inspect-spec-btn" data-project="mtech-dissertation" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </button>
               </div>
             </div>
@@ -420,7 +410,7 @@
           </article>
 
           <!-- Project 2: Autonomous AI Threat Detection Engine -->
-          <article class="project-card" id="proj-ai-threat-engine" data-category="overlap">
+          <article class="project-card" id="proj-ai-threat-engine" data-category="overlap" data-project="hermes-ids">
             <div class="provenance-badge badge-personal">
               <i class="fa-solid fa-shield-halved"></i> Independent Security ML Research
             </div>
@@ -430,9 +420,12 @@
                 AI Security System
               </span>
               <div class="project-links">
-                <a href="https://github.com/devanshukranjan/Autonomous-AI-Based-Threat-Detection-and-Threat-Elimination-Engine.git" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
+                <a href="https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/ai-intrusion-detection/hermes-ids" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
                   <i class="fa-brands fa-github"></i>
                 </a>
+                <button class="project-icon-link inspect-spec-btn" data-project="hermes-ids" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
               </div>
             </div>
 
@@ -462,7 +455,7 @@
           </article>
 
           <!-- Project 3: GA-Optimized Bot-IoT IDS -->
-          <article class="project-card" id="proj-ga-ids" data-category="overlap">
+          <article class="project-card" id="proj-ga-ids" data-category="overlap" data-project="bot-iot-ga-ids">
             <div class="provenance-badge badge-personal">
               <i class="fa-solid fa-microchip"></i> Independent Applied ML Research
             </div>
@@ -472,9 +465,12 @@
                 Heuristic Optimization
               </span>
               <div class="project-links">
-                <a href="https://github.com/devanshukranjan/IDS-Model-using-Genetic-Algorithm-Based-Feature-Selection.git" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
+                <a href="https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/ai-intrusion-detection/bot-iot-ga-ids" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
                   <i class="fa-brands fa-github"></i>
                 </a>
+                <button class="project-icon-link inspect-spec-btn" data-project="bot-iot-ga-ids" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
               </div>
             </div>
 
@@ -535,7 +531,7 @@
 
         <div class="cards-grid">
           <!-- Project 4: RCA Engine -->
-          <article class="project-card featured-card" id="proj-rca-engine" data-category="ai">
+          <article class="project-card featured-card" id="proj-rca-engine" data-category="ai" data-project="rca-engine">
             <div class="provenance-badge badge-fulltime">
               <i class="fa-solid fa-briefcase"></i> KAS Global Commerce &bull; AI Engineer (Full-Time)
             </div>
@@ -546,8 +542,8 @@
                 Production Engine (Sole Owner)
               </span>
               <div class="project-links">
-                <button class="project-icon-link inspect-spec-btn" data-spec="rca-engine" title="Inspect Architecture">
-                  <i class="fa-solid fa-diagram-project"></i>
+                <button class="project-icon-link inspect-spec-btn" data-project="rca-engine" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </button>
               </div>
             </div>
@@ -594,7 +590,7 @@
           </article>
 
           <!-- Project 5: Taxonomy Embedding Pipeline -->
-          <article class="project-card" id="proj-vector-taxonomy" data-category="ai">
+          <article class="project-card" id="proj-vector-taxonomy" data-category="ai" data-project="category-mapper">
             <div class="provenance-badge badge-intern">
               <i class="fa-solid fa-flask"></i> KAS Global Commerce &bull; AI Research Intern
             </div>
@@ -605,8 +601,8 @@
                 Vector Search Pipeline
               </span>
               <div class="project-links">
-                <button class="project-icon-link inspect-spec-btn" data-spec="category-mapper" title="Inspect Architecture">
-                  <i class="fa-solid fa-diagram-project"></i>
+                <button class="project-icon-link inspect-spec-btn" data-project="category-mapper" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </button>
               </div>
             </div>
@@ -644,7 +640,7 @@
           </article>
 
           <!-- Project 6: Distributed Web Scraping Pipeline -->
-          <article class="project-card" id="proj-scraper-engine" data-category="ai">
+          <article class="project-card" id="proj-scraper-engine" data-category="ai" data-project="scraping-engine">
             <div class="provenance-badge badge-intern">
               <i class="fa-solid fa-flask"></i> KAS Global Commerce &bull; AI Research Intern
             </div>
@@ -654,11 +650,16 @@
                 <i class="fa-solid fa-cloud-arrow-down"></i>
                 High-Throughput Scraping
               </span>
+              <div class="project-links">
+                <button class="project-icon-link inspect-spec-btn" data-project="scraping-engine" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
             </div>
 
             <h3 class="project-title">Distributed Two-Stage Web Scraping Engine</h3>
             <p class="project-desc">
-              High-volume e-commerce catalog ingestion pipeline harvesting top 25 best-selling products per leaf category across global marketplaces.
+              High-volume e-commerce catalog ingestion pipeline harvesting top 25 best-selling products per leaf category across global marketplaces with automated monthly scheduling.
             </p>
 
             <div class="blueprint-box">
@@ -682,7 +683,7 @@
           </article>
 
           <!-- Project 7: Multimodal A+ Content Insights Pipeline -->
-          <article class="project-card" id="proj-aplus-engine" data-category="ai">
+          <article class="project-card" id="proj-aplus-engine" data-category="ai" data-project="multimodal-aplus">
             <div class="provenance-badge badge-fulltime">
               <i class="fa-solid fa-briefcase"></i> KAS Global Commerce &bull; AI Engineer (Full-Time)
             </div>
@@ -692,6 +693,11 @@
                 <i class="fa-solid fa-wand-magic-sparkles"></i>
                 Multimodal GenAI
               </span>
+              <div class="project-links">
+                <button class="project-icon-link inspect-spec-btn" data-project="multimodal-aplus" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
             </div>
 
             <h3 class="project-title">Multimodal A+ Competitive Intelligence Engine</h3>
@@ -726,7 +732,7 @@
           </article>
 
           <!-- Project 8: Common API Endpoints & MSC IQ RAG -->
-          <article class="project-card" id="proj-common-api" data-category="ai">
+          <article class="project-card" id="proj-common-api" data-category="ai" data-project="chatbot-rag">
             <div class="provenance-badge badge-intern">
               <i class="fa-solid fa-flask"></i> KAS Global Commerce &bull; AI Research Intern
             </div>
@@ -736,6 +742,11 @@
                 <i class="fa-solid fa-code"></i>
                 Backend &amp; RAG Architecture
               </span>
+              <div class="project-links">
+                <button class="project-icon-link inspect-spec-btn" data-project="chatbot-rag" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
             </div>
 
             <h3 class="project-title">Common API Endpoints &amp; MSC IQ Chatbot RAG</h3>
@@ -786,7 +797,7 @@
 
         <div class="cards-grid">
           <!-- Project: AegisAgent Flagship Blueprint -->
-          <article class="project-card featured-card" id="proj-aegis-agent" data-category="ai">
+          <article class="project-card featured-card" id="proj-aegis-agent" data-category="ai" data-project="aegis-agent">
             <div class="provenance-badge badge-blueprint">
               <i class="fa-solid fa-rocket"></i> Flagship Open-Source Architecture &bull; In Active Development
             </div>
@@ -796,6 +807,11 @@
                 <i class="fa-solid fa-shield-virus"></i>
                 AI Security &amp; Guardrailed Agent
               </span>
+              <div class="project-links">
+                <button class="project-icon-link inspect-spec-btn" data-project="aegis-agent" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
             </div>
 
             <h3 class="project-title">AegisAgent: Enterprise AI Security &amp; Guardrailed RAG Agent</h3>
@@ -846,7 +862,7 @@
 
         <div class="cards-grid">
           <!-- Project 9: Splunk SIEM Lab -->
-          <article class="project-card featured-card" id="proj-splunk-siem" data-category="security">
+          <article class="project-card featured-card" id="proj-splunk-siem" data-category="security" data-project="splunk-siem-lab">
             <div class="provenance-badge badge-personal">
               <i class="fa-solid fa-server"></i> Hands-On SOC Lab &bull; Enterprise SIEM
             </div>
@@ -857,11 +873,11 @@
                 SIEM &bull; SOC Monitoring
               </span>
               <div class="project-links">
-                <a href="https://github.com/devanshukranjan/Cybersecurity-Portfolio/tree/main/siem-investigations/splunk-siem-lab" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
+                <a href="https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/siem-investigations/splunk-siem-lab" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
                   <i class="fa-brands fa-github"></i>
                 </a>
-                <button class="project-icon-link inspect-spec-btn" data-spec="splunk-siem" title="Inspect SPL Queries">
-                  <i class="fa-solid fa-terminal"></i>
+                <button class="project-icon-link inspect-spec-btn" data-project="splunk-siem-lab" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </button>
               </div>
             </div>
@@ -894,7 +910,7 @@
           </article>
 
           <!-- Project 10: DoS Attack Simulation & Traffic Analysis -->
-          <article class="project-card" id="proj-dos-forensics" data-category="security">
+          <article class="project-card" id="proj-dos-forensics" data-category="security" data-project="dos-attack-simulation">
             <div class="provenance-badge badge-personal">
               <i class="fa-solid fa-network-wired"></i> Packet Traffic Forensics Lab
             </div>
@@ -905,9 +921,12 @@
                 Network Protocol Analysis
               </span>
               <div class="project-links">
-                <a href="https://github.com/devanshukranjan/Cybersecurity-Portfolio/tree/main/network-analysis/dos-attack-simulation" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
+                <a href="https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/network-analysis/dos-attack-simulation" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
                   <i class="fa-brands fa-github"></i>
                 </a>
+                <button class="project-icon-link inspect-spec-btn" data-project="dos-attack-simulation" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
               </div>
             </div>
 
@@ -938,7 +957,7 @@
           </article>
 
           <!-- Project 11: Digital Forensics & File Recovery -->
-          <article class="project-card" id="proj-autopsy-forensics" data-category="security">
+          <article class="project-card" id="proj-autopsy-forensics" data-category="security" data-project="autopsy-disk-investigation">
             <div class="provenance-badge badge-personal">
               <i class="fa-solid fa-hard-drive"></i> Digital Disk Forensics Lab
             </div>
@@ -949,9 +968,12 @@
                 Digital Forensics (DFIR)
               </span>
               <div class="project-links">
-                <a href="https://github.com/devanshukranjan/Cybersecurity-Portfolio/tree/main/digital-forensics" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
+                <a href="https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/digital-forensics/autopsy-disk-investigation" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
                   <i class="fa-brands fa-github"></i>
                 </a>
+                <button class="project-icon-link inspect-spec-btn" data-project="autopsy-disk-investigation" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
               </div>
             </div>
 
@@ -1261,39 +1283,106 @@
   </footer>
 
   <!-- ========================================================================
-       TECHNICAL SPECIFICATIONS MODAL
+       PROJECT DEEP-DIVE CASE STUDY MODAL (FULL SCREEN VIEW)
        ======================================================================== -->
-  <div class="modal-backdrop" id="techModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-content">
-      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close dialog">
+  <div class="modal-backdrop" id="projectCaseStudyModal" role="dialog" aria-modal="true" aria-labelledby="caseStudyTitle">
+    <div class="modal-content case-study-modal-content">
+      <button class="modal-close-btn" id="caseStudyCloseBtn" aria-label="Close case study dialog">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
-      <div style="margin-bottom: 1.5rem;">
-        <span class="project-type-badge badge-ai" id="modalBadge">System Architecture</span>
-        <h2 style="font-family: var(--font-heading); font-size: 1.6rem; color: var(--text-primary); margin-top: 0.5rem;" id="modalTitle">
-          System Specification
-        </h2>
-        <p style="font-size: 0.9rem; color: var(--text-muted); font-family: var(--font-mono);" id="modalSubtitle">
-          Detailed Request Path &amp; Mathematical Formulation
-        </p>
+      <!-- Case Study Header -->
+      <div class="case-study-header">
+        <div class="case-study-badge-row">
+          <span class="project-type-badge" id="caseStudyCategoryBadge">Category</span>
+          <span class="provenance-badge" id="caseStudyProvenanceBadge" style="margin: 0;">Provenance</span>
+        </div>
+        <h2 class="case-study-title" id="caseStudyTitle">Project Title</h2>
+        <p class="case-study-summary" id="caseStudySummary">Project summary description.</p>
+        <div class="case-study-meta-row" id="caseStudyMetaRow">
+          <!-- Dynamically populated meta chips -->
+        </div>
       </div>
 
-      <div style="margin-bottom: 1.5rem;">
-        <h4 style="font-size: 0.82rem; font-family: var(--font-mono); color: var(--cyan); text-transform: uppercase; margin-bottom: 0.5rem;">
-          <i class="fa-solid fa-terminal"></i> ARCHITECTURE BLUEPRINT &bull; DATA FLOW
-        </h4>
-        <pre style="background: #05080c; border: 1px solid var(--border-medium); border-radius: var(--radius-sm); padding: 1.2rem; font-family: var(--font-mono); font-size: 0.78rem; color: var(--cyan); overflow-x: auto; line-height: 1.45;" id="modalArchitecture">
-Loading architecture...
-        </pre>
-      </div>
+      <!-- Case Study Grid (Main Article + Sidebar) -->
+      <div class="case-study-grid">
+        <!-- Main Column -->
+        <div class="case-study-main">
+          <!-- Architecture Blueprint Section -->
+          <section class="case-study-section" id="caseStudyArchSection">
+            <h4 class="case-study-section-title">
+              <i class="fa-solid fa-diagram-project"></i> Architecture Blueprint &bull; Data Flow
+            </h4>
+            <pre class="case-study-pre" id="caseStudyArch"></pre>
+          </section>
 
-      <div>
-        <h4 style="font-size: 0.82rem; font-family: var(--font-mono); color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">
-          <i class="fa-solid fa-circle-info"></i> ENGINEERING HIGHLIGHTS &amp; AUDIT NOTES
-        </h4>
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.88rem; color: var(--text-secondary);" id="modalDetailsList">
-        </ul>
+          <!-- Objective Section -->
+          <section class="case-study-section" id="caseStudyObjectiveSection">
+            <h4 class="case-study-section-title">
+              <i class="fa-solid fa-bullseye"></i> Objective
+            </h4>
+            <p class="case-study-text" id="caseStudyObjective"></p>
+          </section>
+
+          <!-- Process Section -->
+          <section class="case-study-section" id="caseStudyProcessSection">
+            <h4 class="case-study-section-title">
+              <i class="fa-solid fa-list-check"></i> Process &amp; Technical Execution
+            </h4>
+            <ol class="case-study-process-list" id="caseStudyProcess"></ol>
+          </section>
+
+          <!-- Evidence & Screenshot Gallery Section -->
+          <section class="case-study-section" id="caseStudyGallerySection">
+            <h4 class="case-study-section-title">
+              <i class="fa-solid fa-images"></i> Evidence &amp; Interactive Telemetry Screenshots (Click to Zoom)
+            </h4>
+            <div class="case-study-gallery" id="caseStudyGallery">
+              <!-- Dynamically populated screenshot cards -->
+            </div>
+          </section>
+
+          <!-- Key Findings Section -->
+          <section class="case-study-section" id="caseStudyFindingsSection">
+            <h4 class="case-study-section-title">
+              <i class="fa-solid fa-chart-line"></i> Key Findings &amp; Validated Metrics
+            </h4>
+            <ul class="case-study-findings-list" id="caseStudyFindings"></ul>
+          </section>
+
+          <!-- What I Learned Section -->
+          <section class="case-study-section" id="caseStudyLearnedSection">
+            <h4 class="case-study-section-title">
+              <i class="fa-solid fa-graduation-cap"></i> What I Learned &amp; Engineering Takeaways
+            </h4>
+            <p class="case-study-text" id="caseStudyLearned"></p>
+          </section>
+        </div>
+
+        <!-- Sidebar Column -->
+        <aside class="case-study-sidebar" aria-label="Project Metadata and Resources">
+          <div class="sidebar-block">
+            <div class="sidebar-label">Tools &amp; Frameworks</div>
+            <div class="sidebar-tag-wrap" id="caseStudyTools"></div>
+          </div>
+
+          <div class="sidebar-block">
+            <div class="sidebar-label">Skills Demonstrated</div>
+            <div class="sidebar-tag-wrap" id="caseStudySkills"></div>
+          </div>
+
+          <div class="sidebar-block">
+            <div class="sidebar-label">Resources &amp; Code</div>
+            <div class="sidebar-actions" id="caseStudyLinks">
+              <a class="btn btn-secondary" id="caseStudyGithub" href="#" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-github"></i> <span id="caseStudyGithubLabel">Project Repository</span>
+              </a>
+              <a class="btn btn-primary" id="caseStudyReport" href="#" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-file-lines"></i> <span id="caseStudyReportLabel">Technical Report / PDF</span>
+              </a>
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
   </div>
