@@ -16,7 +16,7 @@
 Recruiters and hiring managers typically review candidates who are either pure machine learning practitioners (lacking systems security and networking rigor) or cybersecurity analysts (lacking production LLM/agentic and deep learning experience).
 
 This portfolio represents **the convergence of Applied AI Systems Engineering and Cybersecurity**:
-1. **Production AI Systems:** Sole owner of an enterprise Root Cause Analysis (RCA) diagnostic engine; architect of large-scale scraping (1,000 req/min) and category taxonomy vector embeddings (`pgvector`); builder of multimodal insight generation pipelines for e-commerce intelligence.
+1. **Production AI Systems:** Architect of an enterprise Root Cause Analysis (RCA) diagnostic engine; architect of large-scale scraping (1,000 req/min) and category taxonomy vector embeddings (`pgvector`); builder of multimodal insight generation pipelines for e-commerce intelligence.
 2. **Privacy-Preserving & Adversarial AI:** M.Tech dissertation on **Locally Differentially Private (LDP)** Federated Sequential Recommendation, proving mathematical and algorithmic rigor in data privacy and secure ML.
 3. **Security Operations & Systems Rigor:** Hands-on SOC environment builder (Splunk SIEM, custom SPL, real-time alerting), packet-level network forensics (Wireshark, DoS simulation), and digital forensics (Autopsy, FTK Imager).
 4. **Threat Detection ML:** Custom IDS engines built on UNSW-NB15, UGRansome 2024, and Genetic Algorithm (GA) feature selection with XGBoost on Bot-IoT.

@@ -352,7 +352,7 @@ const PROJECT_CASE_STUDIES = {
 
   'rca-engine': {
     title: 'Root Cause Analysis (RCA) Diagnostic Engine',
-    category: 'Production AI Engine (Sole Owner)',
+    category: 'Production Diagnostic Engine',
     categoryBadgeClass: 'badge-ai',
     provenance: 'KAS Global Commerce • AI Engineer (Full-Time)',
     provenanceBadgeClass: 'badge-fulltime',
