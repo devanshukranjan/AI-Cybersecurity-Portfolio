@@ -380,6 +380,21 @@
               <li>Built automated negative keyword recommendations with over-blocking protection to curb wasted ad spend.</li>
             </ul>
 
+            <div class="screenshot-preview-strip">
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/acos_spike_this_year.png" data-title="ACOS Annual Spike Investigation Report (Amazon.com)" data-query="Query: Why did my ACOS spike this year?">
+                <i class="fa-solid fa-chart-line"></i> ACOS Report (14 Causes)
+              </button>
+              <button class="screenshot-thumb-btn btn-amber open-lightbox-btn" data-img="assets/screenshots/wasted_spend.png" data-title="Wasted Ad Spend &amp; Negative Keywords (Amazon.com)" data-query="Query: Where am I wasting ad spend?">
+                <i class="fa-solid fa-ban"></i> Wasted Spend ($77.87 Flagged)
+              </button>
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/acos_spike_hindi.png" data-title="Hinglish Query Processing (Amazon.com)" data-query="Query: ACOS kyu badha pichle hafte?">
+                <i class="fa-solid fa-language"></i> Hinglish Anomaly Check
+              </button>
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/cpc_spike.png" data-title="CPC Cost Per Click Baseline Evaluation" data-query="Query: Why did my CPC increase this month?">
+                <i class="fa-solid fa-arrow-trend-down"></i> CPC Spike Check
+              </button>
+            </div>
+
             <div class="tech-stack">
               <span class="tech-tag">LangGraph Orchestrator</span>
               <span class="tech-tag">FastAPI</span>
@@ -419,6 +434,12 @@
               <li>Implemented PostgreSQL <code>pgvector</code> storage with IVFFLAT cosine indexing for low-latency category disambiguation in MSC IQ.</li>
               <li>Engineered batch checkpointing and resume mechanisms handling gigabyte-scale taxonomy updates.</li>
             </ul>
+
+            <div class="screenshot-preview-strip">
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/taxonomy_vector_mapping.png" data-title="pgvector Cosine Retrieval &amp; Category Mapping" data-query="Query: Map category for: lightweight waterproof hiking backpack with laptop compartment">
+                <i class="fa-solid fa-database"></i> pgvector Nearest Taxonomies
+              </button>
+            </div>
 
             <div class="tech-stack">
               <span class="tech-tag">PostgreSQL</span>
@@ -488,6 +509,12 @@
               <li>Architected for full roadmap scaling across Amazon's <strong>19 Standard modules</strong> and <strong>21 Premium modules</strong>.</li>
             </ul>
 
+            <div class="screenshot-preview-strip">
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/multimodal_content_insights.png" data-title="Multimodal A+ Content &amp; Best-Seller Copy Insights" data-query="Query: Analyze competitor A+ modules and highlight top buyer conversion triggers for Hiking Backpacks">
+                <i class="fa-solid fa-palette"></i> A+ Visual &amp; Copy Audit
+              </button>
+            </div>
+
             <div class="tech-stack">
               <span class="tech-tag">Gemini 2.5 Flash</span>
               <span class="tech-tag">Computer Vision</span>
@@ -521,6 +548,15 @@
               <li>Built 3 core production APIs: <code>/api/v1/category-mapper</code>, <code>/api/v1/insights</code>, and <code>/api/v1/product-details</code>.</li>
               <li>Enabled multi-turn Category RAG: user selects a mapped category chip, triggering contextual data extraction from category insight JSONs.</li>
             </ul>
+
+            <div class="screenshot-preview-strip">
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/category_pricing_rag.png" data-title="MSC IQ Conversational Category Pricing RAG" data-query="Query: What is the optimal pricing and coupon strategy for running shoes on Amazon?">
+                <i class="fa-solid fa-tags"></i> Category Pricing RAG
+              </button>
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/agent_creative_generation.png" data-title="Multi-Agent Creative Generation &amp; Content Dispatcher" data-query="Query: Generate Amazon compliant bullet points and lifestyle creative directives for our new hydration pack">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Creative Agent Dispatcher
+              </button>
+            </div>
 
             <div class="tech-stack">
               <span class="tech-tag">FastAPI</span>
@@ -987,6 +1023,24 @@ Loading architecture...
         </h4>
         <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.88rem; color: var(--text-secondary);" id="modalDetailsList">
         </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Lightbox Modal for Telemetry Screenshots -->
+  <div class="image-lightbox" id="imageLightboxModal" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+    <div class="lightbox-content">
+      <div class="lightbox-header">
+        <div class="lightbox-title-wrap">
+          <h3 class="lightbox-title" id="lightboxTitle">Production UI Telemetry Screenshot</h3>
+          <p class="lightbox-subtitle" id="lightboxSubtitle">MSC IQ Diagnostic Interface &amp; Report</p>
+        </div>
+        <button class="modal-close-btn" id="lightboxCloseBtn" aria-label="Close image modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="lightbox-img-container">
+        <img id="lightboxImg" class="lightbox-img" src="" alt="Diagnostic Query Screenshot" />
       </div>
     </div>
   </div>

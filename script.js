@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initModeSwitcher();
   initTechnicalModal();
   initCopyButtons();
+  initImageLightboxModal();
 });
 
 /* ==========================================================================
@@ -353,3 +354,51 @@ function initCopyButtons() {
     });
   });
 }
+
+/* ==========================================================================
+   5. IMAGE LIGHTBOX MODAL (UI TELEMETRY SCREENSHOTS)
+   ========================================================================== */
+function initImageLightboxModal() {
+  const lightbox = document.getElementById('imageLightboxModal');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxTitle = document.getElementById('lightboxTitle');
+  const lightboxSubtitle = document.getElementById('lightboxSubtitle');
+  const closeBtn = document.getElementById('lightboxCloseBtn');
+  const triggerBtns = document.querySelectorAll('.open-lightbox-btn, .screenshot-thumb-btn');
+
+  if (!lightbox || !lightboxImg) return;
+
+  triggerBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const imgSrc = btn.getAttribute('data-img');
+      const title = btn.getAttribute('data-title') || 'Production UI Telemetry Screenshot';
+      const subtitle = btn.getAttribute('data-query') || 'MSC IQ Assistant Interface & Diagnostic Report';
+
+      if (imgSrc) {
+        lightboxImg.src = imgSrc;
+        lightboxImg.alt = title;
+        if (lightboxTitle) lightboxTitle.textContent = title;
+        if (lightboxSubtitle) lightboxSubtitle.textContent = subtitle;
+
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+
+  const closeLightbox = () => {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    lightboxImg.src = '';
+  };
+
+  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+  });
+}
+
