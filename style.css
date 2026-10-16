@@ -1338,6 +1338,440 @@ section {
 }
 
 /* ==========================================================================
+   EXPERIENCE SECTION & CAREER PROGRESSION
+   ========================================================================== */
+.experience-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  padding: 2.2rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+  position: relative;
+  overflow: hidden;
+}
+
+.experience-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cyan), var(--ai-blue), var(--green));
+}
+
+.experience-company-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 2.2rem;
+  flex-wrap: wrap;
+}
+
+.company-brand-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.company-logo-badge {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: rgba(111, 211, 255, 0.1);
+  border: 1px solid rgba(111, 211, 255, 0.3);
+  display: grid;
+  place-items: center;
+  color: var(--cyan);
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.company-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.company-name {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.company-name .product-brand {
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.company-link {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  transition: color var(--transition-fast);
+}
+
+.company-link:hover {
+  color: var(--cyan);
+}
+
+.company-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 0.25rem 0.65rem;
+  color: var(--text-secondary);
+}
+
+.meta-pill.promo-pill {
+  background: rgba(126, 231, 135, 0.1);
+  border-color: rgba(126, 231, 135, 0.35);
+  color: var(--green);
+  font-weight: 600;
+}
+
+.company-tenure-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background: rgba(11, 17, 26, 0.8);
+  border: 1px solid var(--border-medium);
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-md);
+}
+
+.tenure-time {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--cyan);
+}
+
+.tenure-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* Timeline Layout */
+.career-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  position: relative;
+}
+
+.timeline-entry {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 1.4rem;
+  position: relative;
+}
+
+.timeline-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.marker-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg-panel);
+  border: 2px solid var(--ai-blue);
+  z-index: 2;
+  margin-top: 5px;
+}
+
+.marker-dot.current {
+  background: var(--cyan);
+  border-color: #fff;
+  box-shadow: 0 0 14px var(--cyan);
+}
+
+.marker-line {
+  position: absolute;
+  top: 20px;
+  bottom: -35px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--cyan), var(--border-subtle));
+}
+
+.timeline-body {
+  background: rgba(11, 17, 26, 0.5);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.4rem 1.6rem;
+  transition: border-color var(--transition-fast);
+}
+
+.timeline-entry.active-role .timeline-body {
+  border-color: rgba(111, 211, 255, 0.25);
+  background: rgba(13, 20, 31, 0.65);
+}
+
+.role-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.role-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.role-level-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-xs);
+}
+
+.role-level-badge.badge-fulltime {
+  background: rgba(111, 211, 255, 0.15);
+  color: var(--cyan);
+  border: 1px solid rgba(111, 211, 255, 0.4);
+}
+
+.role-level-badge.badge-intern {
+  background: rgba(138, 180, 255, 0.12);
+  color: var(--ai-blue);
+  border: 1px solid rgba(138, 180, 255, 0.3);
+}
+
+.role-promotion-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--green);
+  background: rgba(126, 231, 135, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-xs);
+}
+
+.role-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.role-period {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.role-bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.role-bullet-list li {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  position: relative;
+  padding-left: 1.3rem;
+}
+
+.role-bullet-list li::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+.role-bullet-list li strong {
+  color: var(--text-primary);
+}
+
+.role-bullet-list code {
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-xs);
+}
+
+/* Deep-Link Jump Pills */
+.exp-jump-row {
+  margin-top: 0.45rem;
+}
+
+.exp-jump-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--cyan);
+  background: rgba(111, 211, 255, 0.08);
+  border: 1px solid rgba(111, 211, 255, 0.3);
+  padding: 0.25rem 0.7rem;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.exp-jump-pill:hover {
+  background: rgba(111, 211, 255, 0.22);
+  border-color: var(--cyan);
+  color: #fff;
+  transform: translateX(4px);
+  box-shadow: 0 2px 12px var(--cyan-glow);
+}
+
+/* Track Subdivisions in Project Sections */
+.track-subdivision-header {
+  margin: 3.5rem 0 1.8rem 0;
+  padding: 1.2rem 1.6rem;
+  background: linear-gradient(90deg, rgba(13, 22, 35, 0.85), rgba(7, 12, 19, 0.5));
+  border-left: 3px solid var(--cyan);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.subdivision-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--ai-blue);
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.subdivision-heading {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.35rem 0;
+}
+
+.subdivision-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 850px;
+}
+
+/* Provenance Badges on Project Cards */
+.provenance-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 0.22rem 0.55rem;
+  border-radius: var(--radius-xs);
+  margin-bottom: 0.8rem;
+  width: fit-content;
+}
+
+.provenance-badge.badge-fulltime {
+  background: rgba(111, 211, 255, 0.08);
+  border: 1px solid rgba(111, 211, 255, 0.25);
+  color: var(--cyan);
+}
+
+.provenance-badge.badge-intern {
+  background: rgba(138, 180, 255, 0.08);
+  border: 1px solid rgba(138, 180, 255, 0.25);
+  color: var(--ai-blue);
+}
+
+.provenance-badge.badge-research {
+  background: rgba(200, 160, 255, 0.08);
+  border: 1px solid rgba(200, 160, 255, 0.25);
+  color: #c4b5fd;
+}
+
+.provenance-badge.badge-personal {
+  background: rgba(126, 231, 135, 0.08);
+  border: 1px solid rgba(126, 231, 135, 0.25);
+  color: var(--green);
+}
+
+.provenance-badge.badge-blueprint {
+  background: rgba(244, 201, 93, 0.08);
+  border: 1px solid rgba(244, 201, 93, 0.3);
+  color: var(--amber);
+}
+
+/* Card Pulse Highlight Animation */
+@keyframes cardPulseHighlight {
+  0% {
+    box-shadow: 0 0 0 0 rgba(111, 211, 255, 0.8);
+    border-color: var(--cyan);
+    transform: scale(1);
+  }
+  25% {
+    box-shadow: 0 0 35px 8px rgba(111, 211, 255, 0.5);
+    border-color: var(--cyan);
+    transform: scale(1.02);
+  }
+  50% {
+    box-shadow: 0 0 25px 4px rgba(111, 211, 255, 0.35);
+    border-color: var(--cyan);
+  }
+  100% {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    border-color: var(--border-subtle);
+    transform: scale(1);
+  }
+}
+
+.card-highlight-pulse {
+  animation: cardPulseHighlight 2.4s ease-out forwards;
+  border-color: var(--cyan) !important;
+}
+
+/* ==========================================================================
    RESPONSIVE DESIGN (BREAKPOINTS)
    ========================================================================== */
 

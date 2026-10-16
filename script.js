@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTechnicalModal();
   initCopyButtons();
   initImageLightboxModal();
+  initExperienceProjectJump();
 });
 
 /* ==========================================================================
@@ -401,4 +402,48 @@ function initImageLightboxModal() {
     if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
   });
 }
+
+/* ==========================================================================
+   6. EXPERIENCE TO PROJECT DEEP-LINKING & HIGHLIGHT PULSE
+   ========================================================================== */
+function initExperienceProjectJump() {
+  const jumpPills = document.querySelectorAll('.exp-jump-pill');
+
+  jumpPills.forEach(pill => {
+    pill.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = pill.getAttribute('data-target') || (pill.getAttribute('href') ? pill.getAttribute('href').replace('#', '') : null);
+      if (!targetId) return;
+
+      const targetCard = document.getElementById(targetId);
+      if (!targetCard) return;
+
+      // If the target project is hidden by active mode tab, switch to 'all' so it is visible
+      const activeTab = document.querySelector('.mode-tab.active');
+      const targetCategory = targetCard.getAttribute('data-category');
+      if (activeTab && activeTab.getAttribute('data-mode') !== 'all') {
+        const currentMode = activeTab.getAttribute('data-mode');
+        if (targetCategory && currentMode !== targetCategory) {
+          const allTab = document.querySelector('.mode-tab[data-mode="all"]');
+          if (allTab) allTab.click();
+        }
+      }
+
+      // Smooth scroll to target card with offset for sticky navbar
+      const yOffset = -90;
+      const y = targetCard.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+
+      // Trigger pulse animation
+      targetCard.classList.remove('card-highlight-pulse');
+      void targetCard.offsetWidth; // Force DOM reflow
+      targetCard.classList.add('card-highlight-pulse');
+
+      setTimeout(() => {
+        targetCard.classList.remove('card-highlight-pulse');
+      }, 2600);
+    });
+  });
+}
+
 
