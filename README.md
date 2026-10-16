@@ -33,8 +33,8 @@ AI-Cybersecurity-Portfolio/
 ├── favicon.svg                  # Custom Vector Tech Icon
 ├── assets/
 │   ├── resumes/                 # Official ATS Resumes (AI & Cyber Tracks)
-│   │   ├── Devanshu_AI_Resume.tex
-│   │   └── Devanshu_Cybersecurity_Resume.tex
+│   │   ├── Devanshu_AI_Resume.pdf
+│   │   └── Devanshu_Cybersecurity_Resume.pdf
 │   ├── screenshots/             # Live UI Telemetry & System Screenshots
 │   └── diagrams/                # System Architecture & Request Flows
 └── README.md                    # Project Documentation
