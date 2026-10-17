@@ -1636,7 +1636,7 @@ section {
   border: 1px solid rgba(111, 211, 255, 0.25);
   padding: 0.25rem 0.6rem;
   border-radius: var(--radius-pill);
-  min-width: 62px;
+  min-width: 72px;
   text-align: center;
   font-weight: 600;
 }
@@ -1713,19 +1713,26 @@ section {
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-subtle);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-  transition: transform 0.16s cubic-bezier(0.2, 0, 0.2, 1);
   transform-origin: center center;
   cursor: zoom-in;
-  will-change: transform;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
 }
 
 .lightbox-img.is-zoomed {
   cursor: grab;
+  max-width: none !important;
+  max-height: none !important;
+}
+
+.lightbox-img.is-deep-zoom {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 .lightbox-img.is-panning {
   cursor: grabbing;
-  transition: none;
+  transition: none !important;
 }
 
 /* ==========================================================================
