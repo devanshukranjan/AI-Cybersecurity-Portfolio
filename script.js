@@ -1263,10 +1263,12 @@ function initImageLightboxModal() {
 
   if (!lightbox || !lightboxImg) return;
 
-  // Zoom & Pan State
+  // Zoom & Pan State (Sharp Native Resolution Rendering up to 2000%)
   let currentScale = 1.0;
   let panX = 0;
   let panY = 0;
+  let baseWidth = 0;
+  let baseHeight = 0;
   let isDragging = false;
   let dragStartX = 0;
   let dragStartY = 0;
@@ -1274,22 +1276,57 @@ function initImageLightboxModal() {
   let dragStartPanY = 0;
   let hasDragged = false;
 
+  function calculateBaseSize() {
+    if (!lightboxImg.naturalWidth || !lightboxImg.naturalHeight || !imgContainer) {
+      baseWidth = 0;
+      baseHeight = 0;
+      return;
+    }
+    const cw = Math.max(280, imgContainer.clientWidth - 48);
+    const ch = Math.max(200, imgContainer.clientHeight - 48);
+    const fitRatio = Math.min(cw / lightboxImg.naturalWidth, ch / lightboxImg.naturalHeight, 1.0);
+    baseWidth = Math.round(lightboxImg.naturalWidth * fitRatio);
+    baseHeight = Math.round(lightboxImg.naturalHeight * fitRatio);
+  }
+
   function applyTransform(withTransition = true) {
+    if (!baseWidth || !baseHeight) {
+      calculateBaseSize();
+    }
+
     if (withTransition) {
-      lightboxImg.style.transition = 'transform 0.16s cubic-bezier(0.2, 0, 0.2, 1)';
+      lightboxImg.style.transition = 'width 0.16s ease-out, height 0.16s ease-out, transform 0.16s ease-out';
     } else {
       lightboxImg.style.transition = 'none';
     }
 
-    if (currentScale > 1.001) {
-      lightboxImg.style.transform = `translate(${panX}px, ${panY}px) scale(${currentScale})`;
+    if (currentScale > 1.001 && baseWidth > 0 && baseHeight > 0) {
+      const targetW = Math.round(baseWidth * currentScale);
+      const targetH = Math.round(baseHeight * currentScale);
+      const wStr = `${targetW}px`;
+      const hStr = `${targetH}px`;
+      if (lightboxImg.style.width !== wStr) lightboxImg.style.width = wStr;
+      if (lightboxImg.style.height !== hStr) lightboxImg.style.height = hStr;
+      lightboxImg.style.maxWidth = 'none';
+      lightboxImg.style.maxHeight = 'none';
+      lightboxImg.style.transform = `translate(${panX}px, ${panY}px)`;
       lightboxImg.classList.add('is-zoomed');
+
+      if (currentScale >= 3.5) {
+        lightboxImg.classList.add('is-deep-zoom');
+      } else {
+        lightboxImg.classList.remove('is-deep-zoom');
+      }
     } else {
       currentScale = 1.0;
       panX = 0;
       panY = 0;
+      lightboxImg.style.width = '';
+      lightboxImg.style.height = '';
+      lightboxImg.style.maxWidth = '100%';
+      lightboxImg.style.maxHeight = '100%';
       lightboxImg.style.transform = 'none';
-      lightboxImg.classList.remove('is-zoomed');
+      lightboxImg.classList.remove('is-zoomed', 'is-deep-zoom');
     }
 
     if (zoomLevelEl) {
@@ -1297,8 +1334,27 @@ function initImageLightboxModal() {
     }
   }
 
+  const getZoomStep = (scale, direction = 1) => {
+    // Proportional stepping up to 2000% (20.0x):
+    // 100% - 250%: step by 0.5 (50%)
+    // 250% - 500%: step by 0.75 (75%)
+    // 500% - 1000%: step by 1.25 (125%)
+    // 1000% - 2000%: step by 2.5 (250%)
+    if (direction > 0) {
+      if (scale < 2.5) return 0.5;
+      if (scale < 5.0) return 0.75;
+      if (scale < 10.0) return 1.25;
+      return 2.5;
+    } else {
+      if (scale > 10.0) return 2.5;
+      if (scale > 5.0) return 1.25;
+      if (scale > 2.5) return 0.75;
+      return 0.5;
+    }
+  };
+
   function setZoom(newScale, focalX = null, focalY = null) {
-    const clampedScale = Math.min(3.5, Math.max(1.0, Math.round(newScale * 10) / 10));
+    const clampedScale = Math.min(20.0, Math.max(1.0, Math.round(newScale * 10) / 10));
     if (Math.abs(clampedScale - currentScale) < 0.01) return;
 
     if (clampedScale <= 1.0) {
@@ -1333,8 +1389,22 @@ function initImageLightboxModal() {
     if (lightboxSubtitle) lightboxSubtitle.textContent = subtitle || '';
     if (openNewTabBtn) openNewTabBtn.href = imgSrc;
 
+    baseWidth = 0;
+    baseHeight = 0;
+
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
+
+    const onImageLoaded = () => {
+      calculateBaseSize();
+      applyTransform(false);
+    };
+
+    if (lightboxImg.complete && lightboxImg.naturalWidth) {
+      onImageLoaded();
+    } else {
+      lightboxImg.onload = onImageLoaded;
+    }
   };
 
   triggerBtns.forEach(btn => {
@@ -1363,7 +1433,7 @@ function initImageLightboxModal() {
     zoomInBtn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      setZoom(currentScale + 0.35);
+      setZoom(currentScale + getZoomStep(currentScale, 1));
     });
   }
 
@@ -1371,7 +1441,7 @@ function initImageLightboxModal() {
     zoomOutBtn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      setZoom(currentScale - 0.35);
+      setZoom(currentScale - getZoomStep(currentScale, -1));
     });
   }
 
@@ -1383,7 +1453,7 @@ function initImageLightboxModal() {
     });
   }
 
-  // Click on Image to Toggle Zoom (100% <-> 200%)
+  // Click on Image to Toggle Zoom (100% <-> 300%)
   lightboxImg.addEventListener('click', (e) => {
     e.stopPropagation();
     if (hasDragged) {
@@ -1393,7 +1463,7 @@ function initImageLightboxModal() {
     if (currentScale > 1.05) {
       resetZoom();
     } else {
-      setZoom(2.0, e.clientX, e.clientY);
+      setZoom(3.0, e.clientX, e.clientY);
     }
   });
 
@@ -1401,7 +1471,8 @@ function initImageLightboxModal() {
   if (imgContainer) {
     imgContainer.addEventListener('wheel', (e) => {
       e.preventDefault();
-      const delta = e.deltaY < 0 ? 0.3 : -0.3;
+      const step = getZoomStep(currentScale, e.deltaY < 0 ? 1 : -1) * 0.5;
+      const delta = e.deltaY < 0 ? step : -step;
       setZoom(currentScale + delta, e.clientX, e.clientY);
     }, { passive: false });
   }
@@ -1451,13 +1522,20 @@ function initImageLightboxModal() {
       closeLightbox();
     } else if (e.key === '+' || e.key === '=') {
       e.preventDefault();
-      setZoom(currentScale + 0.35);
+      setZoom(currentScale + getZoomStep(currentScale, 1));
     } else if (e.key === '-' || e.key === '_') {
       e.preventDefault();
-      setZoom(currentScale - 0.35);
+      setZoom(currentScale - getZoomStep(currentScale, -1));
     } else if (e.key === '0' || e.key === 'r' || e.key === 'R') {
       e.preventDefault();
       resetZoom();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (lightbox.classList.contains('open') && lightboxImg.naturalWidth) {
+      calculateBaseSize();
+      applyTransform(false);
     }
   });
 }
