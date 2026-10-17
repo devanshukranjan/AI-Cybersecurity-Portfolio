@@ -1107,6 +1107,10 @@ function initProjectCaseStudySystem() {
           card.innerHTML = `
             <div class="case-study-thumb-img-wrap">
               <img src="${shot.src}" alt="${shot.title}" loading="lazy" />
+              <div class="case-study-thumb-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Zoom &amp; Inspect</span>
+              </div>
             </div>
             <div class="case-study-thumb-info">
               <h5 class="case-study-thumb-title">${shot.title}</h5>
@@ -1249,17 +1253,85 @@ function initImageLightboxModal() {
   const lightboxTitle = document.getElementById('lightboxTitle');
   const lightboxSubtitle = document.getElementById('lightboxSubtitle');
   const closeBtn = document.getElementById('lightboxCloseBtn');
+  const zoomLevelEl = document.getElementById('lightboxZoomLevel');
+  const zoomInBtn = document.getElementById('lightboxZoomInBtn');
+  const zoomOutBtn = document.getElementById('lightboxZoomOutBtn');
+  const zoomResetBtn = document.getElementById('lightboxZoomResetBtn');
+  const openNewTabBtn = document.getElementById('lightboxOpenNewTabBtn');
+  const imgContainer = document.querySelector('.lightbox-img-container');
   const triggerBtns = document.querySelectorAll('.open-lightbox-btn, .screenshot-thumb-btn');
 
   if (!lightbox || !lightboxImg) return;
 
+  // Zoom & Pan State
+  let currentScale = 1.0;
+  let panX = 0;
+  let panY = 0;
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let dragStartPanX = 0;
+  let dragStartPanY = 0;
+  let hasDragged = false;
+
+  function applyTransform(withTransition = true) {
+    if (withTransition) {
+      lightboxImg.style.transition = 'transform 0.16s cubic-bezier(0.2, 0, 0.2, 1)';
+    } else {
+      lightboxImg.style.transition = 'none';
+    }
+
+    if (currentScale > 1.001) {
+      lightboxImg.style.transform = `translate(${panX}px, ${panY}px) scale(${currentScale})`;
+      lightboxImg.classList.add('is-zoomed');
+    } else {
+      currentScale = 1.0;
+      panX = 0;
+      panY = 0;
+      lightboxImg.style.transform = 'none';
+      lightboxImg.classList.remove('is-zoomed');
+    }
+
+    if (zoomLevelEl) {
+      zoomLevelEl.textContent = `${Math.round(currentScale * 100)}%`;
+    }
+  }
+
+  function setZoom(newScale, focalX = null, focalY = null) {
+    const clampedScale = Math.min(3.5, Math.max(1.0, Math.round(newScale * 10) / 10));
+    if (Math.abs(clampedScale - currentScale) < 0.01) return;
+
+    if (clampedScale <= 1.0) {
+      panX = 0;
+      panY = 0;
+    } else if (focalX !== null && focalY !== null && imgContainer) {
+      const rect = imgContainer.getBoundingClientRect();
+      const offsetX = focalX - (rect.left + rect.width / 2);
+      const offsetY = focalY - (rect.top + rect.height / 2);
+      const factor = clampedScale / currentScale;
+      panX = panX - (offsetX * (factor - 1));
+      panY = panY - (offsetY * (factor - 1));
+    }
+    currentScale = clampedScale;
+    applyTransform(true);
+  }
+
+  function resetZoom() {
+    currentScale = 1.0;
+    panX = 0;
+    panY = 0;
+    applyTransform(true);
+  }
+
   // Global helper to open lightbox
   window.openLightbox = function(imgSrc, title, subtitle) {
     if (!imgSrc) return;
+    resetZoom();
     lightboxImg.src = imgSrc;
     lightboxImg.alt = title || 'Evidence Screenshot';
     if (lightboxTitle) lightboxTitle.textContent = title || 'Production Telemetry Screenshot';
     if (lightboxSubtitle) lightboxSubtitle.textContent = subtitle || '';
+    if (openNewTabBtn) openNewTabBtn.href = imgSrc;
 
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -1277,23 +1349,115 @@ function initImageLightboxModal() {
   });
 
   const closeLightbox = () => {
+    resetZoom();
     lightbox.classList.remove('open');
     lightboxImg.src = '';
-    // If case study modal is still open, keep overflow hidden
     const caseStudyModal = document.getElementById('projectCaseStudyModal');
     if (!caseStudyModal || !caseStudyModal.classList.contains('open')) {
       document.body.style.overflow = '';
     }
   };
 
+  // Zoom Button Controls
+  if (zoomInBtn) {
+    zoomInBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setZoom(currentScale + 0.35);
+    });
+  }
+
+  if (zoomOutBtn) {
+    zoomOutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setZoom(currentScale - 0.35);
+    });
+  }
+
+  if (zoomResetBtn) {
+    zoomResetBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      resetZoom();
+    });
+  }
+
+  // Click on Image to Toggle Zoom (100% <-> 200%)
+  lightboxImg.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (hasDragged) {
+      hasDragged = false;
+      return;
+    }
+    if (currentScale > 1.05) {
+      resetZoom();
+    } else {
+      setZoom(2.0, e.clientX, e.clientY);
+    }
+  });
+
+  // Mouse Wheel Zoom
+  if (imgContainer) {
+    imgContainer.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const delta = e.deltaY < 0 ? 0.3 : -0.3;
+      setZoom(currentScale + delta, e.clientX, e.clientY);
+    }, { passive: false });
+  }
+
+  // Drag to Pan when zoomed
+  lightboxImg.addEventListener('mousedown', (e) => {
+    if (currentScale <= 1.05) return;
+    if (e.button !== 0) return; // Left mouse button only
+    e.preventDefault();
+    isDragging = true;
+    hasDragged = false;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    dragStartPanX = panX;
+    dragStartPanY = panY;
+    lightboxImg.classList.add('is-panning');
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - dragStartX;
+    const dy = e.clientY - dragStartY;
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+      hasDragged = true;
+    }
+    panX = dragStartPanX + dx;
+    panY = dragStartPanY + dy;
+    applyTransform(false);
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+      lightboxImg.classList.remove('is-panning');
+    }
+  });
+
   if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
   lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) closeLightbox();
+    if (e.target === lightbox || e.target === imgContainer) closeLightbox();
   });
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') {
       e.stopPropagation();
       closeLightbox();
+    } else if (e.key === '+' || e.key === '=') {
+      e.preventDefault();
+      setZoom(currentScale + 0.35);
+    } else if (e.key === '-' || e.key === '_') {
+      e.preventDefault();
+      setZoom(currentScale - 0.35);
+    } else if (e.key === '0' || e.key === 'r' || e.key === 'R') {
+      e.preventDefault();
+      resetZoom();
     }
   });
 }
