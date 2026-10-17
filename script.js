@@ -1297,8 +1297,24 @@ function initImageLightboxModal() {
     }
   }
 
+  const getZoomStep = (scale, direction = 1) => {
+    // Proportional stepping up to 1000% (10.0x):
+    // 100% - 250%: step by 0.5 (50%)
+    // 250% - 500%: step by 0.75 (75%)
+    // 500% - 1000%: step by 1.25 (125%)
+    if (direction > 0) {
+      if (scale < 2.5) return 0.5;
+      if (scale < 5.0) return 0.75;
+      return 1.25;
+    } else {
+      if (scale > 5.0) return 1.25;
+      if (scale > 2.5) return 0.75;
+      return 0.5;
+    }
+  };
+
   function setZoom(newScale, focalX = null, focalY = null) {
-    const clampedScale = Math.min(3.5, Math.max(1.0, Math.round(newScale * 10) / 10));
+    const clampedScale = Math.min(10.0, Math.max(1.0, Math.round(newScale * 10) / 10));
     if (Math.abs(clampedScale - currentScale) < 0.01) return;
 
     if (clampedScale <= 1.0) {
@@ -1363,7 +1379,7 @@ function initImageLightboxModal() {
     zoomInBtn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      setZoom(currentScale + 0.35);
+      setZoom(currentScale + getZoomStep(currentScale, 1));
     });
   }
 
@@ -1371,7 +1387,7 @@ function initImageLightboxModal() {
     zoomOutBtn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      setZoom(currentScale - 0.35);
+      setZoom(currentScale - getZoomStep(currentScale, -1));
     });
   }
 
@@ -1383,7 +1399,7 @@ function initImageLightboxModal() {
     });
   }
 
-  // Click on Image to Toggle Zoom (100% <-> 200%)
+  // Click on Image to Toggle Zoom (100% <-> 250%)
   lightboxImg.addEventListener('click', (e) => {
     e.stopPropagation();
     if (hasDragged) {
@@ -1393,7 +1409,7 @@ function initImageLightboxModal() {
     if (currentScale > 1.05) {
       resetZoom();
     } else {
-      setZoom(2.0, e.clientX, e.clientY);
+      setZoom(2.5, e.clientX, e.clientY);
     }
   });
 
@@ -1401,7 +1417,8 @@ function initImageLightboxModal() {
   if (imgContainer) {
     imgContainer.addEventListener('wheel', (e) => {
       e.preventDefault();
-      const delta = e.deltaY < 0 ? 0.3 : -0.3;
+      const step = getZoomStep(currentScale, e.deltaY < 0 ? 1 : -1) * 0.5;
+      const delta = e.deltaY < 0 ? step : -step;
       setZoom(currentScale + delta, e.clientX, e.clientY);
     }, { passive: false });
   }
@@ -1451,10 +1468,10 @@ function initImageLightboxModal() {
       closeLightbox();
     } else if (e.key === '+' || e.key === '=') {
       e.preventDefault();
-      setZoom(currentScale + 0.35);
+      setZoom(currentScale + getZoomStep(currentScale, 1));
     } else if (e.key === '-' || e.key === '_') {
       e.preventDefault();
-      setZoom(currentScale - 0.35);
+      setZoom(currentScale - getZoomStep(currentScale, -1));
     } else if (e.key === '0' || e.key === 'r' || e.key === 'R') {
       e.preventDefault();
       resetZoom();
