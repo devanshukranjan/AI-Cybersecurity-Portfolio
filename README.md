@@ -53,7 +53,8 @@ AI-Cybersecurity-Portfolio/
 * **Root Cause Analysis (RCA) Diagnostic Engine:** 7 live diagnostics, 50+ root-cause rules, dynamic statistical thresholding ($\mu + 1.5\sigma$), and automated negative keyword generation.
 * **Scaled Taxonomy Vector Search Pipeline:** 100K+ breadcrumb dense embeddings via OpenAI `text-embedding-3-large` (3,072 dims) in PostgreSQL with `pgvector` IVFFLAT indexing.
 * **Distributed Two-Stage Web Scraper:** 1,000 req/min via Zyte API with MongoDB persistence, reducing catalog extraction time from 2–3 months to 1.5 weeks.
-* **Multimodal A+ Content Intelligence Engine:** Extracts visual archetypes, text-overlay zones, and copy strategies across 19 Standard and 21 Premium Amazon A+ module layouts.
+* **Multimodal Text & Image Insight Pipeline:** Automated category NLP and computer vision pipeline analyzing text attributes (titles, bullets, specs) and 6 visual image types across top 25 category best-sellers.
+* **Multimodal A+ Content Intelligence Engine:** Reverse-engineers brand positioning, safe text-overlay zones, and copy hooks for Amazon A+ content creation (Module 5 live; 40-module roadmap).
 * **Common API Endpoints & MSC IQ Chatbot RAG:** FastAPI microservice powering category disambiguation, product detail extraction, and Category RAG.
 
 ### 3. Cybersecurity Operations & Forensics Labs

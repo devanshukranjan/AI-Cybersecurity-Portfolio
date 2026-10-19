@@ -246,16 +246,24 @@
                       <a href="#proj-scraper-engine" class="exp-jump-pill" data-target="proj-scraper-engine">
                         <i class="fa-solid fa-arrow-down-right"></i> Jump to Scraping Engine
                       </a>
-                      <a href="#proj-aplus-engine" class="exp-jump-pill" data-target="proj-aplus-engine" style="margin-left: 0.4rem;">
-                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Multimodal A+ Engine
+                      <a href="#proj-text-image-insights" class="exp-jump-pill" data-target="proj-text-image-insights" style="margin-left: 0.4rem;">
+                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Text &amp; Image Insights
                       </a>
                     </div>
                   </li>
                   <li>
-                    <strong>Cross-Marketplace Expansion (Walmart, Flipkart, eBay):</strong> Extended both scraping and multimodal text/image analysis engines from their initial internship scope (Amazon &amp; ONDC) across Walmart, Flipkart, eBay, and OnBuy as monthly scraping completes for each platform. Deconstructed visual design archetypes, safe text-overlay zones, and copy effectiveness across 19 Standard and 21 Premium Amazon A+ modules and cross-marketplace layouts.
+                    <strong>Cross-Marketplace Expansion (Walmart, Flipkart, eBay):</strong> Extended both scraping and multimodal text/image analysis engines from their initial internship scope (Amazon &amp; ONDC) across Walmart, Flipkart, eBay, and OnBuy as monthly scraping completes for each platform. The text and image insight pipelines are fully automated and run recurrently across newly scraped platforms to analyze titles, bullet points, specifications, and 6 image types across top 25 category best-sellers.
+                    <div class="exp-jump-row">
+                      <a href="#proj-text-image-insights" class="exp-jump-pill" data-target="proj-text-image-insights">
+                        <i class="fa-solid fa-diagram-project"></i> Inspect Text &amp; Image Pipeline
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <strong>Multimodal A+ Content Intelligence &amp; Modular Architecture:</strong> Reverse-engineered visual design patterns, safe text-overlay zones, and copy effectiveness across Amazon A+ content modules to generate structured insight JSONs for automated A+ content creation. Built and validated production analysis for <strong>Module 5 (Standard Image &amp; Dark Text Overlay)</strong> across top 25 category best-sellers, with an architectural roadmap extending across all <strong>19 Standard and 21 Premium Amazon A+ modules</strong>. Built upon the marketplace PostgreSQL tables originally architected during the <em>High-Scale Taxonomy Vector Search &amp; Category Mapping Pipeline</em> (containing 3,072-dim category vector embeddings), progressively extending the schema with dedicated <code>text_insights</code>, <code>image_insights</code>, and <code>aplus_insights</code> columns partitioned by month and year (<code>run_id</code>).
                     <div class="exp-jump-row">
                       <a href="#proj-aplus-engine" class="exp-jump-pill" data-target="proj-aplus-engine">
-                        <i class="fa-solid fa-diagram-project"></i> Inspect Multimodal Architecture
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Inspect Multimodal A+ Architecture
                       </a>
                     </div>
                   </li>
@@ -310,8 +318,8 @@
                   <li>
                     <strong>Multimodal Text &amp; Image Insight Pipeline (Amazon &amp; ONDC):</strong> Designed foundational category intelligence combining quantitative statistical analysis with Gemini 2.5 Flash inference for Amazon and ONDC product listings.
                     <div class="exp-jump-row">
-                      <a href="#proj-aplus-engine" class="exp-jump-pill" data-target="proj-aplus-engine">
-                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Multimodal Synthesis Card
+                      <a href="#proj-text-image-insights" class="exp-jump-pill" data-target="proj-text-image-insights">
+                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Text &amp; Image Pipeline Card
                       </a>
                     </div>
                   </li>
@@ -344,7 +352,7 @@
         </div>
 
         <div class="mode-indicator-text">
-          Active View: <span id="currentModeLabel">Unified Spectrum (AI + Security + Overlap)</span> &bull; Showing <span id="visibleProjectCount">11</span> Systems
+          Active View: <span id="currentModeLabel">Unified Spectrum (AI + Security + Overlap)</span> &bull; Showing <span id="visibleProjectCount">12</span> Systems
         </div>
       </div>
     </div>
@@ -694,7 +702,52 @@
             </div>
           </article>
 
-          <!-- Project 7: Multimodal A+ Content Insights Pipeline -->
+          <!-- Project 7: Multimodal Text & Image Insight Pipeline -->
+          <article class="project-card" id="proj-text-image-insights" data-category="ai" data-project="text-image-insights">
+            <div class="provenance-badge badge-fulltime">
+              <i class="fa-solid fa-briefcase"></i> KAS Global Commerce &bull; Intern &rarr; Automated in Full-Time
+            </div>
+
+            <div class="project-card-header">
+              <span class="project-type-badge badge-ai">
+                <i class="fa-solid fa-images"></i>
+                Multimodal GenAI &amp; NLP
+              </span>
+              <div class="project-links">
+                <button class="project-icon-link inspect-spec-btn" data-project="text-image-insights" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">Multimodal Text &amp; Image Insight Pipeline</h3>
+            <p class="project-desc">
+              Automated category-level NLP and computer vision pipeline analyzing text attributes (titles, bullets, specs) and 6 visual image types across top 25 category best-sellers.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-layer-group"></i> DUAL-MODAL BATCH FLOW</div>
+              <div class="blueprint-flow">
+                <code>[Top 25 ASINs / Category]</code> &rarr; <code>[Gemini File API + Multi-Key Batch]</code> &rarr; <code>[Text &amp; 6-Type Image Synthesis]</code> &rarr; <code>[PostgreSQL text &amp; image columns]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Analyzes titles, bullet themes, and 6 image types (white bg, lifestyle, infographic, dimension, packaging, detail shots).</li>
+              <li>Engineered batch processing with Gemini File API, automatic cooldowns, and multi-key rotation to prevent rate-limiting.</li>
+              <li>Ingests structured YAML/JSON into marketplace PostgreSQL tables under <code>text_insights</code> and <code>image_insights</code> columns.</li>
+            </ul>
+
+            <div class="tech-stack">
+              <span class="tech-tag">Gemini File API</span>
+              <span class="tech-tag">Python Batch Runner</span>
+              <span class="tech-tag">PostgreSQL</span>
+              <span class="tech-tag">Computer Vision</span>
+              <span class="tech-tag">NLP Extraction</span>
+            </div>
+          </article>
+
+          <!-- Project 8: Multimodal A+ Content Insights Pipeline -->
           <article class="project-card" id="proj-aplus-engine" data-category="ai" data-project="multimodal-aplus">
             <div class="provenance-badge badge-fulltime">
               <i class="fa-solid fa-briefcase"></i> KAS Global Commerce &bull; AI Engineer (Full-Time)
@@ -714,30 +767,31 @@
 
             <h3 class="project-title">Multimodal A+ Competitive Intelligence Engine</h3>
             <p class="project-desc">
-              Category-level visual and copywriting intelligence engine analyzing competitor Amazon A+ modules (Standard Image &amp; Dark Text Overlay) to guide creative agents.
+              Visual and copywriting intelligence engine analyzing competitor Amazon A+ modules to extract core product messaging, customer benefits, and layout safe zones for A+ creation.
             </p>
 
             <div class="blueprint-box">
-              <div class="blueprint-badge"><i class="fa-solid fa-palette"></i> MULTIMODAL SYNTHESIS</div>
+              <div class="blueprint-badge"><i class="fa-solid fa-palette"></i> A+ MODULAR SYNTHESIS</div>
               <div class="blueprint-flow">
-                <code>[A+ Banners Download]</code> &rarr; <code>[Gemini 2.5 Flash Vision]</code> &rarr; <code>[Layout &amp; Copy Archetypes]</code> &rarr; <code>[insights.json]</code>
+                <code>[Top 25 ASIN Details &amp; Banners]</code> &rarr; <code>[Gemini 2.5 Flash Vision]</code> &rarr; <code>[Module 5 Overlay &amp; Copy Analysis]</code> &rarr; <code>[PostgreSQL aplus_insights]</code>
               </div>
             </div>
 
             <ul class="project-highlights">
               <li>Mines visual strategy, safe text-overlay zones, and copy guidelines from top 25 category best-sellers.</li>
-              <li>Architected for full roadmap scaling across Amazon's <strong>19 Standard modules</strong> and <strong>21 Premium modules</strong>.</li>
+              <li>Production implementation for <strong>Module 5 (Standard Image &amp; Dark Text Overlay)</strong>; roadmap extending across all <strong>19 Standard &amp; 21 Premium modules</strong>.</li>
+              <li>Stores structured insight JSONs into the marketplace PostgreSQL table under <code>aplus_insights_&lt;run_id&gt;</code>.</li>
             </ul>
 
             <div class="tech-stack">
               <span class="tech-tag">Gemini 2.5 Flash</span>
               <span class="tech-tag">Computer Vision</span>
               <span class="tech-tag">Amazon A+ Content</span>
-              <span class="tech-tag">Prompt Engineering</span>
+              <span class="tech-tag">PostgreSQL</span>
             </div>
           </article>
 
-          <!-- Project 8: Common API Endpoints & MSC IQ RAG -->
+          <!-- Project 9: Common API Endpoints & MSC IQ RAG -->
           <article class="project-card" id="proj-common-api" data-category="ai" data-project="chatbot-rag">
             <div class="provenance-badge badge-intern">
               <i class="fa-solid fa-flask"></i> KAS Global Commerce &bull; AI Research Intern
