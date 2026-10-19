@@ -213,71 +213,11 @@
 
           <!-- Progression Timeline -->
           <div class="career-timeline">
-            <!-- Node 1: AI Engineer (Full-Time) -->
-            <div class="timeline-entry active-role">
-              <div class="timeline-marker">
-                <div class="marker-dot current"></div>
-                <div class="marker-line"></div>
-              </div>
-              <div class="timeline-body">
-                <div class="role-header">
-                  <div>
-                    <div class="role-badge-row">
-                      <span class="role-level-badge badge-fulltime">Full-Time Staff Role</span>
-                      <span class="role-promotion-tag"><i class="fa-solid fa-certificate"></i> Promotion</span>
-                    </div>
-                    <h4 class="role-title">AI Engineer</h4>
-                  </div>
-                  <div class="role-period">July 2026 – Present &bull; Bilaspur, HP (On-site)</div>
-                </div>
-
-                <ul class="role-bullet-list">
-                  <li>
-                    <strong>Root Cause Analysis (RCA) Engine (Research to Production):</strong> Architected and deployed an end-to-end autonomous AI advertising diagnostic system under a LangGraph multi-agent orchestrator. Translates natural language seller queries (English &amp; Hinglish) into automated anomaly investigations. Shipped <strong>15 live diagnostics</strong> (ACOS Spike, Wasted Spend, CPC Spike, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop, etc.) out of <strong>30 total diagnostics</strong> across <strong>50+ root-cause rules</strong> (bid shifts, budget exhaustion, Buy Box loss, out-of-stock events) with dynamic per-account statistical thresholding, normalized period-over-period baseline comparisons, and automated negative keyword recommendations with traffic-loss safeguards.
-                    <div class="exp-jump-row">
-                      <a href="#proj-rca-engine" class="exp-jump-pill" data-target="proj-rca-engine">
-                        <i class="fa-solid fa-arrow-down-right"></i> Jump to RCA Engine Card (4 Telemetry Screens)
-                      </a>
-                    </div>
-                  </li>
-                  <li>
-                    <strong>Automated Monthly Scraping &amp; Multimodal Text/Image Insights (Production Scheduling):</strong> Maintained and automated the end-to-end catalog intelligence cycle: as soon as the two-stage catalog scraper completes its monthly crawl for a marketplace, the multimodal text and image insights pipeline (combining quantitative statistical scoring with Gemini 2.5 Flash Vision) triggers automatically via scheduled cron workflows. Runs recurrently every month on an automated basis; engineering code updates are only required when onboarding schema adapters for newly added marketplaces.
-                    <div class="exp-jump-row">
-                      <a href="#proj-scraper-engine" class="exp-jump-pill" data-target="proj-scraper-engine">
-                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Scraping Engine
-                      </a>
-                      <a href="#proj-text-image-insights" class="exp-jump-pill" data-target="proj-text-image-insights" style="margin-left: 0.4rem;">
-                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Text &amp; Image Insights
-                      </a>
-                    </div>
-                  </li>
-                  <li>
-                    <strong>Cross-Marketplace Expansion (Walmart, Flipkart, eBay):</strong> Extended both scraping and multimodal text/image analysis engines from their initial internship scope (Amazon &amp; ONDC) across Walmart, Flipkart, eBay, and OnBuy as monthly scraping completes for each platform. The text and image insight pipelines are fully automated and run recurrently across newly scraped platforms to analyze titles, bullet points, specifications, and 6 image types across top 25 category best-sellers.
-                    <div class="exp-jump-row">
-                      <a href="#proj-text-image-insights" class="exp-jump-pill" data-target="proj-text-image-insights">
-                        <i class="fa-solid fa-diagram-project"></i> Inspect Text &amp; Image Pipeline
-                      </a>
-                    </div>
-                  </li>
-                  <li>
-                    <strong>Multimodal A+ Content Intelligence &amp; Modular Architecture:</strong> Analyzed visual design patterns, product placement, background settings, and headline messaging across competitor Amazon A+ content to generate structured insight JSONs for automated A+ content creation. Built and validated production analysis for <strong>Module 5 (Standard Image &amp; Dark Text Overlay)</strong> across top 25 category best-sellers, with an architectural roadmap extending across all <strong>19 Standard and 21 Premium Amazon A+ modules</strong>. Built upon the marketplace PostgreSQL tables originally architected during the <em>High-Scale Taxonomy Vector Search &amp; Category Mapping Pipeline</em> (containing 3,072-dim category vector embeddings), progressively extending the schema with dedicated <code>text_insights</code>, <code>image_insights</code>, and <code>aplus_insights</code> columns partitioned by month and year (<code>run_id</code>).
-                    <div class="exp-jump-row">
-                      <a href="#proj-aplus-engine" class="exp-jump-pill" data-target="proj-aplus-engine">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> Inspect Multimodal A+ Architecture
-                      </a>
-                    </div>
-                  </li>
-                  <li>
-                    <strong>Engineering Mentorship &amp; Pipeline Governance:</strong> Guiding and mentoring junior engineering teammates on marketplace adapter development, error recovery telemetry, Zyte rate-limit balancing, and scheduler pipeline health.
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Node 2: AI Research Intern -->
+            <!-- Node 1: AI Research Intern (Chronological Start: Foundational Architecture) -->
             <div class="timeline-entry">
               <div class="timeline-marker">
                 <div class="marker-dot"></div>
+                <div class="marker-line"></div>
               </div>
               <div class="timeline-body">
                 <div class="role-header">
@@ -322,6 +262,66 @@
                         <i class="fa-solid fa-arrow-down-right"></i> Jump to Text &amp; Image Pipeline Card
                       </a>
                     </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Node 2: AI Engineer (Full-Time Promotion & Scale) -->
+            <div class="timeline-entry active-role">
+              <div class="timeline-marker">
+                <div class="marker-dot current"></div>
+              </div>
+              <div class="timeline-body">
+                <div class="role-header">
+                  <div>
+                    <div class="role-badge-row">
+                      <span class="role-level-badge badge-fulltime">Full-Time Staff Role</span>
+                      <span class="role-promotion-tag"><i class="fa-solid fa-arrow-trend-up"></i> Promoted to Staff</span>
+                    </div>
+                    <h4 class="role-title">AI Engineer</h4>
+                  </div>
+                  <div class="role-period">July 2026 – Present &bull; Bilaspur, HP (On-site)</div>
+                </div>
+
+                <ul class="role-bullet-list">
+                  <li>
+                    <strong>Root Cause Analysis (RCA) Engine (Research to Production):</strong> Architected and deployed an end-to-end autonomous AI advertising diagnostic system under a LangGraph multi-agent orchestrator. Translates natural language seller queries (English &amp; Hinglish) into automated anomaly investigations. Shipped <strong>15 live diagnostics</strong> (ACOS Spike, Wasted Spend, CPC Spike, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop, etc.) out of <strong>30 total diagnostics</strong> across <strong>50+ root-cause rules</strong> (bid shifts, budget exhaustion, Buy Box loss, out-of-stock events) with dynamic per-account statistical thresholding, normalized period-over-period baseline comparisons, and automated negative keyword recommendations with traffic-loss safeguards.
+                    <div class="exp-jump-row">
+                      <a href="#proj-rca-engine" class="exp-jump-pill" data-target="proj-rca-engine">
+                        <i class="fa-solid fa-arrow-down-right"></i> Jump to RCA Engine Card (4 Telemetry Screens)
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <strong>Automated Monthly Scraping &amp; Multimodal Text/Image Insights (Production Scheduling):</strong> Maintained and automated the end-to-end catalog intelligence cycle: as soon as the two-stage catalog scraper completes its monthly crawl for a marketplace, the multimodal text and image insights pipeline (combining quantitative statistical scoring with Gemini 2.5 Flash Vision) triggers automatically via scheduled cron workflows. Runs recurrently every month on an automated basis; engineering code updates are only required when onboarding schema adapters for newly added marketplaces.
+                    <div class="exp-jump-row">
+                      <a href="#proj-scraper-engine" class="exp-jump-pill" data-target="proj-scraper-engine">
+                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Scraping Engine
+                      </a>
+                      <a href="#proj-text-image-insights" class="exp-jump-pill" data-target="proj-text-image-insights" style="margin-left: 0.4rem;">
+                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Text &amp; Image Insights
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <strong>Cross-Marketplace Expansion (Walmart, Flipkart, eBay):</strong> Extended both scraping and multimodal text/image analysis engines from their initial internship scope (Amazon &amp; ONDC) across Walmart, Flipkart, eBay, and OnBuy as monthly scraping completes for each platform. The text and image insight pipelines are fully automated and run recurrently across newly scraped platforms to analyze titles, bullet points, specifications, and 6 image types across top 25 category best-sellers.
+                    <div class="exp-jump-row">
+                      <a href="#proj-text-image-insights" class="exp-jump-pill" data-target="proj-text-image-insights">
+                        <i class="fa-solid fa-diagram-project"></i> Inspect Text &amp; Image Pipeline
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <strong>Multimodal A+ Content Intelligence &amp; Modular Architecture:</strong> Analyzed visual design patterns, product placement, background settings, and headline messaging across competitor Amazon A+ content to generate structured insight JSONs for automated A+ content creation. Built and validated production analysis for <strong>Module 5 (Standard Image &amp; Dark Text Overlay)</strong> across top 25 category best-sellers, with an architectural roadmap extending across all <strong>19 Standard and 21 Premium Amazon A+ modules</strong>. Built upon the marketplace PostgreSQL tables originally architected during the <em>High-Scale Taxonomy Vector Search &amp; Category Mapping Pipeline</em> (containing 3,072-dim category vector embeddings), progressively extending the schema with dedicated <code>text_insights</code>, <code>image_insights</code>, and <code>aplus_insights</code> columns partitioned by month and year (<code>run_id</code>).
+                    <div class="exp-jump-row">
+                      <a href="#proj-aplus-engine" class="exp-jump-pill" data-target="proj-aplus-engine">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Inspect Multimodal A+ Architecture
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <strong>Engineering Mentorship &amp; Pipeline Governance:</strong> Guiding and mentoring junior engineering teammates on marketplace adapter development, error recovery telemetry, Zyte rate-limit balancing, and scheduler pipeline health.
                   </li>
                 </ul>
               </div>

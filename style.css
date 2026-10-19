@@ -1910,7 +1910,7 @@ section {
   top: 20px;
   bottom: -35px;
   width: 2px;
-  background: linear-gradient(180deg, var(--cyan), var(--border-subtle));
+  background: linear-gradient(180deg, var(--ai-blue), var(--cyan));
 }
 
 .timeline-body {
