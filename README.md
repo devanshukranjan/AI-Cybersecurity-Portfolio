@@ -49,7 +49,7 @@ AI-Cybersecurity-Portfolio/
 * **Autonomous AI Threat Detection Engine:** Real-time ransomware and zero-day intrusion detection trained on **UGRansome 2024** and **UNSW-NB15** with an interactive monitoring GUI.
 * **GA-Optimized Bot-IoT IDS:** Heuristic Genetic Algorithm wrapper eliminating 70%+ redundant network features while sustaining **>99% attack detection recall** with XGBoost.
 
-### 2. Applied AI & Production Systems (KAS Global Commerce / My Seller Central)
+### 2. Applied AI & Production Systems (KAS Global Commerce &bull; MySellerCentral / MSC IQ)
 * **Root Cause Analysis (RCA) Diagnostic Engine:** 7 live diagnostics, 50+ root-cause rules, dynamic statistical thresholding ($\mu + 1.5\sigma$), and automated negative keyword generation.
 * **Scaled Taxonomy Vector Search Pipeline:** 100K+ breadcrumb dense embeddings via OpenAI `text-embedding-3-large` (3,072 dims) in PostgreSQL with `pgvector` IVFFLAT indexing.
 * **Distributed Two-Stage Web Scraper:** 1,000 req/min via Zyte API with MongoDB persistence, reducing catalog extraction time from 2–3 months to 1.5 weeks.
