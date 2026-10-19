@@ -131,7 +131,7 @@
               <span class="term-cmd">msc-iq status --engines rca,vector,security</span>
             </div>
             <div class="term-output">
-              [INIT] Root Cause Analysis Engine: <b>7 LIVE DIAGNOSTICS</b> (50+ Rules)<br>
+              [INIT] Root Cause Analysis Engine: <b>15 LIVE DIAGNOSTICS</b> (30 Total, 50+ Rules)<br>
               [AUTH] Supervisor Routing: <b>LangGraph Multi-Agent Dispatcher</b><br>
               [VECT] Vector Index: <b>PostgreSQL + pgvector (3,072-dim)</b><br>
               [PRIV] Edge Privacy: <b>LDP-SeqMask Laplace Mechanism Active</b><br>
@@ -233,7 +233,7 @@
 
                 <ul class="role-bullet-list">
                   <li>
-                    <strong>Root Cause Analysis (RCA) Engine (Research to Production):</strong> Architected and deployed an end-to-end autonomous AI advertising diagnostic system under a LangGraph multi-agent orchestrator. Translates natural language seller queries (English &amp; Hinglish) into automated anomaly investigations. Shipped <strong>7 live diagnostics</strong> (ACOS Spike, Wasted Spend, CPC Spike, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop) across <strong>50+ root-cause rules</strong> (bid shifts, budget exhaustion, Buy Box loss, out-of-stock events) with dynamic per-account statistical thresholding, normalized period-over-period baseline comparisons, and automated negative keyword recommendations with traffic-loss safeguards.
+                    <strong>Root Cause Analysis (RCA) Engine (Research to Production):</strong> Architected and deployed an end-to-end autonomous AI advertising diagnostic system under a LangGraph multi-agent orchestrator. Translates natural language seller queries (English &amp; Hinglish) into automated anomaly investigations. Shipped <strong>15 live diagnostics</strong> (ACOS Spike, Wasted Spend, CPC Spike, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop, etc.) out of <strong>30 total diagnostics</strong> across <strong>50+ root-cause rules</strong> (bid shifts, budget exhaustion, Buy Box loss, out-of-stock events) with dynamic per-account statistical thresholding, normalized period-over-period baseline comparisons, and automated negative keyword recommendations with traffic-loss safeguards.
                     <div class="exp-jump-row">
                       <a href="#proj-rca-engine" class="exp-jump-pill" data-target="proj-rca-engine">
                         <i class="fa-solid fa-arrow-down-right"></i> Jump to RCA Engine Card (4 Telemetry Screens)
@@ -569,7 +569,7 @@
             </div>
 
             <ul class="project-highlights">
-              <li>Shipped <strong>7 diagnostics live</strong> (ACOS Spike, Wasted Spend, CPC Spike, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop) covering <strong>50+ root-cause rules</strong>.</li>
+              <li>Shipped <strong>15 diagnostics live</strong> (ACOS Spike, Wasted Spend, CPC Spike, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop, etc.) out of <strong>30 total diagnostics</strong> covering <strong>50+ root-cause rules</strong>.</li>
               <li>Engineered dynamic per-account thresholds ($\mu + 1.5\sigma$) with baseline window comparisons and minimum-data guards to prevent false alarms.</li>
               <li>Built automated negative keyword recommendations with over-blocking protection to curb wasted ad spend.</li>
             </ul>

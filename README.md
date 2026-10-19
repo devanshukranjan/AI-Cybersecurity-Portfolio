@@ -50,7 +50,7 @@ AI-Cybersecurity-Portfolio/
 * **GA-Optimized Bot-IoT IDS:** Heuristic Genetic Algorithm wrapper eliminating 70%+ redundant network features while sustaining **>99% attack detection recall** with XGBoost.
 
 ### 2. Applied AI & Production Systems (KAS Global Commerce &bull; MySellerCentral / MSC IQ)
-* **Root Cause Analysis (RCA) Diagnostic Engine:** 7 live diagnostics, 50+ root-cause rules, dynamic statistical thresholding ($\mu + 1.5\sigma$), and automated negative keyword generation.
+* **Root Cause Analysis (RCA) Diagnostic Engine:** 15 live diagnostics (out of 30 total; ACOS Spikes, Wasted Spend, CPC Spikes, etc.), 50+ root-cause rules, dynamic statistical thresholding, and automated negative keyword generation.
 * **Scaled Taxonomy Vector Search Pipeline:** 100K+ breadcrumb dense embeddings via OpenAI `text-embedding-3-large` (3,072 dims) in PostgreSQL with `pgvector` IVFFLAT indexing.
 * **Distributed Two-Stage Web Scraper:** 1,000 req/min via Zyte API with MongoDB persistence, reducing catalog extraction time from 2–3 months to 1.5 weeks.
 * **Multimodal Text & Image Insight Pipeline:** Automated category NLP and computer vision pipeline analyzing text attributes (titles, bullets, specs) and 6 visual image types across top 25 category best-sellers.

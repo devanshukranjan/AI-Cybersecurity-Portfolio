@@ -351,7 +351,7 @@ const PROJECT_CASE_STUDIES = {
     provenance: 'KAS Global Commerce • AI Engineer (Full-Time)',
     provenanceBadgeClass: 'badge-fulltime',
     summary: 'Architected and deployed an end-to-end autonomous AI advertising diagnostic system under a LangGraph multi-agent orchestrator. Translates natural language seller queries (English & Hinglish) into automated anomaly investigations.',
-    meta: ['7 Live Diagnostics', '50+ Root-Cause Rules', 'Dynamic μ + 1.5σ Thresholding'],
+    meta: ['15 Live Diagnostics (30 Total)', '50+ Root-Cause Rules', 'Dynamic Statistical Thresholding'],
     architecture: `
 [ Seller / Dashboard User ]
            │ "Why did my ACOS spike last week?" (English or Hinglish)
@@ -416,10 +416,10 @@ const PROJECT_CASE_STUDIES = {
       }
     ],
     findings: [
-      'Shipped 7 live production diagnostics: ACOS Spikes, Wasted Spend, CPC Spikes, Impressions Drop, CTR Drop, Ad CVR Drop, and ROAS Drop.',
-      'Dynamic statistical thresholding (μ + 1.5σ) eliminated 68% of false positive alerts previously caused by normal seasonal fluctuations.',
+      'Shipped 15 live production diagnostics (ACOS Spikes, Wasted Spend, CPC Spikes, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop, etc.) out of 30 total diagnostics across 50+ root-cause rules.',
+      'Dynamic statistical thresholding eliminated 68% of false positive alerts previously caused by normal seasonal fluctuations.',
       'Identified and flagged thousands of dollars in wasted ad spend across active client accounts, generating upload-ready negative keyword files.',
-      'Designed architectural expansion path for 16 additional diagnostics spanning Inventory, Orders, and Business domains.'
+      'Designed architectural expansion path across 30 total diagnostics spanning Advertising, Inventory, Orders, and Business domains.'
     ],
     learned: 'Production GenAI in financial domains must be backed by deterministic statistical guards. LLMs excel at understanding conversational intent, but statistical algorithms and mathematical guardrails must govern the actual business diagnostics.',
     tools: ['Python', 'FastAPI', 'LangGraph', 'Gemini 2.5 Flash', 'PostgreSQL', 'Amazon Ads API', 'React'],
