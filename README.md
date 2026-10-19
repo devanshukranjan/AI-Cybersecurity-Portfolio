@@ -54,7 +54,7 @@ AI-Cybersecurity-Portfolio/
 * **Scaled Taxonomy Vector Search Pipeline:** 100K+ breadcrumb dense embeddings via OpenAI `text-embedding-3-large` (3,072 dims) in PostgreSQL with `pgvector` IVFFLAT indexing.
 * **Distributed Two-Stage Web Scraper:** 1,000 req/min via Zyte API with MongoDB persistence, reducing catalog extraction time from 2–3 months to 1.5 weeks.
 * **Multimodal Text & Image Insight Pipeline:** Automated category NLP and computer vision pipeline analyzing text attributes (titles, bullets, specs) and 6 visual image types across top 25 category best-sellers.
-* **Multimodal A+ Content Intelligence Engine:** Reverse-engineers brand positioning, safe text-overlay zones, and copy hooks for Amazon A+ content creation (Module 5 live; 40-module roadmap).
+* **Multimodal A+ Content Intelligence Engine:** Analyzes visual design patterns, product placement, background settings, and headline messaging for Amazon A+ content creation (Module 5 live; 40-module roadmap).
 * **Common API Endpoints & MSC IQ Chatbot RAG:** FastAPI microservice powering category disambiguation, product detail extraction, and Category RAG.
 
 ### 3. Cybersecurity Operations & Forensics Labs

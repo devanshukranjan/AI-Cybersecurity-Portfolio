@@ -622,21 +622,21 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-ai',
     provenance: 'KAS Global Commerce • AI Engineer (Full-Time)',
     provenanceBadgeClass: 'badge-fulltime',
-    summary: 'Visual and copywriting intelligence engine analyzing competitor Amazon A+ modules to extract core product messaging, customer benefits, and layout safe zones for automated A+ content creation.',
+    summary: 'Visual and copywriting intelligence engine analyzing competitor Amazon A+ modules to extract visual design patterns, product placement, background settings, and headline messaging for automated A+ content creation.',
     meta: ['Gemini 2.5 Flash Vision', 'Module 5 Live (19 Std + 21 Prem Roadmap)', 'PostgreSQL aplus_insights'],
     architecture: `
 [ Top 25 Category ASIN Details & Competitor A+ Banners ]
                         │
                         ▼
 [ Preprocessing & Computer Vision Crop Analysis ]
-  • Safe text-overlay zone detection across desktop & mobile viewports
+  • Visual design patterns, product placement, and background settings
   • Color contrast, visual balance, and rule-of-thirds composition
                         │
                         ▼
 [ Gemini 2.5 Flash Vision Multimodal Module Deconstruction ]
   • Focuses on Module 5: Standard Image & Dark Text Overlay
   • Extracts core product message, key features, and customer benefits
-  • Analyzes headline hooks, body copy density, and brand positioning
+  • Analyzes headline messaging, body copy density, and brand positioning
                         │
                         ▼
 [ Category-Level A+ Insights JSON Generation ]
@@ -648,10 +648,10 @@ const PROJECT_CASE_STUDIES = {
 [ PostgreSQL Marketplace Taxonomy Table Storage ]
   • Built upon the base table architected during Taxonomy Vector Search
   • Populates dedicated aplus_insights_<run_id> column by category and date`,
-    objective: 'Develop an automated multimodal intelligence system to reverse-engineer competitor brand positioning, visual design patterns, and copy effectiveness from top-selling Amazon A+ content modules to drive automated A+ generation.',
+    objective: 'Develop an automated multimodal intelligence system to analyze competitor brand positioning, visual design patterns, product placement, background settings, and headline messaging from top-selling Amazon A+ content modules to drive automated A+ generation.',
     process: [
       'Ingested full product details and high-resolution A+ banner assets across top 25 category best-sellers.',
-      'Developed vision evaluation prompts for Gemini 2.5 Flash analyzing visual composition, background ambiance, lighting, and safe text-overlay zones.',
+      'Developed vision evaluation prompts for Gemini 2.5 Flash analyzing visual composition, background ambiance, lighting, and product placement.',
       'Implemented production deconstruction for Module 5 (Standard Image & Dark Text Overlay), extracting headline/body copy pairings and customer benefit mappings.',
       'Designed architectural roadmap and prompt templates to extend analysis across all 19 Standard and 21 Premium Amazon A+ modules.',
       'Stored structured category-level A+ insight JSONs into the marketplace PostgreSQL database under dedicated aplus_insights_<run_id> columns.'
@@ -662,7 +662,7 @@ const PROJECT_CASE_STUDIES = {
       'Extracted repeatable brand positioning templates and customer benefit hierarchies from category best-sellers to seed generative creative agents.',
       'Established modular schema compatibility enabling rapid extension from Module 5 to the full 40 Amazon A+ module library.'
     ],
-    learned: 'Reverse-engineering rich A+ content requires pairing semantic copy extraction with strict geometric safe-zone math. Storing structured insights in the existing taxonomy PostgreSQL schema created a unified, queryable intelligence layer for downstream creative agents.',
+    learned: 'Analyzing rich A+ content requires pairing visual design patterns, product placement, and background settings with clear headline messaging. Storing structured insights in the existing taxonomy PostgreSQL schema created a unified, queryable intelligence layer for downstream creative agents.',
     tools: ['Gemini 2.5 Flash Vision', 'Python 3.11', 'PostgreSQL', 'Pillow / OpenCV', 'FastAPI', 'MongoDB'],
     skills: ['Multimodal LLMs', 'Computer Vision Analysis', 'Amazon A+ Modular Systems', 'E-commerce Optimization', 'PostgreSQL Architecture'],
     github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio',
