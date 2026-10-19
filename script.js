@@ -351,7 +351,7 @@ const PROJECT_CASE_STUDIES = {
     provenance: 'KAS Global Commerce • AI Engineer (Full-Time)',
     provenanceBadgeClass: 'badge-fulltime',
     summary: 'Architected and deployed an end-to-end autonomous AI advertising diagnostic system under a LangGraph multi-agent orchestrator. Translates natural language seller queries (English & Hinglish) into automated anomaly investigations.',
-    meta: ['7 Live Diagnostics', '50+ Root-Cause Rules', 'Dynamic μ + 1.5σ Thresholding'],
+    meta: ['15 Live Diagnostics (30 Total)', '50+ Root-Cause Rules', 'Dynamic Statistical Thresholding'],
     architecture: `
 [ Seller / Dashboard User ]
            │ "Why did my ACOS spike last week?" (English or Hinglish)
@@ -416,10 +416,10 @@ const PROJECT_CASE_STUDIES = {
       }
     ],
     findings: [
-      'Shipped 7 live production diagnostics: ACOS Spikes, Wasted Spend, CPC Spikes, Impressions Drop, CTR Drop, Ad CVR Drop, and ROAS Drop.',
-      'Dynamic statistical thresholding (μ + 1.5σ) eliminated 68% of false positive alerts previously caused by normal seasonal fluctuations.',
+      'Shipped 15 live production diagnostics (ACOS Spikes, Wasted Spend, CPC Spikes, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop, etc.) out of 30 total diagnostics across 50+ root-cause rules.',
+      'Dynamic statistical thresholding eliminated 68% of false positive alerts previously caused by normal seasonal fluctuations.',
       'Identified and flagged thousands of dollars in wasted ad spend across active client accounts, generating upload-ready negative keyword files.',
-      'Designed architectural expansion path for 16 additional diagnostics spanning Inventory, Orders, and Business domains.'
+      'Designed architectural expansion path across 30 total diagnostics spanning Advertising, Inventory, Orders, and Business domains.'
     ],
     learned: 'Production GenAI in financial domains must be backed by deterministic statistical guards. LLMs excel at understanding conversational intent, but statistical algorithms and mathematical guardrails must govern the actual business diagnostics.',
     tools: ['Python', 'FastAPI', 'LangGraph', 'Gemini 2.5 Flash', 'PostgreSQL', 'Amazon Ads API', 'React'],
@@ -559,49 +559,112 @@ const PROJECT_CASE_STUDIES = {
     reportLabel: 'Production Pipeline'
   },
 
+  'text-image-insights': {
+    title: 'Multimodal Text & Image Insight Pipeline (Amazon, ONDC & Multi-Marketplace)',
+    category: 'Multimodal GenAI & NLP',
+    categoryBadgeClass: 'badge-ai',
+    provenance: 'KAS Global Commerce • Intern → Automated in Full-Time',
+    provenanceBadgeClass: 'badge-fulltime',
+    summary: 'Automated category-level NLP and computer vision pipeline analyzing text attributes (titles, bullets, specs) and 6 visual image types across top 25 category best-sellers.',
+    meta: ['Gemini File API + Multi-Key Rotation', '6 Image Visual Types', 'PostgreSQL Taxonomy Table'],
+    architecture: `
+[ Top 25 Category ASINs (Monthly Scraped Catalog) ]
+                        │
+       ┌────────────────┴────────────────┐
+       ▼                                 ▼
+[ Text Insights Pipeline ]        [ Image Insights Pipeline ]
+  • Title pattern analysis          • 6 visual types classification:
+  • High-converting hooks             - White background primary
+  • Bullet point thematic clusters    - Lifestyle in-use
+  • Specification extraction          - Infographics & feature callouts
+  • Customer pain point mining        - Scale & dimension guides
+                                      - Packaging & box contents
+                                      - Close-up macro detail
+       │                                 │
+       └────────────────┬────────────────┘
+                        ▼
+[ Gemini Batch Runner & File API Ingestion ]
+  • Multi-key API rotation with automated cooldowns & retries
+  • Dual prompt execution (life_info & six_types)
+  • Output validation and YAML/JSON schema synthesis
+                        │
+                        ▼
+[ PostgreSQL Marketplace Taxonomy Table Ingestion ]
+  • Base table created during Taxonomy Vector Search (3,072-dim embeddings)
+  • Populates dedicated text_insights_<run_id> and image_insights_<run_id> columns
+  • Partitioned and tracked by category, month, and year`,
+    objective: 'Engineer an automated batch intelligence pipeline to extract actionable copywriting hooks, customer sentiment, and visual asset composition standards across top 25 best-selling products in every catalog category.',
+    process: [
+      'Built dual-modal batch runner in Python orchestrating both text feature extraction and computer vision analysis.',
+      'Engineered text insights extracting title length distributions, keyword frequencies, bullet themes, and technical specifications.',
+      'Built image classification evaluating 6 core visual types (white background, lifestyle, infographic, dimension, packaging, close-up) alongside lighting and composition.',
+      'Implemented robust Gemini File API integration with automated key rotation, 1.5-hour error cooldowns, and seamless resume-on-failure capabilities.',
+      'Ingested merged structured JSON outputs directly into marketplace PostgreSQL tables (e.g., amazon_in_taxonomy_embeddings) under dedicated text_insights and image_insights columns.'
+    ],
+    screenshots: [],
+    findings: [
+      'Identified that top-converting category leaders maintain a strict 84%+ lifestyle and 92%+ infographic image adoption rate compared to underperforming listings.',
+      'Automated monthly cron jobs process thousands of categories across Amazon, ONDC, and expanding marketplaces with zero manual developer intervention.',
+      'Eliminated API throttling and quota starvation through intelligent multi-key round-robin rotation and File API lifecycle cleanup.'
+    ],
+    learned: 'Batch multimodal processing at catalog scale requires decoupling file staging from inference. Using Gemini File API with multi-key rotation and dedicated database schema columns ensured scalable, cost-efficient category intelligence.',
+    tools: ['Python 3.11', 'Gemini File API', 'PostgreSQL', 'MongoDB Atlas', 'Pydantic', 'AsyncIO / Threading'],
+    skills: ['Multimodal Batch Processing', 'Computer Vision Prompting', 'NLP Feature Extraction', 'PostgreSQL Schema Design', 'API Key Rotation'],
+    github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio',
+    githubLabel: 'Portfolio Repository',
+    report: '#',
+    reportLabel: 'Production Pipeline'
+  },
+
   'multimodal-aplus': {
-    title: 'Multimodal A+ Competitive Intelligence Engine',
+    title: 'Multimodal A+ Content Competitive Intelligence & Synthesis Engine',
     category: 'Multimodal GenAI',
     categoryBadgeClass: 'badge-ai',
     provenance: 'KAS Global Commerce • AI Engineer (Full-Time)',
     provenanceBadgeClass: 'badge-fulltime',
-    summary: 'Category-level visual and copywriting intelligence engine analyzing competitor Amazon A+ modules (Standard Image & Dark Text Overlay) to guide creative agents.',
-    meta: ['Gemini 2.5 Flash Vision', '19 Standard + 21 Premium Modules', 'Automated Monthly Run'],
+    summary: 'Visual and copywriting intelligence engine analyzing competitor Amazon A+ modules to extract visual design patterns, product placement, background settings, and headline messaging for automated A+ content creation.',
+    meta: ['Gemini 2.5 Flash Vision', 'Module 5 Live (19 Std + 21 Prem Roadmap)', 'PostgreSQL aplus_insights'],
     architecture: `
-[ Scraped Competitor A+ Banners & Product Copy ]
+[ Top 25 Category ASIN Details & Competitor A+ Banners ]
                         │
                         ▼
 [ Preprocessing & Computer Vision Crop Analysis ]
-   • Safe text-overlay zone detection
-   • Visual balance & color contrast validation
+  • Visual design patterns, product placement, and background settings
+  • Color contrast, visual balance, and rule-of-thirds composition
                         │
                         ▼
-[ Gemini 2.5 Flash Vision Multimodal Analysis ]
-   • Evaluates design archetypes against 19 Standard & 21 Premium A+ modules
-   • Extracts emotional conversion triggers & hook angles
+[ Gemini 2.5 Flash Vision Multimodal Module Deconstruction ]
+  • Focuses on Module 5: Standard Image & Dark Text Overlay
+  • Extracts core product message, key features, and customer benefits
+  • Analyzes headline messaging, body copy density, and brand positioning
                         │
                         ▼
-[ Quantitative Statistical Synthesis ]
-   • Merges visual scores with readability & keyword density
+[ Category-Level A+ Insights JSON Generation ]
+  • Synthesizes structured creative blueprints for A+ content creators
+  • Maps layout guidelines and visual archetypes
+  • Roadmap extending across all 19 Standard and 21 Premium Amazon A+ modules
                         │
                         ▼
-[ Structured insights.json Output for Creative Agents ]`,
-    objective: 'Develop an automated multimodal system to reverse-engineer competitor brand positioning, visual design patterns, and copy effectiveness from top-selling Amazon A+ content modules.',
+[ PostgreSQL Marketplace Taxonomy Table Storage ]
+  • Built upon the base table architected during Taxonomy Vector Search
+  • Populates dedicated aplus_insights_<run_id> column by category and date`,
+    objective: 'Develop an automated multimodal intelligence system to analyze competitor brand positioning, visual design patterns, product placement, background settings, and headline messaging from top-selling Amazon A+ content modules to drive automated A+ generation.',
     process: [
-      'Built asset ingestion pipelines to extract banners, infographics, and copy from top 25 category best-sellers.',
-      'Constructed vision prompts for Gemini 2.5 Flash Vision evaluating visual layout, contrast, and typography against Amazon\'s 19 Standard and 21 Premium A+ modules.',
-      'Combined multimodal LLM insights with deterministic statistical scoring (readability index, bullet length compliance, keyword frequency).',
-      'Automated the monthly execution cycle: runs recurrently as soon as monthly scraping finishes for a marketplace, extending from Amazon/ONDC to Walmart, Flipkart, and eBay.'
+      'Ingested full product details and high-resolution A+ banner assets across top 25 category best-sellers.',
+      'Developed vision evaluation prompts for Gemini 2.5 Flash analyzing visual composition, background ambiance, lighting, and product placement.',
+      'Implemented production deconstruction for Module 5 (Standard Image & Dark Text Overlay), extracting headline/body copy pairings and customer benefit mappings.',
+      'Designed architectural roadmap and prompt templates to extend analysis across all 19 Standard and 21 Premium Amazon A+ modules.',
+      'Stored structured category-level A+ insight JSONs into the marketplace PostgreSQL database under dedicated aplus_insights_<run_id> columns.'
     ],
     screenshots: [],
     findings: [
-      'Standardized automated design audits across 19 Standard and 21 Premium Amazon A+ modules.',
-      'Generated actionable visual scorecards highlighting text truncation risks and readability issues on mobile screens.',
-      'Extended seamlessly across Walmart and Flipkart marketplace listings without core pipeline refactoring.'
+      'Standardized automated design audits for Amazon A+ content, eliminating text truncation and low-contrast readability defects on mobile screens.',
+      'Extracted repeatable brand positioning templates and customer benefit hierarchies from category best-sellers to seed generative creative agents.',
+      'Established modular schema compatibility enabling rapid extension from Module 5 to the full 40 Amazon A+ module library.'
     ],
-    learned: 'Combining multimodal LLM evaluation with deterministic image validation (text safe-zone math) prevents hallucinated design critiques and produces structured, reproducible recommendations.',
-    tools: ['Gemini 2.5 Flash Vision', 'Python', 'Pillow / OpenCV', 'FastAPI', 'MongoDB'],
-    skills: ['Multimodal LLMs', 'Computer Vision Prompting', 'E-commerce Optimization', 'Automated Auditing'],
+    learned: 'Analyzing rich A+ content requires pairing visual design patterns, product placement, and background settings with clear headline messaging. Storing structured insights in the existing taxonomy PostgreSQL schema created a unified, queryable intelligence layer for downstream creative agents.',
+    tools: ['Gemini 2.5 Flash Vision', 'Python 3.11', 'PostgreSQL', 'Pillow / OpenCV', 'FastAPI', 'MongoDB'],
+    skills: ['Multimodal LLMs', 'Computer Vision Analysis', 'Amazon A+ Modular Systems', 'E-commerce Optimization', 'PostgreSQL Architecture'],
     github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio',
     githubLabel: 'Portfolio Repository',
     report: '#',

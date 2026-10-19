@@ -95,7 +95,7 @@
           </h1>
 
           <p class="hero-subtitle">
-            <strong>AI Engineer</strong> at <strong>KAS Global Commerce (My Seller Central)</strong> and <strong>M.Tech Cyber Security graduate from NIT Patna</strong> (CGPA: 9.06/10). Architect of enterprise AI diagnostic engines, high-throughput vector retrieval systems, and researcher in privacy-preserving federated sequential learning.
+            <strong>AI Engineer</strong> at <strong>KAS Global Commerce</strong> and <strong>M.Tech Cyber Security graduate from NIT Patna</strong> (CGPA: 9.06/10). Architect of enterprise AI diagnostic engines, high-throughput vector retrieval systems, and researcher in privacy-preserving federated sequential learning.
           </p>
 
           <div class="hero-ctas">
@@ -131,7 +131,7 @@
               <span class="term-cmd">msc-iq status --engines rca,vector,security</span>
             </div>
             <div class="term-output">
-              [INIT] Root Cause Analysis Engine: <b>7 LIVE DIAGNOSTICS</b> (50+ Rules)<br>
+              [INIT] Root Cause Analysis Engine: <b>15 LIVE DIAGNOSTICS</b> (30 Total, 50+ Rules)<br>
               [AUTH] Supervisor Routing: <b>LangGraph Multi-Agent Dispatcher</b><br>
               [VECT] Vector Index: <b>PostgreSQL + pgvector (3,072-dim)</b><br>
               [PRIV] Edge Privacy: <b>LDP-SeqMask Laplace Mechanism Active</b><br>
@@ -193,8 +193,8 @@
               </div>
               <div>
                 <div class="company-name-row">
-                  <h3 class="company-name">KAS Global Commerce Inc. <span class="product-brand">(My Seller Central)</span></h3>
-                  <a href="https://mysellercentral.com/" target="_blank" rel="noopener noreferrer" class="company-link" title="Visit My Seller Central">
+                  <h3 class="company-name">KAS Global Commerce Inc.</h3>
+                  <a href="https://www.kascommerce.com/" target="_blank" rel="noopener noreferrer" class="company-link" title="Visit KAS Global Commerce">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                   </a>
                 </div>
@@ -233,7 +233,7 @@
 
                 <ul class="role-bullet-list">
                   <li>
-                    <strong>Root Cause Analysis (RCA) Engine (Research to Production):</strong> Architected and deployed an end-to-end autonomous AI advertising diagnostic system under a LangGraph multi-agent orchestrator. Translates natural language seller queries (English &amp; Hinglish) into automated anomaly investigations. Shipped <strong>7 live diagnostics</strong> (ACOS Spike, Wasted Spend, CPC Spike, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop) across <strong>50+ root-cause rules</strong> (bid shifts, budget exhaustion, Buy Box loss, out-of-stock events) with dynamic per-account statistical thresholding ($\mu + 1.5\sigma$), dual equal-length baseline windows, and automated negative keyword recommendations with over-blocking protection.
+                    <strong>Root Cause Analysis (RCA) Engine (Research to Production):</strong> Architected and deployed an end-to-end autonomous AI advertising diagnostic system under a LangGraph multi-agent orchestrator. Translates natural language seller queries (English &amp; Hinglish) into automated anomaly investigations. Shipped <strong>15 live diagnostics</strong> (ACOS Spike, Wasted Spend, CPC Spike, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop, etc.) out of <strong>30 total diagnostics</strong> across <strong>50+ root-cause rules</strong> (bid shifts, budget exhaustion, Buy Box loss, out-of-stock events) with dynamic per-account statistical thresholding, normalized period-over-period baseline comparisons, and automated negative keyword recommendations with traffic-loss safeguards.
                     <div class="exp-jump-row">
                       <a href="#proj-rca-engine" class="exp-jump-pill" data-target="proj-rca-engine">
                         <i class="fa-solid fa-arrow-down-right"></i> Jump to RCA Engine Card (4 Telemetry Screens)
@@ -246,16 +246,24 @@
                       <a href="#proj-scraper-engine" class="exp-jump-pill" data-target="proj-scraper-engine">
                         <i class="fa-solid fa-arrow-down-right"></i> Jump to Scraping Engine
                       </a>
-                      <a href="#proj-aplus-engine" class="exp-jump-pill" data-target="proj-aplus-engine" style="margin-left: 0.4rem;">
-                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Multimodal A+ Engine
+                      <a href="#proj-text-image-insights" class="exp-jump-pill" data-target="proj-text-image-insights" style="margin-left: 0.4rem;">
+                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Text &amp; Image Insights
                       </a>
                     </div>
                   </li>
                   <li>
-                    <strong>Cross-Marketplace Expansion (Walmart, Flipkart, eBay):</strong> Extended both scraping and multimodal text/image analysis engines from their initial internship scope (Amazon &amp; ONDC) across Walmart, Flipkart, eBay, and OnBuy as monthly scraping completes for each platform. Deconstructed visual design archetypes, safe text-overlay zones, and copy effectiveness across 19 Standard and 21 Premium Amazon A+ modules and cross-marketplace layouts.
+                    <strong>Cross-Marketplace Expansion (Walmart, Flipkart, eBay):</strong> Extended both scraping and multimodal text/image analysis engines from their initial internship scope (Amazon &amp; ONDC) across Walmart, Flipkart, eBay, and OnBuy as monthly scraping completes for each platform. The text and image insight pipelines are fully automated and run recurrently across newly scraped platforms to analyze titles, bullet points, specifications, and 6 image types across top 25 category best-sellers.
+                    <div class="exp-jump-row">
+                      <a href="#proj-text-image-insights" class="exp-jump-pill" data-target="proj-text-image-insights">
+                        <i class="fa-solid fa-diagram-project"></i> Inspect Text &amp; Image Pipeline
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <strong>Multimodal A+ Content Intelligence &amp; Modular Architecture:</strong> Analyzed visual design patterns, product placement, background settings, and headline messaging across competitor Amazon A+ content to generate structured insight JSONs for automated A+ content creation. Built and validated production analysis for <strong>Module 5 (Standard Image &amp; Dark Text Overlay)</strong> across top 25 category best-sellers, with an architectural roadmap extending across all <strong>19 Standard and 21 Premium Amazon A+ modules</strong>. Built upon the marketplace PostgreSQL tables originally architected during the <em>High-Scale Taxonomy Vector Search &amp; Category Mapping Pipeline</em> (containing 3,072-dim category vector embeddings), progressively extending the schema with dedicated <code>text_insights</code>, <code>image_insights</code>, and <code>aplus_insights</code> columns partitioned by month and year (<code>run_id</code>).
                     <div class="exp-jump-row">
                       <a href="#proj-aplus-engine" class="exp-jump-pill" data-target="proj-aplus-engine">
-                        <i class="fa-solid fa-diagram-project"></i> Inspect Multimodal Architecture
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Inspect Multimodal A+ Architecture
                       </a>
                     </div>
                   </li>
@@ -310,8 +318,8 @@
                   <li>
                     <strong>Multimodal Text &amp; Image Insight Pipeline (Amazon &amp; ONDC):</strong> Designed foundational category intelligence combining quantitative statistical analysis with Gemini 2.5 Flash inference for Amazon and ONDC product listings.
                     <div class="exp-jump-row">
-                      <a href="#proj-aplus-engine" class="exp-jump-pill" data-target="proj-aplus-engine">
-                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Multimodal Synthesis Card
+                      <a href="#proj-text-image-insights" class="exp-jump-pill" data-target="proj-text-image-insights">
+                        <i class="fa-solid fa-arrow-down-right"></i> Jump to Text &amp; Image Pipeline Card
                       </a>
                     </div>
                   </li>
@@ -344,7 +352,7 @@
         </div>
 
         <div class="mode-indicator-text">
-          Active View: <span id="currentModeLabel">Unified Spectrum (AI + Security + Overlap)</span> &bull; Showing <span id="visibleProjectCount">11</span> Systems
+          Active View: <span id="currentModeLabel">Unified Spectrum (AI + Security + Overlap)</span> &bull; Showing <span id="visibleProjectCount">12</span> Systems
         </div>
       </div>
     </div>
@@ -522,10 +530,10 @@
         <div class="track-subdivision-header">
           <div class="subdivision-title-wrap">
             <span class="subdivision-kicker"><i class="fa-solid fa-building"></i> ENTERPRISE PRODUCTION TRACK</span>
-            <h3 class="subdivision-heading">KAS Global Commerce &bull; My Seller Central (MSC IQ)</h3>
+            <h3 class="subdivision-heading">KAS Global Commerce &bull; MySellerCentral (MSC IQ Copilot)</h3>
           </div>
           <p class="subdivision-desc">
-            Proprietary microservices, advertising root-cause diagnostics, dense vector indexing, and multimodal competitive intelligence powering the MSC IQ enterprise platform.
+            Proprietary microservices, advertising root-cause diagnostics, dense vector indexing, and multimodal intelligence powering the MSC IQ AI chatbot within the MySellerCentral platform.
           </p>
         </div>
 
@@ -556,13 +564,13 @@
             <div class="blueprint-box">
               <div class="blueprint-badge"><i class="fa-solid fa-chart-line"></i> DIAGNOSTIC ENGINE FLOW</div>
               <div class="blueprint-flow">
-                <code>[User Prompt]</code> &rarr; <code>[LangGraph Supervisor]</code> &rarr; <code>[/api/analyze]</code> &rarr; <code>[Dynamic Thresholds (μ+1.5σ)]</code> &rarr; <code>[RCAReport.jsx]</code>
+                <code>[User Prompt]</code> &rarr; <code>[LangGraph Supervisor]</code> &rarr; <code>[/api/analyze]</code> &rarr; <code>[Dynamic Statistical Thresholds]</code> &rarr; <code>[RCAReport.jsx]</code>
               </div>
             </div>
 
             <ul class="project-highlights">
-              <li>Shipped <strong>7 diagnostics live</strong> (ACOS Spike, Wasted Spend, CPC Spike, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop) covering <strong>50+ root-cause rules</strong>.</li>
-              <li>Engineered dynamic per-account thresholds ($\mu + 1.5\sigma$) with baseline window comparisons and minimum-data guards to prevent false alarms.</li>
+              <li>Shipped <strong>15 diagnostics live</strong> (ACOS Spike, Wasted Spend, CPC Spike, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop, etc.) out of <strong>30 total diagnostics</strong> covering <strong>50+ root-cause rules</strong>.</li>
+              <li>Engineered dynamic per-account statistical thresholding with baseline window comparisons and minimum-data guards to prevent false alarms.</li>
               <li>Built automated negative keyword recommendations with over-blocking protection to curb wasted ad spend.</li>
             </ul>
 
@@ -694,7 +702,52 @@
             </div>
           </article>
 
-          <!-- Project 7: Multimodal A+ Content Insights Pipeline -->
+          <!-- Project 7: Multimodal Text & Image Insight Pipeline -->
+          <article class="project-card" id="proj-text-image-insights" data-category="ai" data-project="text-image-insights">
+            <div class="provenance-badge badge-fulltime">
+              <i class="fa-solid fa-briefcase"></i> KAS Global Commerce &bull; Intern &rarr; Automated in Full-Time
+            </div>
+
+            <div class="project-card-header">
+              <span class="project-type-badge badge-ai">
+                <i class="fa-solid fa-images"></i>
+                Multimodal GenAI &amp; NLP
+              </span>
+              <div class="project-links">
+                <button class="project-icon-link inspect-spec-btn" data-project="text-image-insights" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">Multimodal Text &amp; Image Insight Pipeline</h3>
+            <p class="project-desc">
+              Automated category-level NLP and computer vision pipeline analyzing text attributes (titles, bullets, specs) and 6 visual image types across top 25 category best-sellers.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-layer-group"></i> DUAL-MODAL BATCH FLOW</div>
+              <div class="blueprint-flow">
+                <code>[Top 25 ASINs / Category]</code> &rarr; <code>[Gemini File API + Multi-Key Batch]</code> &rarr; <code>[Text &amp; 6-Type Image Synthesis]</code> &rarr; <code>[PostgreSQL text &amp; image columns]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Analyzes titles, bullet themes, and 6 image types (white bg, lifestyle, infographic, dimension, packaging, detail shots).</li>
+              <li>Engineered batch processing with Gemini File API, automatic cooldowns, and multi-key rotation to prevent rate-limiting.</li>
+              <li>Ingests structured YAML/JSON into marketplace PostgreSQL tables under <code>text_insights</code> and <code>image_insights</code> columns.</li>
+            </ul>
+
+            <div class="tech-stack">
+              <span class="tech-tag">Gemini File API</span>
+              <span class="tech-tag">Python Batch Runner</span>
+              <span class="tech-tag">PostgreSQL</span>
+              <span class="tech-tag">Computer Vision</span>
+              <span class="tech-tag">NLP Extraction</span>
+            </div>
+          </article>
+
+          <!-- Project 8: Multimodal A+ Content Insights Pipeline -->
           <article class="project-card" id="proj-aplus-engine" data-category="ai" data-project="multimodal-aplus">
             <div class="provenance-badge badge-fulltime">
               <i class="fa-solid fa-briefcase"></i> KAS Global Commerce &bull; AI Engineer (Full-Time)
@@ -714,30 +767,31 @@
 
             <h3 class="project-title">Multimodal A+ Competitive Intelligence Engine</h3>
             <p class="project-desc">
-              Category-level visual and copywriting intelligence engine analyzing competitor Amazon A+ modules (Standard Image &amp; Dark Text Overlay) to guide creative agents.
+              Visual and copywriting intelligence engine analyzing competitor Amazon A+ modules to extract visual design patterns, product placement, background settings, and headline messaging for automated A+ creation.
             </p>
 
             <div class="blueprint-box">
-              <div class="blueprint-badge"><i class="fa-solid fa-palette"></i> MULTIMODAL SYNTHESIS</div>
+              <div class="blueprint-badge"><i class="fa-solid fa-palette"></i> A+ MODULAR SYNTHESIS</div>
               <div class="blueprint-flow">
-                <code>[A+ Banners Download]</code> &rarr; <code>[Gemini 2.5 Flash Vision]</code> &rarr; <code>[Layout &amp; Copy Archetypes]</code> &rarr; <code>[insights.json]</code>
+                <code>[Top 25 ASIN Details &amp; Banners]</code> &rarr; <code>[Gemini 2.5 Flash Vision]</code> &rarr; <code>[Module 5 Overlay &amp; Copy Analysis]</code> &rarr; <code>[PostgreSQL aplus_insights]</code>
               </div>
             </div>
 
             <ul class="project-highlights">
-              <li>Mines visual strategy, safe text-overlay zones, and copy guidelines from top 25 category best-sellers.</li>
-              <li>Architected for full roadmap scaling across Amazon's <strong>19 Standard modules</strong> and <strong>21 Premium modules</strong>.</li>
+              <li>Extracts visual design patterns, product placement, background settings, and headline messaging from top 25 category best-sellers.</li>
+              <li>Production implementation for <strong>Module 5 (Standard Image &amp; Dark Text Overlay)</strong>; roadmap extending across all <strong>19 Standard &amp; 21 Premium modules</strong>.</li>
+              <li>Stores structured insight JSONs into the marketplace PostgreSQL table under <code>aplus_insights_&lt;run_id&gt;</code>.</li>
             </ul>
 
             <div class="tech-stack">
               <span class="tech-tag">Gemini 2.5 Flash</span>
               <span class="tech-tag">Computer Vision</span>
               <span class="tech-tag">Amazon A+ Content</span>
-              <span class="tech-tag">Prompt Engineering</span>
+              <span class="tech-tag">PostgreSQL</span>
             </div>
           </article>
 
-          <!-- Project 8: Common API Endpoints & MSC IQ RAG -->
+          <!-- Project 9: Common API Endpoints & MSC IQ RAG -->
           <article class="project-card" id="proj-common-api" data-category="ai" data-project="chatbot-rag">
             <div class="provenance-badge badge-intern">
               <i class="fa-solid fa-flask"></i> KAS Global Commerce &bull; AI Research Intern
