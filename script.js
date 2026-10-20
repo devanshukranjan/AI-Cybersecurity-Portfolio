@@ -1069,6 +1069,70 @@ const PROJECT_CASE_STUDIES = {
     reportLabel: 'Findings Summary Writeup',
     pdf: 'digital-forensics/autopsy-disk-investigation/reports/autopsy-disk-investigation.pdf',
     pdfLabel: 'Download Forensic PDF Report'
+  },
+
+  'osint-missing-person': {
+    title: 'OSINT Investigation: Missing Person Geolocation & Entity Resolution',
+    category: 'OSINT • Geospatial Recon',
+    categoryBadgeClass: 'badge-security',
+    provenance: 'Hands-On OSINT Lab • TryHackMe',
+    provenanceBadgeClass: 'badge-personal',
+    summary: 'Full-spectrum open-source intelligence (OSINT) investigation recovering a missing subject’s location, timeline, and associate network using EXIF metadata forensics, reverse image search, and SOCMINT.',
+    meta: ['TryHackMe Missing Person', 'EXIF Metadata Forensics', 'SOCMINT & Geolocation'],
+    architecture: `
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 1: DIGITAL ARTIFACT INTAKE & METADATA FORENSICS           │
+│ • Raw evidence: MotoGP.jpg, food.jpg                            │
+│ • exifmeta extraction: Timestamps (10/05/2025, HH:MM:SS)        │
+│ • Corroboration: Validated against official MotoGP 2025 dates   │
+└───────────────────────────────┬─────────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 2: GEOSPATIAL INTELLIGENCE (GEOINT) & REVERSE LOOKUP      │
+│ • Google Reverse Image Lookup: Landmark & venue features        │
+│ • Geolocation match: Pertamina Mandalika Street Circuit, Lombok │
+│ • Dining venue correlation: Local Mexican restaurant identified │
+└───────────────────────────────┬─────────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 3: SOCIAL MEDIA INTELLIGENCE (SOCMINT) & LINK ANALYSIS    │
+│ • Event indexing: Facebook video telemetry for afterparty       │
+│ • Venue localized: Surfers Bar, Kuta Lombok                     │
+│ • Audio/video entity extraction: Associate stage name (DJ)      │
+└───────────────────────────────┬─────────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 4: TARGET RESOLUTION & ACTIONABLE TELEMETRY               │
+│ • Proximity mapping: Identified excursion destination (Gua Sumur)│
+│ • Commercial cross-reference: Correlated DJ + Cave Facebook     │
+│ • High-Confidence Output: Subject location & verified telephone │
+└─────────────────────────────────────────────────────────────────┘`,
+    objective: 'Reconstruct a missing subject’s travel timeline, localize geographic stops, and identify associate networks using only public data, metadata extraction, and social intelligence.',
+    process: [
+      'Ingested uncaptioned holiday photos and extracted camera metadata using exifmeta to recover original capture dates and timestamps.',
+      'Conducted reverse image lookups on track landmarks to geolocate the event to the Pertamina Mandalika International Circuit in Lombok, Indonesia.',
+      'Cross-referenced photographic timestamps with official 2025 MotoGP championship calendars to verify primary ground-truth dates.',
+      'Analyzed Indonesian social media event feeds to locate afterparty advertisements at Surfers Bar in Kuta Lombok.',
+      'Extracted associate identities from promotional video footage, surfacing the performer\'s stage name (DJ Bongleleh).',
+      'Mapped nearby cavern landmarks (Gua Sumur) and cross-correlated business registration pages to recover verified phone records.'
+    ],
+    screenshots: [],
+    findings: [
+      'Positive identification of event location: Pertamina Mandalika International Circuit, Indonesia.',
+      'Accurate temporal timeline alignment with the Oct 3–5, 2025 official calendar.',
+      'Identification of secondary location (Surfers Bar) and final excursion site (Gua Sumur).',
+      'Successful entity extraction and telephone contact recovery for the primary associate.'
+    ],
+    learned: 'Real-world OSINT is about creating an unbroken chain of corroboration: never trusting an unverified narrative, using EXIF for temporal ground truth, and pivoting on unique artifacts to uncover high-confidence intelligence.',
+    tools: ['Google Images', 'exifmeta', 'Facebook SOCMINT', 'Public Registries', 'Geographic Mapping'],
+    skills: ['OSINT Tradecraft', 'EXIF Metadata Analysis', 'GEOINT Geolocation', 'SOCMINT', 'Entity Resolution', 'Timeline Reconstruction'],
+    github: 'https://tryhackme.com/room/missingperson',
+    githubLabel: 'TryHackMe Challenge Room',
+    report: 'https://tryhackme.com/room/missingperson',
+    reportLabel: 'TryHackMe Room Link'
   }
 };
 

@@ -1063,6 +1063,55 @@
               <span class="tech-tag">Evidence Handling</span>
             </div>
           </article>
+
+          <!-- Project 12: OSINT Investigation & Geospatial Intelligence -->
+          <article class="project-card" id="proj-osint-missing-person" data-category="security" data-project="osint-missing-person">
+            <div class="provenance-badge badge-personal">
+              <i class="fa-solid fa-user-secret"></i> Hands-On OSINT Lab &bull; TryHackMe
+            </div>
+
+            <div class="project-card-header">
+              <span class="project-type-badge badge-security">
+                <i class="fa-solid fa-magnifying-glass-location"></i>
+                OSINT &bull; Geospatial Recon
+              </span>
+              <div class="project-links">
+                <a href="https://tryhackme.com/room/missingperson" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="TryHackMe Room">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <button class="project-icon-link inspect-spec-btn" data-project="osint-missing-person" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">OSINT Investigation: Missing Person Geolocation &amp; Entity Resolution</h3>
+            <p class="project-desc">
+              End-to-end open-source intelligence investigation locating a missing subject through EXIF metadata extraction, reverse image geolocation, and SOCMINT link analysis.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-compass"></i> INTELLIGENCE CYCLE PIPELINE</div>
+              <div class="blueprint-flow">
+                <code>[Photo EXIF Forensics]</code> &rarr; <code>[GEOINT Reverse Lookup]</code> &rarr; <code>[Event Corroboration]</code> &rarr; <code>[SOCMINT Video Pivot]</code> &rarr; <code>[Entity Resolution]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Extracted temporal and device telemetry from photo artifacts via <strong>exifmeta</strong>, establishing ground-truth timestamps and corroborating them against official <strong>MotoGP 2025 calendar schedules</strong>.</li>
+              <li>Conducted reverse image geolocation to identify the <strong>Pertamina Mandalika International Circuit</strong> and regional Indonesian dining venues.</li>
+              <li>Pivoted across <strong>Facebook video telemetry</strong>, attendee promotional reels, and cave expedition records (Gua Sumur) to trace associate networks and uncover verified business contact phone numbers.</li>
+            </ul>
+
+            <div class="tech-stack">
+              <span class="tech-tag">OSINT Tradecraft</span>
+              <span class="tech-tag">EXIF Forensics</span>
+              <span class="tech-tag">GEOINT</span>
+              <span class="tech-tag">SOCMINT</span>
+              <span class="tech-tag">Link Analysis</span>
+              <span class="tech-tag">TryHackMe</span>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -1145,6 +1194,12 @@
                 <div class="skill-item-info">
                   <span class="skill-name">Attack Simulations</span>
                   <span class="skill-desc">Hydra &bull; Nikto &bull; Slowloris &bull; Kali Linux</span>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-info">
+                  <span class="skill-name">OSINT &amp; Intelligence Tradecraft</span>
+                  <span class="skill-desc">GEOINT &bull; EXIF Forensics &bull; SOCMINT &bull; Link Analysis</span>
                 </div>
               </div>
             </div>
