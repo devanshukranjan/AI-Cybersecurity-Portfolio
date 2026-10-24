@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initImageLightboxModal();
   initCopyButtons();
   initExperienceProjectJump();
+  initExperienceInternToggle();
+  initProjectsPageFilters();
 });
 
 /* ==========================================================================
@@ -62,63 +64,111 @@ function initNavbar() {
         navLinks.style.borderBottom = '1px solid rgba(111, 211, 255, 0.2)';
       }
     });
+
+    // Close mobile menu when a nav link is clicked
+    navLinks.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 960) {
+          navLinks.style.display = 'none';
+        }
+      });
+    });
   }
 }
 
 /* ==========================================================================
-   2. TRI-MODE SPECTRUM CONTROLLER (FILTERING)
+   2. SPECTRUM CONTROLLER & HOMEPAGE FILTERING
    ========================================================================== */
 function initModeSwitcher() {
   const modeTabs = document.querySelectorAll('.mode-tab');
-  const projectCards = document.querySelectorAll('.project-card');
+  const projectCards = document.querySelectorAll('#homepageCardsGrid .project-card, .homepage-cards .project-card');
   const modeIndicator = document.getElementById('currentModeLabel');
   const visibleCountEl = document.getElementById('visibleProjectCount');
 
-  modeTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const selectedMode = tab.getAttribute('data-mode');
+  if (!modeTabs.length || !projectCards.length) return;
 
-      // Update active tab styling
-      modeTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+  function applyMode(mode) {
+    let visibleCount = 0;
 
-      // Update label
-      if (modeIndicator) {
-        if (selectedMode === 'all') modeIndicator.textContent = 'Unified Spectrum (AI + Security + Overlap)';
-        if (selectedMode === 'ai') modeIndicator.textContent = 'AI Engineering & Production LLMs Focus';
-        if (selectedMode === 'security') modeIndicator.textContent = 'Cybersecurity, Threat Detection & SOC Operations Focus';
+    projectCards.forEach(card => {
+      const isFeatured = card.getAttribute('data-featured') === 'true';
+      const category = card.getAttribute('data-category'); // 'ai', 'security', 'overlap'
+
+      let show = false;
+      if (mode === 'featured') {
+        show = isFeatured;
+      } else if (mode === 'ai') {
+        show = (category === 'ai' || category === 'overlap');
+      } else if (mode === 'security') {
+        show = (category === 'security' || category === 'overlap');
+      } else if (mode === 'overlap') {
+        show = (category === 'overlap');
+      } else if (mode === 'all') {
+        show = true;
       }
 
-      // Filter project cards
-      let visibleCount = 0;
-      projectCards.forEach(card => {
-        const cardCategory = card.getAttribute('data-category'); // 'overlap', 'ai', 'security'
+      if (show) {
+        card.style.display = 'flex';
+        card.style.opacity = '1';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+        card.style.opacity = '0';
+      }
+    });
 
-        if (selectedMode === 'all') {
-          card.style.display = 'flex';
-          visibleCount++;
-        } else if (selectedMode === 'ai') {
-          if (cardCategory === 'ai' || cardCategory === 'overlap') {
-            card.style.display = 'flex';
-            visibleCount++;
-          } else {
-            card.style.display = 'none';
-          }
-        } else if (selectedMode === 'security') {
-          if (cardCategory === 'security' || cardCategory === 'overlap') {
-            card.style.display = 'flex';
-            visibleCount++;
-          } else {
-            card.style.display = 'none';
-          }
-        }
-      });
+    // Update active tab buttons
+    modeTabs.forEach(tab => {
+      const tabMode = tab.getAttribute('data-mode');
+      const isActive = tabMode === mode;
+      tab.classList.toggle('active', isActive);
+      tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
 
-      if (visibleCountEl) {
-        visibleCountEl.textContent = visibleCount;
+    // Update label text
+    if (modeIndicator) {
+      if (mode === 'featured') modeIndicator.textContent = 'Featured (6 Flagship Systems)';
+      if (mode === 'ai') modeIndicator.textContent = 'AI Engineering & Production LLMs Focus';
+      if (mode === 'security') modeIndicator.textContent = 'Cybersecurity, Threat Detection & SOC Operations Focus';
+      if (mode === 'overlap') modeIndicator.textContent = 'AI × Security (Core Hybrid Edge)';
+      if (mode === 'all') modeIndicator.textContent = 'All Engineering Systems';
+    }
+
+    if (visibleCountEl) {
+      visibleCountEl.textContent = visibleCount;
+    }
+  }
+
+  modeTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const mode = tab.getAttribute('data-mode') || 'featured';
+      applyMode(mode);
+    });
+  });
+
+  // Hero CTA quick jump buttons
+  const modeJumps = document.querySelectorAll('[data-mode-jump]');
+  modeJumps.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetMode = btn.getAttribute('data-mode-jump');
+      if (targetMode) {
+        applyMode(targetMode);
       }
     });
   });
+
+  // Handle URL hash on load
+  const hash = window.location.hash;
+  if (hash === '#ai-systems') {
+    applyMode('ai');
+  } else if (hash === '#security-labs') {
+    applyMode('security');
+  } else if (hash === '#intersection') {
+    applyMode('overlap');
+  } else {
+    // Default to 'featured'
+    applyMode('featured');
+  }
 }
 
 /* ==========================================================================
@@ -131,8 +181,13 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-overlap',
     provenance: 'NIT Patna • Master\'s Thesis (CGPA: 8.84/10)',
     provenanceBadgeClass: 'badge-research',
-    summary: 'Master\'s thesis research at NIT Patna resolving user trajectory and clickstream leakage in centralized recommender systems using Locally Differentially Private (LDP) mechanisms.',
-    meta: ['NIT Patna Thesis', 'Local Differential Privacy', 'View-based Contrastive Learning'],
+    pipeline: [
+      { step: '01', title: 'Edge User Trajectories', icon: 'fa-file-lines', type: 'Local Edge Client', desc: 'Captures chronological user interaction trajectories s = (i_1, i_2, ..., i_T) on local client devices without transmitting raw event logs.', chips: ['Local Interaction Sequence', 'Temporal Trajectories', 'Edge Boundary'] },
+      { step: '02', title: 'LDP-SeqMask Perturbation', icon: 'fa-shield-halved', type: 'Local Differential Privacy', active: true, desc: 'Injects calibrated Laplace noise locally into item transition vectors, eliminating numerical instability and gradient explosion of standard Exponential Mechanisms while bounding sensitivity under formal (ε, δ)-DP bounds.', chips: ['Calibrated Laplace Noise', 'Bounded Sensitivity', 'No Gradient Divergence', 'Differential Privacy'] },
+      { step: '03', title: 'View-CL Contrastive Learning', icon: 'fa-layer-group', type: 'Self-Supervised Learning', desc: 'Constructs multiple noisy augmented views of sequential states and maximizes mutual information to cancel out stochastic noise distortion.', chips: ['View-CL', 'Mutual Information Maximization', 'Noise Resilience'] },
+      { step: '04', title: 'Federated Aggregation', icon: 'fa-database', type: 'Central Server Node', desc: 'Simulates federated training across 1,000+ heterogeneous client partitions, aggregating private Laplace parameter updates without central clickstream leakage or gradient divergence.', chips: ['Federated Optimization', '1,000+ Client Nodes', 'Laplace Aggregation', 'Zero Leakage'] },
+      { step: '05', title: 'Global Recommendation Model', icon: 'fa-square-check', type: 'Inference Model', desc: 'Produces ID-based and ID-free sequential recommendation models recovering top-K recall within 4.2% of unperturbed centralized baselines.', chips: ['NDCG@10 Recovery', 'Privacy Guarantees', 'ID-Free Architecture'] }
+    ],
     architecture: `
 ┌─────────────────────────────────────────────────────────────┐
 │ CLIENT EDGE DEVICES (Heterogeneous Mobile / Browser Nodes)  │
@@ -182,42 +237,28 @@ const PROJECT_CASE_STUDIES = {
   },
 
   'hermes-ids': {
-    title: 'Hermes — AI-Powered Ransomware & Zero-Day Intrusion Detection System',
-    category: 'AI Security System',
+    title: 'Hermes — Autonomous AI-Based Threat Detection & Elimination Engine',
+    category: 'AI Security & Autonomous Response',
     categoryBadgeClass: 'badge-overlap',
-    provenance: 'Independent Security ML Research',
-    provenanceBadgeClass: 'badge-personal',
-    summary: 'A production-style AI-powered IDS that combines classical ML, a Tab2Image CNN, analyst workflow controls, and live monitoring to detect ransomware, zero-day, and benign traffic patterns.',
-    meta: ['98.6% Accuracy', '1.4% False Positives', '60,013 Test Samples'],
-    architecture: `
-[ Live Packet Ingestion / Test Set ]
-                 │
-                 ▼
-[ Preprocessing & Feature Selection (Top 10 Features) ]
-                 │
-                 ├─────────────────────────────┬─────────────────────────────┐
-                 ▼                             ▼                             ▼
-       [ Random Forest ]            [ Tab2Image CNN ]              [ Ensemble Net ]
-       • 98.6% Accuracy             • 64x64 Grayscale Img          • Soft Voting
-       • 1.4% False Positives       • 96.9% Accuracy               • 98.6% Accuracy
-                 │                             │                             │
-                 └─────────────────────────────┼─────────────────────────────┘
-                                               ▼
-                         [ Decision Engine & Thresholds ]
-                                               │
-                                               ▼
-                         [ Hermes Tkinter SOC Dashboard ]
-                           ├─ SHA-256 Authentication
-                           ├─ Live Monitoring (Every 2s)
-                           ├─ Automated IP Quarantine
-                           ├─ Analyst Action Panel
-                           └─ Forensic Event Export Log`,
-    objective: 'Build a portfolio-grade intrusion detection system that does more than classify traffic in a notebook: train multiple models, compare them on a large test set, and expose the best results through a GUI designed around analyst actions and live monitoring.',
+    provenance: 'Independent AI Security Research • nitp.ac.in',
+    provenanceBadgeClass: 'badge-research',
+    summary: 'Autonomous AI-driven intrusion detection & threat elimination engine trained on 200,043 network flows (UGRansome2024 + UNSW-NB15). Fuses Tab2Image 2D CNN spatial feature projection (96.9% accuracy) with an unsupervised Deep Autoencoder for zero-day discovery, backed by a Random Forest + XGBoost ensemble (98.6% accuracy, 1.4% FPR) and a live Tkinter SOC console executing automated host quarantine.',
+    pipeline: [
+      { step: '01', title: 'Dual Telemetry Ingestion', icon: 'fa-network-wired', type: 'Dataset Fusion & Sanitization', desc: 'Merges 200,043 network flow records across UGRansome2024 (ransomware/zero-day) and UNSW-NB15 (51,000 benign baseline flows). Drops identifier fields (srcip, dstip, id) to prevent spatial/temporal bias and target leakage.', chips: ['200,043 Network Flows', 'UGRansome2024', 'UNSW-NB15', 'Zero Identifier Leakage'] },
+      { step: '02', title: 'Feature Selection & SMOTE', icon: 'fa-filter', type: 'Stratified Preprocessing', desc: 'Executes SelectKBest with ANOVA F-test (f_classif, k=48) and MinMaxScaler normalization. Enforces strict stratified 80/20 train-test split (160,034 train / 40,009 test) before applying SMOTE to prevent synthetic sample leakage into evaluation.', chips: ['SelectKBest (k=48)', 'MinMaxScaler', 'Post-Split SMOTE', 'Class Rebalancing'] },
+      { step: '03', title: 'Tab2Image 2D Spatial CNN', icon: 'fa-layer-group', type: 'Spatial Feature Projection', desc: 'Projects flat 48-feature vectors into an (8, 6, 1) spatial 2D matrix. Dual Conv2D layers (32 & 64 filters) with BatchNormalization and Dropout (0.4) capture non-linear cross-feature spatial relationships, achieving 96.9% accuracy.', chips: ['(8,6,1) Spatial Matrix', 'Conv2D + BatchNorm', '96.9% Accuracy', 'Dropout (0.4)'] },
+      { step: '04', title: 'Zero-Day Deep Autoencoder', icon: 'fa-brain', type: 'Unsupervised Anomaly Bottleneck', desc: 'Deep bottleneck autoencoder (48 -> 64 -> 32 -> 16 -> 32 -> 64 -> 48) trained exclusively on normal traffic. Calculates MSE reconstruction error against a calibrated 95th-percentile cutoff (threshold 0.05) to flag novel zero-days.', chips: ['16-Dim Bottleneck', 'MSE Reconstruction', '95th Percentile (0.05)', 'Zero-Day Detection'] },
+      { step: '05', title: 'Ensemble Voting Consensus', icon: 'fa-shield-halved', type: 'Consensus Decision Engine', active: true, desc: 'Soft voting ensemble combining Random Forest (200 trees, 98.6% accuracy, 1.4% FPR), XGBoost (200 trees, 98.3%), and 2D CNN. The Autoencoder acts as an autonomous override: if classifiers predict Normal but reconstruction error > 0.05, it flags a zero-day.', chips: ['Random Forest 98.6%', 'XGBoost 98.3%', 'Zero-Day Override', 'Soft Voting'] },
+      { step: '06', title: 'Autonomous Threat Elimination', icon: 'fa-bolt', type: 'Automated SOC Response', desc: 'Real-time Tkinter SOC console with SHA-256 analyst authentication, 2-second streaming telemetry, automated IP firewall quarantine (Windows Firewall / iptables), active socket termination, and forensic event exports.', chips: ['Automated IP Quarantine', 'Socket Termination', '2s Live Stream', 'SHA-256 Auth', 'Forensic Export'] }
+    ],
+    objective: 'Build an operational, portfolio-grade AI threat detection and elimination engine that moves beyond notebook toy benchmarks: train dual supervised classifiers, novel 2D spatial CNNs, and unsupervised zero-day autoencoders on 200,043 network flows, exposed through a real-time SOC console with automated firewall quarantine.',
     process: [
-      'Merged ransomware and zero-day traffic from UGRansome with 51,000 benign samples extracted from UNSW-NB15 to produce a combined 200,043-row dataset.',
-      'Selected the top 10 features, trained multiple ML and DL models, and evaluated them on a 60,013-sample test split.',
-      'Implemented a Tab2Image pipeline that pads the 10-feature tabular sample into a 64 x 64 grayscale image for CNN inference.',
-      'Built the Hermes Tkinter dashboard with SHA-256 login, model cards, manual checks, live monitoring every 2 seconds, AI auto-blocking, analyst actions, history, export, and model statistics.'
+      'Merged ransomware traffic from UGRansome2024 with 51,000 benign network flows from UNSW-NB15 to create a robust 200,043-row balanced corpus, stripping raw IP addresses to eliminate spatial bias.',
+      'Selected the top 48 features via SelectKBest ANOVA F-test and scaled attributes with MinMaxScaler; enforced stratified 80/20 split before SMOTE oversampling to protect test-set integrity.',
+      'Engineered Tab2Image spatial representation converting 48 numerical features into an (8, 6, 1) matrix, detecting cross-variable attack correlations with a deep Conv2D neural network (96.9% accuracy).',
+      'Constructed a 7-layer symmetrical Deep Autoencoder bottleneck (48->64->32->16->32->64->48) trained exclusively on normal traffic, setting a 95th-percentile MSE anomaly threshold (0.05) to flag zero-day vectors.',
+      'Constructed a multi-model soft voting ensemble combining Random Forest (98.6% accuracy, 1.4% FPR), XGBoost (98.3%), and CNN, with automatic autoencoder override for zero-day traffic.',
+      'Engineered the Hermes Tkinter SOC analyst dashboard featuring SHA-256 user authentication, live packet monitoring every 2s, automated firewall quarantine rules, and defensible audit log exports.'
     ],
     screenshots: [
       {
@@ -267,13 +308,14 @@ const PROJECT_CASE_STUDIES = {
       }
     ],
     findings: [
-      'RandomForestClassifier and ML_EnsembleNet both reached 0.986 accuracy with false-positive rates near 0.014 on the saved evaluation set.',
-      'The Tab2Image CNN reached 0.969 accuracy, proving that tabular-to-image spatial projection is a viable experimental deep learning intrusion detection vector.',
-      'The project combines model benchmarking, dataset engineering, runtime artifacts, and analyst workflow into a single operational system.'
+      'RandomForestClassifier achieved 98.6% accuracy with a 1.4% false-positive rate across 40,009 test samples, matching XGBoost at 98.3% accuracy.',
+      'The Tab2Image 2D CNN attained 96.9% accuracy, demonstrating that spatial matrix projection allows convolutional filters to discover multi-variable attack signatures missed by flat models.',
+      'The unsupervised Deep Autoencoder successfully caught zero-day anomalies by flagging flows exceeding the 0.05 MSE reconstruction error threshold on normal traffic.',
+      'Live SOC automation executes automated IP blocking rules within milliseconds of anomaly confirmation, eliminating manual triage delay.'
     ],
-    learned: 'Hermes became the strongest project in the portfolio because it demonstrates end-to-end ML security engineering: dataset construction, feature selection, model comparison, novel CNN experimentation, and a GUI that mirrors real analyst workflows.',
-    tools: ['Python', 'Tkinter', 'Scikit-learn', 'TensorFlow/Keras', 'XGBoost', 'UNSW-NB15', 'UGRansome 2024'],
-    skills: ['Intrusion detection', 'Model comparison', 'Dataset engineering', 'SOC automation thinking', 'GUI prototyping'],
+    learned: 'Hermes proves that enterprise AI intrusion detection requires defense-in-depth: combining high-precision supervised classifiers (Random Forest/XGBoost) for known signatures, 2D CNNs for spatial pattern detection, and unsupervised autoencoders for zero-day anomalies, paired with automated containment.',
+    tools: ['Python 3.10', 'Tkinter GUI', 'TensorFlow / Keras', 'Scikit-learn', 'XGBoost', 'SMOTE', 'Pandas', 'NumPy', 'Joblib'],
+    skills: ['Autonomous Threat Elimination', 'Tab2Image 2D CNN', 'Deep Autoencoder Zero-Day Discovery', 'Ensemble Soft Voting', 'SOC Console Engineering'],
     github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/ai-intrusion-detection/hermes-ids',
     githubLabel: 'GitHub Repository',
     report: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/blob/main/ai-intrusion-detection/hermes-ids/model-comparison.md',
@@ -286,8 +328,13 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-overlap',
     provenance: 'Independent Applied ML Research',
     provenanceBadgeClass: 'badge-personal',
-    summary: 'Evolved smarter security — reduced 43 features to 22 using a custom Genetic Algorithm, then trained XGBoost to achieve perfect classification on 1,100,557 Bot-IoT test samples across 5 traffic categories.',
-    meta: ['3,668,522 Records', '43 -> 22 Features', '100% Test Accuracy'],
+    pipeline: [
+      { step: '01', title: 'Bot-IoT Dataset Intake', icon: 'fa-file-lines', type: 'High-Volume Dataset', desc: 'Ingests 3.66M network flow records from the Bot-IoT dataset across 43 raw telemetry features.', chips: ['3.66M Records', '43 Raw Features', 'IoT Traffic'] },
+      { step: '02', title: 'Leakage Removal', icon: 'fa-filter', type: 'Preprocessing', desc: 'Combines raw Bot-IoT 5% CSVs, removes target-leakage fields (IP/MAC bias), encodes categorical attributes, and standardizes continuous flow telemetry.', chips: ['Zero Data Leakage', 'Categorical Encoding', 'Standardization', 'Identifier Removal'] },
+      { step: '03', title: 'Genetic Optimizer', icon: 'fa-dna', type: 'Heuristic Search', active: true, desc: 'Evolves 43-bit binary chromosomes across 50 population candidates with uniform crossover and mutation rate 0.4, halting at generation 21 via adaptive early stopping with hybrid CFS + XGBoost G-Mean fitness.', chips: ['Population 50', 'Mutation Rate 0.4', 'Gen 21 Early Stop', 'Hybrid CFS + G-Mean'] },
+      { step: '04', title: '22-Feature Subspace', icon: 'fa-layer-group', type: 'Optimized Feature Matrix', desc: 'Reduces feature space by 48.8% (43 down to 22 features), slashing training latency while preserving critical attack signals.', chips: ['48.8% Reduction', '22 Optimal Features'] },
+      { step: '05', title: 'XGBoost Classification', icon: 'fa-brain', type: 'Inference Engine', desc: 'Trains XGBoost classifier on a stratified 70/30 train/test split. Evaluated on 1,100,557 test records, achieving 1.00 F1-score across Normal, DDoS, DoS, Reconnaissance, and Theft classes.', chips: ['70/30 Train/Test', '1,100,557 Test Records', '1.00 F1-Score', '5 Attack Classes'] }
+    ],
     architecture: `
 [ Bot-IoT 5% Dataset (3.66M records, 43 raw features) ]
                          │
@@ -351,7 +398,14 @@ const PROJECT_CASE_STUDIES = {
     provenance: 'KAS Global Commerce • AI Engineer (Full-Time)',
     provenanceBadgeClass: 'badge-fulltime',
     summary: 'Architected and deployed an end-to-end autonomous AI advertising diagnostic system under a LangGraph multi-agent orchestrator. Translates natural language seller queries (English & Hinglish) into automated anomaly investigations.',
-    meta: ['15 Live Diagnostics (30 Total)', '50+ Root-Cause Rules', 'Dynamic Statistical Thresholding'],
+    pipeline: [
+      { step: '01', title: 'Dashboard Query', icon: 'fa-file-lines', type: 'Input Ingestion', desc: 'Accepts English & Hinglish seller queries (e.g. "ACOS kyu badha pichle hafte?") via AskAssistant.jsx; ms-auth-manager validates JWT & plan credits.', chips: ['FastAPI', 'JWT Auth', 'Hinglish Parsing'] },
+      { step: '02', title: 'Supervisor Routing', icon: 'fa-diagram-project', type: 'Agent Orchestration', desc: 'LangGraph multi-agent supervisor (Gemini 2.5 Flash) merges query frame with memory episodes and routes to the primary engine: rca_analytics.', chips: ['LangGraph', 'Gemini 2.5 Flash', 'Intent Routing'] },
+      { step: '03', title: 'Multi-Window Baseline', icon: 'fa-layer-group', type: 'Time-Series Prep', desc: 'Splits advertising metrics into fair equal-length evaluation windows: baseline period (t-1) vs. current investigation period (t).', chips: ['Equal-Length Windows', 'Time-Series Analysis'] },
+      { step: '04', title: 'Statistical Thresholding', icon: 'fa-database', type: 'Analytical Engine', active: true, desc: 'Computes dynamic per-account thresholds (μ + 1.5σ) over 30/60-day historical rolling windows with minimum-data confidence guards to prevent false anomalies.', chips: ['Dynamic μ + 1.5σ', 'Rolling Windows', 'Confidence Guards'] },
+      { step: '05', title: '50+ Evaluation Rules', icon: 'fa-shield-halved', type: 'Diagnostic Rules Engine', desc: 'Evaluates 50+ deterministic rules across Sponsored Products, Brands, and Display for bid shifts, budget exhaustion, and Buy Box loss, pairing negative keyword generation with mathematical over-blocking protection to protect profitable parent queries.', chips: ['50+ Rules', 'Negative Keyword Generator', 'Over-blocking Protection', 'Bid/Budget Audits'] },
+      { step: '06', title: 'Structured Insights', icon: 'fa-square-check', type: 'Output Formatter & Contract', desc: 'Synthesizes typed contract with 6 sections: Summary Card, 2x Data Tables, Root Causes, Changes Log, and 1-click Downloadable Negative Keyword bulk files.', chips: ['Typed Contract', 'RCAReport.jsx', '1-Click Action Cards'] }
+    ],
     architecture: `
 [ Seller / Dashboard User ]
            │ "Why did my ACOS spike last week?" (English or Hinglish)
@@ -436,8 +490,13 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-ai',
     provenance: 'KAS Global Commerce • AI Research Intern',
     provenanceBadgeClass: 'badge-intern',
-    summary: 'Automated breadcrumb normalization, dense embedding generation, and sub-50ms vector similarity matching across multi-marketplace taxonomies.',
-    meta: ['3,072 Dims', 'pgvector IVFFLAT', 'Sub-50ms Retrieval'],
+    pipeline: [
+      { step: '01', title: 'Raw Taxonomy CSV', icon: 'fa-file-lines', type: 'Ingestion Input', desc: 'Ingests multi-marketplace category hierarchies across Amazon, Walmart, ONDC, and Flipkart with varying delimiter structures.', chips: ['Raw CSV Ingestion', 'Multi-Marketplace', 'Taxonomy Trees'] },
+      { step: '02', title: 'Breadcrumb Normalizer', icon: 'fa-filter', type: 'Preprocessing Pipeline', desc: 'Unifies hierarchy delimiters, strips promotional stopwords, and preserves root-to-leaf semantic depth hierarchy.', chips: ['clean_breadcrumbs.py', 'Depth Preservation', 'Stopword Removal'] },
+      { step: '03', title: 'Dense Embeddings', icon: 'fa-brain', type: 'Embedding Generation', desc: 'Generates high-dimensional semantic representations using OpenAI text-embedding-3-large (3,072 dimensions) with stateful batch checkpointing.', chips: ['3,072 Dimensions', 'text-embedding-3-large', 'Checkpointing'] },
+      { step: '04', title: 'PostgreSQL + pgvector', icon: 'fa-database', type: 'Vector Database Storage', active: true, desc: 'Stores embeddings in dedicated taxonomy tables with IVFFLAT vector indexing (vector_cosine_ops, lists=100) for sub-50ms nearest neighbor search.', chips: ['PostgreSQL', 'pgvector IVFFLAT', 'Sub-50ms Retrieval'] },
+      { step: '05', title: 'Disambiguation API', icon: 'fa-square-check', type: 'FastAPI Microservice', desc: 'FastAPI microservice (/api/v1/category-mapper) performing cosine similarity lookups and serving interactive disambiguation chips.', chips: ['FastAPI', 'Cosine Similarity', 'Disambiguation UX'] }
+    ],
     architecture: `
 [ Raw Taxonomy CSV (Amazon / Walmart / ONDC / Flipkart) ]
                          │
@@ -499,7 +558,13 @@ const PROJECT_CASE_STUDIES = {
     provenance: 'KAS Global Commerce • AI Research Intern to Full-Time',
     provenanceBadgeClass: 'badge-intern',
     summary: 'High-volume e-commerce catalog ingestion pipeline harvesting top 25 best-selling products per leaf category across global marketplaces with automated monthly scheduling.',
-    meta: ['1,000 req/min Zyte API', '90%+ Latency Reduction', 'Monthly Scheduled Cron'],
+    pipeline: [
+      { step: '01', title: 'Browse Node Queue', icon: 'fa-compass', type: 'Catalog Taxonomy Queue', desc: 'Traverses top 25 best-seller category browse nodes across global marketplaces using modular schema adapters (Amazon, ONDC, Walmart, Flipkart, eBay).', chips: ['Top 25 Browse Nodes', 'Modular Adapters', 'Multi-Marketplace'] },
+      { step: '02', title: 'Listing Discovery Crawler', icon: 'fa-filter', type: 'Stage 1: URL Discovery', desc: 'Stage 1 crawler isolates product ASIN and item ID collection from heavy extraction, queuing thousands of catalog targets with minimal overhead.', chips: ['Stage 1 Crawler', 'ASIN Harvesting', 'Fast Discovery'] },
+      { step: '03', title: 'Deep Extraction Workers', icon: 'fa-layer-group', type: 'Stage 2: Multithreaded Zyte', active: true, desc: 'Stage 2 multithreaded Zyte API extraction pool operating at 1,000 req/min with automated exponential backoff, harvesting specs, pricing, ratings, reviews, and media.', chips: ['Zyte API @ 1,000 req/min', 'Anti-Ban Spoofing', 'Auto Backoff', 'Rich Media'] },
+      { step: '04', title: 'MongoDB Atlas Ingestion', icon: 'fa-database', type: 'Document Persistence', desc: 'Validates schemas and persists structured e-commerce documents and category node hierarchies into indexed MongoDB Atlas collections.', chips: ['MongoDB Atlas', 'Indexed Collections', 'Product Documents', 'Category Nodes'] },
+      { step: '05', title: 'Monthly Cron Trigger', icon: 'fa-clock-rotate-left', type: 'Automated Pipeline Trigger', desc: 'Autonomous monthly cron scheduler executes end-to-end catalog crawls and automatically triggers the downstream Multimodal Text & Image Insight Pipeline upon completion.', chips: ['Monthly Cron Trigger', 'Zero Manual Ops', 'Downstream Insight Dispatch'] }
+    ],
     architecture: `
 [ Leaf Category Browse Node Queue ]
                  │
@@ -565,8 +630,13 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-ai',
     provenance: 'KAS Global Commerce • Intern → Automated in Full-Time',
     provenanceBadgeClass: 'badge-fulltime',
-    summary: 'Automated category-level NLP and computer vision pipeline analyzing text attributes (titles, bullets, specs) and 6 visual image types across top 25 category best-sellers.',
-    meta: ['Gemini File API + Multi-Key Rotation', '6 Image Visual Types', 'PostgreSQL Taxonomy Table'],
+    pipeline: [
+      { step: '01', title: 'Top 25 Catalog ASINs', icon: 'fa-file-lines', type: 'Catalog Ingestion', desc: 'Monthly scraped product catalog queue ingests top 25 category best-sellers across Amazon, ONDC, Walmart, Flipkart, and eBay.', chips: ['Monthly Scraping', 'Top 25 Best-Sellers', 'Multi-Marketplace'] },
+      { step: '02', title: 'Dual-Modal Extraction', icon: 'fa-diagram-project', type: 'Feature Extraction', desc: 'Parallel extraction orchestrator: text worker analyzes title lengths, keyword frequencies, and bullet clusters; image worker classifies 6 visual types (white background, lifestyle, infographic, dimension, packaging, close-up).', chips: ['Title Hook Mining', 'Bullet Clustering', '6 Image Visual Types', 'Composition Audits'] },
+      { step: '03', title: 'Gemini Batch Runner', icon: 'fa-layer-group', type: 'GenAI File API Pool', active: true, desc: 'Batch runner with Gemini File API, intelligent multi-key round-robin rotation, 1.5-hour error cooldowns, and automatic resume-on-failure retry queues.', chips: ['Gemini File API', 'Multi-Key Rotation', '1.5-Hour Cooldown', 'Zero Quota Starvation'] },
+      { step: '04', title: 'PostgreSQL Taxonomy', icon: 'fa-database', type: 'Relational DB Records', desc: 'Persists structured JSON outputs directly into dedicated text_insights and image_insights columns in marketplace PostgreSQL taxonomy tables.', chips: ['PostgreSQL Partitioning', 'JSON Schema Synthesis', '3,072-dim Embeddings'] },
+      { step: '05', title: 'Category Benchmarks', icon: 'fa-square-check', type: 'Downstream Strategy', desc: 'Delivers actionable category creative blueprints identifying an 84%+ lifestyle and 92%+ infographic visual adoption rate among leaders.', chips: ['Actionable Insights', 'Brand Benchmarking', 'Conversion Uplift'] }
+    ],
     architecture: `
 [ Top 25 Category ASINs (Monthly Scraped Catalog) ]
                         │
@@ -622,8 +692,13 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-ai',
     provenance: 'KAS Global Commerce • AI Engineer (Full-Time)',
     provenanceBadgeClass: 'badge-fulltime',
-    summary: 'Visual and copywriting intelligence engine analyzing competitor Amazon A+ modules to extract visual design patterns, product placement, background settings, and headline messaging for automated A+ content creation.',
-    meta: ['Gemini 2.5 Flash Vision', 'Module 5 Live (19 Std + 21 Prem Roadmap)', 'PostgreSQL aplus_insights'],
+    pipeline: [
+      { step: '01', title: 'Top 25 A+ Banners', icon: 'fa-file-lines', type: 'Competitor Ingestion', desc: 'Ingests top 25 category ASIN details and competitor Amazon A+ visual banner modules from monthly scraped databases.', chips: ['Amazon A+ Banners', 'Module Deconstruction', 'Top 25 ASINs'] },
+      { step: '02', title: 'Vision Crop Analysis', icon: 'fa-crop', type: 'Computer Vision', desc: 'Performs rule-of-thirds composition analysis, color contrast evaluation, and background layout segmentation.', chips: ['OpenCV / Pillow', 'Rule of Thirds', 'Color Contrast'] },
+      { step: '03', title: 'Gemini 2.5 Flash Vision', icon: 'fa-brain', type: 'Multimodal Deconstruction', active: true, desc: 'Deconstructs visual design patterns, product placement, and headline messaging for Amazon A+ content modules (Module 5 live; 40-module roadmap).', chips: ['Gemini 2.5 Flash Vision', 'Module 5 Live', '19 Std + 21 Prem'] },
+      { step: '04', title: 'PostgreSQL Taxonomy Store', icon: 'fa-database', type: 'Relational DB Records', desc: 'Stores category-level synthesized creative blueprints in dedicated aplus_insights_<run_id> columns partitioned by category and date.', chips: ['PostgreSQL Schema', 'aplus_insights', 'Partitioned Storage'] },
+      { step: '05', title: 'Creative Blueprint', icon: 'fa-square-check', type: 'Automated Synthesis', desc: 'Outputs structured creative blueprints with headline hooks, background guidelines, and visual archetypes for automated A+ generation.', chips: ['Creative Synthesis', 'Layout Archetypes', 'Zero Manual Copywriting'] }
+    ],
     architecture: `
 [ Top 25 Category ASIN Details & Competitor A+ Banners ]
                         │
@@ -677,8 +752,13 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-ai',
     provenance: 'KAS Global Commerce • AI Research Intern',
     provenanceBadgeClass: 'badge-intern',
-    summary: 'FastAPI microservices delivering category disambiguation, product detail extraction, and category strategy retrieval powering the MSC IQ conversational assistant.',
-    meta: ['3 Core Microservices', 'FastAPI + pgvector', 'Dynamic Chip Disambiguation'],
+    pipeline: [
+      { step: '01', title: 'User Query & Auth', icon: 'fa-comments', type: 'Frontend Ingestion', desc: 'Accepts natural language seller queries in MSC IQ; validated with JWT authentication and plan credits via ms-auth-manager middleware.', chips: ['MSC IQ Assistant', 'FastAPI Stream', 'JWT Validation', 'RBAC Middleware'] },
+      { step: '02', title: '/category-mapper Service', icon: 'fa-diagram-project', type: 'Vector Disambiguation', desc: 'Computes pgvector cosine similarity against 3,072-dimensional taxonomy embeddings and returns interactive disambiguation chips under 50ms.', chips: ['pgvector Cosine Search', 'Sub-50ms Latency', 'Dynamic Chips'] },
+      { step: '03', title: '/insights RAG Retrieval', icon: 'fa-database', type: 'Knowledge Store', active: true, desc: 'High-concurrency microservice fetching structured pre-computed category JSON insights (pricing distributions, coupon trends, keywords) with DB connection pooling.', chips: ['/api/v1/insights', 'Connection Pooling', 'Zero Hallucination', 'JSON Insights'] },
+      { step: '04', title: 'Context Augmented LLM', icon: 'fa-brain', type: 'Grounded Generation', desc: 'Injects verified category benchmarks and quantitative bounds into the LLM context prompt to generate factual strategic recommendations.', chips: ['Prompt Grounding', 'Context Injection', 'Pydantic Schemas'] },
+      { step: '05', title: 'Interactive Chat Stream', icon: 'fa-square-check', type: 'Response Streaming', desc: 'Streams responses via SSE with interactive category chips, product details (/api/v1/product-details), and formatted comparison tables.', chips: ['SSE Streaming', '/api/v1/product-details', 'Sub-100ms First Token', '100% Grounded'] }
+    ],
     architecture: `
 [ User: "What should be my pricing strategy?" ]
                        │
@@ -734,8 +814,13 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-ai',
     provenance: 'Flagship Open-Source Architecture • In Active Development',
     provenanceBadgeClass: 'badge-blueprint',
-    summary: 'Production-grade agentic platform combining LangGraph multi-agent orchestration, NeMo Guardrails, and hybrid pgvector retrieval to prevent prompt injection and data exfiltration.',
-    meta: ['NeMo Guardrails', 'Dual LLM Verification', 'Zero Prompt Leakage'],
+    pipeline: [
+      { step: '01', title: 'Inbound User Query', icon: 'fa-file-lines', type: 'Untrusted Ingestion', desc: 'Accepts enterprise user prompts through the secured API gateway with session token validation.', chips: ['Gateway Auth', 'Session State', 'Untrusted Input'] },
+      { step: '02', title: 'NeMo Guardrails Interceptor', icon: 'fa-shield-halved', type: 'Input Firewall', desc: 'Runs heuristic jailbreak filters, detects prompt injection attempts, and redacts sensitive PII and credential tokens.', chips: ['NeMo Guardrails', 'PII Redaction', 'Anti-Jailbreak'] },
+      { step: '03', title: 'LangGraph Supervisor', icon: 'fa-diagram-project', type: 'Agent Orchestration', active: true, desc: 'Routes stateful tasks across specialized agent nodes using StateGraph workflows and strict permission boundaries.', chips: ['LangGraph', 'StateGraph Workflows', 'RBAC Validation'] },
+      { step: '04', title: 'Hybrid pgvector Search', icon: 'fa-database', type: 'Secure Vector Retrieval', desc: 'Combines dense vector similarity with sparse BM25 lexical search and cross-encoder re-ranking under tenant isolation.', chips: ['Hybrid Search', 'Dense + BM25', 'Tenant Isolation'] },
+      { step: '05', title: 'Dual LLM Verifier & SIEM', icon: 'fa-square-check', type: 'Auditing & Telemetry', desc: 'Secondary auditor model verifies generated response for secret leakage, exfiltration, or hallucinations; exports traces to Splunk SIEM.', chips: ['Dual Verification', 'Langfuse Tracing', 'Splunk SIEM Export'] }
+    ],
     architecture: `
 [ Inbound User Query ]
           │
@@ -789,13 +874,19 @@ const PROJECT_CASE_STUDIES = {
   },
 
   'splunk-siem-lab': {
-    title: 'Splunk SIEM Lab — Real Attack Detection & Security Monitoring',
+    title: 'Splunk SIEM Lab — Multi-Stage Attack Detection & Security Operations Monitoring',
     category: 'SIEM • SOC Monitoring',
     categoryBadgeClass: 'badge-security',
     provenance: 'Hands-On SOC Lab • Enterprise SIEM',
     provenanceBadgeClass: 'badge-personal',
-    summary: 'Built a multi-VM Splunk SIEM lab, forwarded Linux and Apache logs with Splunk Universal Forwarder, simulated Hydra and Nikto attacks, and created SPL detections, alerts, and dashboards.',
-    meta: ['Splunk Enterprise', '620 Failed SSH Logins', 'Real-Time Alerting'],
+    summary: 'Full-cycle enterprise SOC monitoring lab deploying Splunk Enterprise 9.x to ingest live authentication and Apache telemetry from an Ubuntu web server over Universal Forwarder (port 9997). Simulated multi-vector adversary attacks with Hydra (620 failed SSH logins) and Nikto web vulnerability scans, establishing custom SPL detection rules, real-time alerting triggers, and a unified incident dashboard.',
+    pipeline: [
+      { step: '01', title: 'Enterprise SOC Architecture', icon: 'fa-server', type: 'Lab Virtualization', desc: 'Configured an enterprise SOC lab pairing an Ubuntu Server 22.04 Apache web target with a dedicated Splunk Enterprise 9.x SIEM indexer and a Kali Linux attacker VM.', chips: ['Splunk Enterprise 9.x', 'Ubuntu Server 22.04', 'Kali Linux', 'Enterprise Subnet'] },
+      { step: '02', title: 'Universal Forwarder Ingest', icon: 'fa-network-wired', type: 'Log Pipeline & Ingestion', desc: 'Configured Splunk Universal Forwarder on port 9997, streaming auth.log, syslog, and Apache access/error logs into dedicated index=security and index=web partitions with zero ingestion delay.', chips: ['Port 9997 Forwarder', 'auth.log & syslog', 'Apache Access Logs', 'Zero Packet Loss'] },
+      { step: '03', title: 'Hydra & Nikto Adversary Run', icon: 'fa-skull', type: 'Threat Emulation', desc: 'Emulated multi-stage attacks: Hydra executed an automated SSH brute-force attack (generating 620 failed logins), while Nikto scanned Apache endpoints, generating bursts of 404 access events.', chips: ['Hydra 620 SSH Failures', 'Nikto Web Scanner', 'Status 404 Burst', 'Attacker IP Attribution'] },
+      { step: '04', title: 'Custom SPL Threat Hunting', icon: 'fa-magnifying-glass-chart', type: 'Correlation & Querying', active: true, desc: 'Authored high-precision SPL correlation queries: thresholding failed SSH logins (>10 attempts by source IP) and grouping web scanner spikes by client IP within 1-minute time buckets.', chips: ['Custom SPL Queries', 'Failed Login Threshold', 'Time-Bucket Aggregation', 'Indicator Triage'] },
+      { step: '05', title: 'Real-Time Alerts & Dashboard', icon: 'fa-shield-halved', type: 'Incident Detection & Visualization', desc: 'Constructed a multi-panel SOC dashboard visualizing failed authentication trends, top malicious IP addresses, and HTTP error distributions, backed by automated real-time alert triggers.', chips: ['Real-Time Alert Trigger', 'Multi-Panel Dashboard', 'Top Attacker Attribution', 'Incident Response'] }
+    ],
     architecture: `
 ┌───────────────────────────┐         ┌───────────────────────────┐
 │     ATTACKER MACHINE      │         │     PROTECTED TARGET      │
@@ -891,13 +982,20 @@ const PROJECT_CASE_STUDIES = {
   },
 
   'dos-attack-simulation': {
-    title: 'DoS Attack Simulation & Traffic Analysis on Metasploitable 2',
+    title: 'DoS Attack Simulation & Protocol Traffic Forensics on Metasploitable 2',
     category: 'Network Protocol Analysis',
     categoryBadgeClass: 'badge-security',
-    provenance: 'Packet Traffic Forensics Lab',
+    provenance: 'Packet Traffic Forensics Lab • Kali Linux & Wireshark',
     provenanceBadgeClass: 'badge-personal',
-    summary: 'Simulated 6 types of DoS attacks on a vulnerable VM and captured + analysed attack traffic patterns using Wireshark.',
-    meta: ['6 Attack Vectors', 'Wireshark PCAPs', 'Protocol Signatures'],
+    summary: 'Comprehensive Denial of Service simulation and protocol traffic forensics lab conducted in an isolated virtualized environment. Executed 6 distinct DoS attack vectors from Kali Linux against Metasploitable 2, performing deep packet inspection in Wireshark to isolate socket starvation signatures, half-open connection queues, ICMP diagnostics, and formulating defensive detection rules.',
+    pipeline: [
+      { step: '01', title: 'Isolated Lab Virtualization', icon: 'fa-server', type: 'Virtual Network Setup', desc: 'Constructed an isolated VirtualBox host-only subnet (192.168.56.0/24) pairing a Kali Linux attacking VM (192.168.56.101) with a vulnerable Metasploitable 2 target (192.168.56.102).', chips: ['VirtualBox Host-Only', 'Kali Linux', 'Metasploitable 2', 'Bridged Subnet'] },
+      { step: '02', title: 'Slowloris HTTP Starvation', icon: 'fa-hourglass-half', type: 'Application-Layer Attack', desc: 'Simulated Slowloris using Nmap NSE and Perl scripts, transmitting incomplete HTTP GET headers at periodic keep-alive intervals to hold Apache port 80 worker threads open until connection pool starvation.', chips: ['Partial HTTP GETs', 'Keep-Alive Headers', 'Port 80 Starvation', 'Nmap NSE'] },
+      { step: '03', title: 'TCP SYN Flood Attack', icon: 'fa-network-wired', type: 'Transport-Layer Attack', desc: 'Executed high-volume SYN flood with hping3 (-S -p 80 --flood --rand-source), flooding the target with unacknowledged TCP SYN packets and saturating the half-open connection backlog queue.', chips: ['hping3 SYN Flood', 'Half-Open Connections', 'Backlog Saturation', 'Spoofed IPs'] },
+      { step: '04', title: 'UDP Flood Diagnostics', icon: 'fa-triangle-exclamation', type: 'UDP Saturation & Diagnostics', desc: 'Bombarded target with high-velocity UDP datagrams across random ports, verifying system degradation via sustained ICMP Destination Unreachable (Type 3, Code 3: Port Unreachable) responses.', chips: ['UDP Datagram Burst', 'ICMP Destination Unreachable', 'Port 3 Unreachable'] },
+      { step: '05', title: 'TCP FIN & PSH+ACK Floods', icon: 'fa-shield-halved', type: 'Control Flag Anomalies', desc: 'Transmitted abnormal TCP FIN and PSH+ACK packet streams bypassing naive stateless packet filters, forcing the target operating system stack to allocate immediate kernel buffer processing cycles.', chips: ['TCP FIN Spikes', 'PSH+ACK Flooding', 'Stateful Inspection', 'Kernel Buffers'] },
+      { step: '06', title: 'Wireshark Packet Forensics', icon: 'fa-magnifying-glass-chart', type: 'Deep Packet Forensics', active: true, desc: 'Captured full pcap traces in Wireshark, analyzed TCP conversation statistics and IO graphs, extracted protocol anomalies, and formulated deterministic Snort/Suricata IDS detection rules.', chips: ['Deep Packet Inspection', 'IO Graph Analysis', 'Snort/Suricata Signatures', 'PCAP Forensics'] }
+    ],
     architecture: `
 ┌───────────────────────────┐         ┌───────────────────────────┐
 │     ATTACK MACHINE        │         │     VULNERABLE TARGET     │
@@ -982,10 +1080,16 @@ const PROJECT_CASE_STUDIES = {
     title: 'Disk Image Forensic Investigation using Autopsy & FTK Imager',
     category: 'Digital Forensics (DFIR)',
     categoryBadgeClass: 'badge-security',
-    provenance: 'Digital Disk Forensics Lab',
+    provenance: 'Digital Disk Forensics Lab • Sleuth Kit & FTK',
     provenanceBadgeClass: 'badge-personal',
-    summary: 'Autopsy and FTK Imager investigation covering file analysis, keyword search, timeline reconstruction, and deleted file recovery using hexadecimal header analysis.',
-    meta: ['DFIR', 'Timeline Reconstruction', 'Hex Signature Carving'],
+    summary: 'End-to-end digital disk forensics investigation on raw and Expert Witness (.E01) disk images. Followed strict chain-of-custody protocols with MD5 and SHA-1 hash integrity verification, automated Autopsy ingest module processing, keyword indexing, FTK Imager hexadecimal file carving of deleted PDF documents from $RECYCLE.BIN, and defensible chronological timeline reporting.',
+    pipeline: [
+      { step: '01', title: 'Evidence Intake & Hash Seals', icon: 'fa-file-shield', type: 'Chain of Custody', desc: 'Secured evidentiary disk image (.dd / .E01) with cryptographic MD5 and SHA-1 verification hashes, establishing an uncompromised chain of custody before forensic mounting.', chips: ['Cryptographic MD5 & SHA-1', 'Forensic Image Intake', 'Chain of Custody', 'Integrity Sealed'] },
+      { step: '02', title: 'Autopsy Ingest & Parsing', icon: 'fa-folder-tree', type: 'Automated Ingest Modules', desc: 'Executed Autopsy automated ingest modules: volume partition parsing, MIME type resolution, extension mismatch detection, and unallocated cluster indexing.', chips: ['Autopsy Ingest Modules', 'Partition Table Parsing', 'MIME Resolution', 'Extension Mismatch'] },
+      { step: '03', title: 'Keyword Search & Unallocated Triage', icon: 'fa-magnifying-glass', type: 'Evidence Set Reduction', desc: 'Executed targeted keyword and regex queries across unallocated clusters, filtering through gigabytes of raw data to identify suspect communication strings and hidden files.', chips: ['Keyword Indexing', 'Regex Querying', 'Cluster Analysis', 'Data Reduction'] },
+      { step: '04', title: 'Hex Signature Carving', icon: 'fa-code', type: 'Deleted Artifact Carving', active: true, desc: 'Utilized FTK Imager to perform byte-level signature carving in $RECYCLE.BIN. Verified PDF magic header (25 50 44 46: %PDF-) and EOF trailer (25 45 4F 46: %%EOF), recovering intact evidentiary documents.', chips: ['FTK Imager Carving', 'Magic Header 25 50 44 46', 'EOF Trailer 25 45 4F 46', 'Recycle Bin Recovery'] },
+      { step: '05', title: 'Timeline & Forensic Report', icon: 'fa-timeline', type: 'Incident Chronology & Report', desc: 'Reconstructed a chronological activity timeline from file MACB timestamps and generated comprehensive, court-defensible forensic reports cataloging findings and attribution evidence.', chips: ['MACB Timestamps', 'Chronological Timeline', 'Court-Defensible DFIR', 'Formal Case Report'] }
+    ],
     architecture: `
 [ Forensic Evidence Intake: Raw .dd / .E01 Disk Image ]
                          │
@@ -1077,8 +1181,13 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-security',
     provenance: 'Hands-On OSINT Lab • TryHackMe',
     provenanceBadgeClass: 'badge-personal',
-    summary: 'Full-spectrum open-source intelligence (OSINT) investigation recovering a missing subject’s location, timeline, and associate network using EXIF metadata forensics, reverse image search, and SOCMINT.',
-    meta: ['TryHackMe Missing Person', 'EXIF Metadata Forensics', 'SOCMINT & Geolocation'],
+    pipeline: [
+      { step: '01', title: 'Artifact Intake & EXIF', icon: 'fa-file-lines', type: 'Metadata Forensics', desc: 'Ingests uncaptioned photos (MotoGP.jpg, food.jpg) and extracts camera metadata using exifmeta to recover original capture dates and timestamps.', chips: ['exifmeta', 'EXIF Metadata', 'Timestamp Forensics', 'Image Intake'] },
+      { step: '02', title: 'Geospatial Recon (GEOINT)', icon: 'fa-earth-americas', type: 'Location Geolocation', desc: 'Reverse image lookups on track landmarks geolocate the event to Pertamina Mandalika International Circuit in Lombok, Indonesia, correlating local dining venues.', chips: ['Reverse Image Search', 'Pertamina Mandalika Circuit', 'Lombok, Indonesia', 'GEOINT'] },
+      { step: '03', title: 'Social Media Recon (SOCMINT)', icon: 'fa-hashtag', type: 'Entity Resolution', active: true, desc: 'Analyzes Indonesian social media event feeds to locate afterparty advertisements at Surfers Bar in Kuta Lombok, extracting performer identity (DJ Bongleleh).', chips: ['SOCMINT', 'Surfers Bar, Kuta Lombok', 'DJ Bongleleh', 'Link Analysis'] },
+      { step: '04', title: 'Timeline Reconstruction', icon: 'fa-timeline', type: 'Chronological Synthesis', desc: 'Corroborates photographic timestamps with the official Oct 3–5, 2025 MotoGP championship calendar to establish an unbroken, minute-by-minute subject movement ledger.', chips: ['Oct 3-5, 2025 MotoGP Calendar', 'Timeline Corroboration', 'Zero Speculation'] },
+      { step: '05', title: 'Target Resolution', icon: 'fa-location-dot', type: 'Final Intelligence', desc: 'Maps nearby cavern landmarks (Gua Sumur) and cross-correlates business registries to pinpoint subject coordinates and recover verified associate telephone records.', chips: ['Gua Sumur Cavern', 'Verified Phone Record', 'TryHackMe Solved', 'High-Confidence Intel'] }
+    ],
     architecture: `
 ┌─────────────────────────────────────────────────────────────────┐
 │ PHASE 1: DIGITAL ARTIFACT INTAKE & METADATA FORENSICS           │
@@ -1137,8 +1246,125 @@ const PROJECT_CASE_STUDIES = {
 };
 
 /* ==========================================================================
-   4. PROJECT CASE STUDY SYSTEM & MODAL LOGIC
+   4. PROJECT CASE STUDY SYSTEM & MODAL LOGIC (INTERACTIVE PIPELINE UPGRADE)
    ========================================================================== */
+
+// Helper to pick contextual icons for pipeline stages
+function pickPipelineIcon(name, idx) {
+  const t = (name || '').toLowerCase();
+  if (t.includes('mongo') || t.includes('database') || t.includes('storage') || t.includes('postgres') || t.includes('atlas') || t.includes('record')) return 'fa-database';
+  if (t.includes('crawler') || t.includes('scrape') || t.includes('discovery') || t.includes('queue') || t.includes('browse')) return 'fa-compass';
+  if (t.includes('router') || t.includes('agent') || t.includes('supervisor') || t.includes('routing') || t.includes('orchestrat')) return 'fa-diagram-project';
+  if (t.includes('model') || t.includes('gemini') || t.includes('llm') || t.includes('ai') || t.includes('cnn') || t.includes('classifier') || t.includes('neural') || t.includes('consensus')) return 'fa-brain';
+  if (t.includes('request') || t.includes('user') || t.includes('dashboard') || t.includes('seller') || t.includes('query') || t.includes('client')) return 'fa-file-lines';
+  if (t.includes('privacy') || t.includes('security') || t.includes('ldp') || t.includes('guard') || t.includes('ids') || t.includes('sensor') || t.includes('containment') || t.includes('siem') || t.includes('rule')) return 'fa-shield-halved';
+  if (t.includes('insight') || t.includes('report') || t.includes('finding') || t.includes('metric') || t.includes('structured') || t.includes('evaluat')) return 'fa-square-check';
+  if (t.includes('cron') || t.includes('trigger') || t.includes('schedul') || t.includes('timer')) return 'fa-clock-rotate-left';
+  if (t.includes('vector') || t.includes('search') || t.includes('embed') || t.includes('map')) return 'fa-magnifying-glass-chart';
+  if (t.includes('worker') || t.includes('pool') || t.includes('run') || t.includes('service') || t.includes('memory') || t.includes('extract') || t.includes('deep')) return 'fa-layer-group';
+  
+  const fallbackIcons = ['fa-file-lines', 'fa-diagram-project', 'fa-layer-group', 'fa-database', 'fa-square-check', 'fa-cubes'];
+  return fallbackIcons[idx % fallbackIcons.length];
+}
+
+// Smart headline generator for pipeline steps (never cuts words in half)
+function formatStepHeadline(text, fallbackIndex) {
+  if (!text || typeof text !== 'string') return `Stage ${String(fallbackIndex + 1).padStart(2, '0')}`;
+  
+  // Clean prefix if present (e.g. "Step 1: ", "01. ")
+  let clean = text.replace(/^(step\s*\d+[:\-.]?|\d+[\-.:)]\s*)/i, '').trim();
+  
+  // Take first sentence or clause
+  const firstSentence = clean.split(/[.;\n]/)[0].trim();
+  
+  // If it's already reasonably sized (<= 36 chars), return it intact
+  if (firstSentence.length <= 36) {
+    return firstSentence;
+  }
+  
+  // Otherwise, split on comma or dash if that provides a balanced phrase
+  const commaPart = firstSentence.split(/[,—–\-]/)[0].trim();
+  if (commaPart.length >= 12 && commaPart.length <= 36) {
+    return commaPart;
+  }
+  
+  // Break on word boundary so words are never truncated awkwardly
+  const words = firstSentence.split(/\s+/);
+  let result = '';
+  for (const w of words) {
+    if ((result + ' ' + w).trim().length <= 32) {
+      result = (result + ' ' + w).trim();
+    } else {
+      break;
+    }
+  }
+  return result || firstSentence.slice(0, 30);
+}
+
+// Helper to retrieve or automatically generate pipeline stages
+function getProjectPipeline(data) {
+  if (Array.isArray(data.pipeline) && data.pipeline.length > 0) {
+    return data.pipeline;
+  }
+
+  // Parse architecture string if present
+  if (data.architecture && typeof data.architecture === 'string') {
+    const lines = data.architecture.split('\n');
+    const nodes = [];
+    let currentNode = null;
+
+    lines.forEach(line => {
+      const match = line.match(/^\s*\[\s*([^\]\n]+)\s*\]/);
+      if (match) {
+        if (currentNode) nodes.push(currentNode);
+        const rawName = match[1].trim();
+        const cleanName = rawName.replace(/^Stage \d+:\s*/i, '');
+        currentNode = {
+          step: String(nodes.length + 1).padStart(2, '0'),
+          title: formatStepHeadline(cleanName, nodes.length),
+          icon: pickPipelineIcon(cleanName, nodes.length),
+          type: 'Pipeline Node',
+          desc: '',
+          chips: []
+        };
+      } else if (currentNode && line.trim().startsWith('•')) {
+        const bullet = line.trim().replace(/^•\s*/, '');
+        if (!currentNode.desc) {
+          currentNode.desc = bullet;
+        } else {
+          currentNode.chips.push(bullet);
+        }
+      } else if (currentNode && line.trim() && !line.includes('│') && !line.includes('▼') && !line.includes('─') && !line.includes('┌') && !line.includes('└') && !line.includes('├') && !line.includes('┼')) {
+        if (!currentNode.desc) {
+          currentNode.desc = line.trim();
+        }
+      }
+    });
+    if (currentNode) nodes.push(currentNode);
+
+    if (nodes.length >= 2) {
+      nodes.forEach(n => {
+        if (!n.desc) n.desc = `${n.title} processes and transfers pipeline telemetry to the next execution stage.`;
+      });
+      return nodes;
+    }
+  }
+
+  // Fallback to process steps with complete, clean headlines (no word chopping)
+  if (Array.isArray(data.process) && data.process.length > 0) {
+    return data.process.slice(0, 6).map((proc, idx) => ({
+      step: String(idx + 1).padStart(2, '0'),
+      title: formatStepHeadline(proc, idx),
+      icon: pickPipelineIcon(proc, idx),
+      type: `Execution Stage ${idx + 1}`,
+      desc: proc,
+      chips: (data.tools || []).slice(0, 3)
+    }));
+  }
+
+  return [];
+}
+
 function initProjectCaseStudySystem() {
   const modal = document.getElementById('projectCaseStudyModal');
   const closeBtn = document.getElementById('caseStudyCloseBtn');
@@ -1172,7 +1398,7 @@ function initProjectCaseStudySystem() {
     if (titleEl) titleEl.textContent = data.title;
 
     const summaryEl = document.getElementById('caseStudySummary');
-    if (summaryEl) summaryEl.textContent = data.summary;
+    if (summaryEl) summaryEl.textContent = data.summary || data.objective || '';
 
     // Meta chips
     const metaRow = document.getElementById('caseStudyMetaRow');
@@ -1188,33 +1414,99 @@ function initProjectCaseStudySystem() {
       }
     }
 
-    // 2. Architecture Blueprint
-    const archSection = document.getElementById('caseStudyArchSection');
-    const archPre = document.getElementById('caseStudyArch');
-    if (archSection && archPre) {
-      if (data.architecture && data.architecture.trim().length > 0) {
-        archPre.textContent = data.architecture.trim();
-        archSection.style.display = 'block';
-      } else {
-        archSection.style.display = 'none';
+    // 2. Objective (Positioned directly above Interactive Visual Pipeline)
+    const objEl = document.getElementById('caseStudyObjective');
+    const objSection = document.getElementById('caseStudyObjectiveSection');
+    if (objEl) {
+      objEl.textContent = data.objective || '';
+      if (objSection) {
+        objSection.style.display = data.objective ? 'block' : 'none';
       }
     }
 
-    // 3. Objective
-    const objEl = document.getElementById('caseStudyObjective');
-    if (objEl) objEl.textContent = data.objective || '';
+    // 3. Interactive Visual Execution Pipeline (Auto-fitting from left to right, No Horizontal Overflow)
+    const archSection = document.getElementById('caseStudyArchSection');
+    const kickerTag = document.getElementById('pipelineKickerTag');
+    const track = document.getElementById('caseStudyPipelineTrack');
+    const detailBadge = document.getElementById('pipelineDetailStepBadge');
+    const detailType = document.getElementById('pipelineDetailType');
+    const detailTitle = document.getElementById('pipelineDetailTitle');
+    const detailDesc = document.getElementById('pipelineDetailDesc');
+    const detailChips = document.getElementById('pipelineDetailChips');
 
-    // 4. Process Steps
-    const processList = document.getElementById('caseStudyProcess');
-    if (processList) {
-      processList.innerHTML = '';
-      if (Array.isArray(data.process)) {
-        data.process.forEach(step => {
-          const li = document.createElement('li');
-          li.innerHTML = step;
-          processList.appendChild(li);
-        });
+    const steps = getProjectPipeline(data);
+
+    if (archSection && track && steps && steps.length > 0) {
+      archSection.style.display = 'block';
+
+      // Update kicker tag (e.g. COMMERCE BRAIN / WORKFLOW)
+      if (kickerTag) {
+        const provPrefix = (data.provenance || data.title).split('•')[0].trim().toUpperCase();
+        kickerTag.textContent = `${provPrefix} / WORKFLOW`;
       }
+
+      // Render interactive pipeline track
+      track.innerHTML = '';
+      steps.forEach((step, idx) => {
+        const node = document.createElement('div');
+        node.className = 'pipeline-step-node';
+        node.setAttribute('role', 'button');
+        node.setAttribute('tabindex', '0');
+        node.setAttribute('aria-label', `Step ${step.step}: ${step.title}`);
+        node.dataset.stepIndex = idx;
+
+        node.innerHTML = `
+          <div class="pipeline-step-top">
+            <span class="pipeline-step-num">${step.step}</span>
+            <i class="fa-solid ${step.icon || 'fa-cubes'} pipeline-step-icon"></i>
+          </div>
+          <div class="pipeline-step-name">${step.title}</div>
+        `;
+
+        const activateStep = () => {
+          track.querySelectorAll('.pipeline-step-node').forEach(n => n.classList.remove('active'));
+          node.classList.add('active');
+
+          if (detailBadge) detailBadge.textContent = `STEP ${step.step}`;
+          if (detailType) detailType.textContent = step.type || 'Stage Component';
+          if (detailTitle) detailTitle.textContent = step.title;
+          if (detailDesc) detailDesc.textContent = step.desc || '';
+
+          if (detailChips) {
+            detailChips.innerHTML = '';
+            const chipsList = Array.isArray(step.chips) && step.chips.length > 0 
+              ? step.chips 
+              : (data.tools || []).slice(0, 3);
+            chipsList.forEach(c => {
+              const chipSpan = document.createElement('span');
+              chipSpan.className = 'pipeline-chip';
+              chipSpan.textContent = c;
+              detailChips.appendChild(chipSpan);
+            });
+          }
+        };
+
+        node.addEventListener('click', activateStep);
+        node.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            activateStep();
+          }
+        });
+
+        track.appendChild(node);
+      });
+
+      // Activate default step (check if a step is explicitly flagged as active, else step 0)
+      const initialIdx = steps.findIndex(s => s.active) !== -1 
+        ? steps.findIndex(s => s.active) 
+        : 0;
+      const initialNode = track.querySelector(`.pipeline-step-node[data-step-index="${initialIdx}"]`);
+      if (initialNode) {
+        initialNode.click();
+      }
+    } else if (archSection) {
+      archSection.style.display = 'none';
     }
 
     // 5. Evidence Gallery (Screenshots with Click-to-Zoom Lightbox)
@@ -1697,25 +1989,38 @@ function initCopyButtons() {
    7. EXPERIENCE TO PROJECT DEEP-LINKING & HIGHLIGHT PULSE
    ========================================================================== */
 function initExperienceProjectJump() {
-  const jumpPills = document.querySelectorAll('.exp-jump-pill');
+  const jumpLinks = document.querySelectorAll('.exp-jump-pill, .exp-bullet-link, .exp-related-link');
 
-  jumpPills.forEach(pill => {
-    pill.addEventListener('click', (e) => {
-      e.preventDefault();
-      const targetId = pill.getAttribute('data-target') || (pill.getAttribute('href') ? pill.getAttribute('href').replace('#', '') : null);
+  jumpLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      const targetId = link.getAttribute('data-target') || (href && href.startsWith('#') ? href.replace('#', '') : null);
       if (!targetId) return;
 
       const targetCard = document.getElementById(targetId);
       if (!targetCard) return;
 
-      // If the target project is hidden by active mode tab, switch to 'all' so it is visible
-      const activeTab = document.querySelector('.mode-tab.active');
+      e.preventDefault();
+
+      // If the target project is hidden by active mode tab, make sure its category is active
+      const isTargetFeatured = targetCard.getAttribute('data-featured') === 'true';
       const targetCategory = targetCard.getAttribute('data-category');
-      if (activeTab && activeTab.getAttribute('data-mode') !== 'all') {
-        const currentMode = activeTab.getAttribute('data-mode');
-        if (targetCategory && currentMode !== targetCategory) {
-          const allTab = document.querySelector('.mode-tab[data-mode="all"]');
-          if (allTab) allTab.click();
+      const activeTab = document.querySelector('.mode-tab.active');
+      const activeMode = activeTab ? activeTab.getAttribute('data-mode') : 'featured';
+
+      const isVisible = (activeMode === 'featured' && isTargetFeatured) ||
+                        (activeMode === 'ai' && (targetCategory === 'ai' || targetCategory === 'overlap')) ||
+                        (activeMode === 'security' && (targetCategory === 'security' || targetCategory === 'overlap')) ||
+                        (activeMode === 'overlap' && targetCategory === 'overlap');
+
+      if (!isVisible) {
+        let matchingTab = null;
+        if (targetCategory === 'ai') matchingTab = document.querySelector('.mode-tab[data-mode="ai"]');
+        else if (targetCategory === 'security') matchingTab = document.querySelector('.mode-tab[data-mode="security"]');
+        else if (targetCategory === 'overlap') matchingTab = document.querySelector('.mode-tab[data-mode="overlap"]');
+
+        if (matchingTab) {
+          matchingTab.click();
         }
       }
 
@@ -1734,4 +2039,293 @@ function initExperienceProjectJump() {
       }, 2600);
     });
   });
+}
+
+/* ==========================================================================
+   8. INTERNSHIP DETAILS COLLAPSIBLE TOGGLE
+   ========================================================================== */
+function initExperienceInternToggle() {
+  const toggleBtn = document.getElementById('internToggle');
+  const content = document.getElementById('internContent');
+  const chevron = document.getElementById('internChevron');
+  const label = document.getElementById('internToggleLabel');
+
+  if (!toggleBtn || !content) return;
+
+  const toggle = () => {
+    const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+    if (isExpanded) {
+      content.style.display = 'none';
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      if (chevron) chevron.classList.remove('open');
+      if (label) label.textContent = 'Show internship details (4 systems)';
+    } else {
+      content.style.display = 'block';
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      if (chevron) chevron.classList.add('open');
+      if (label) label.textContent = 'Hide internship details';
+    }
+  };
+
+  toggleBtn.addEventListener('click', toggle);
+  toggleBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggle();
+    }
+  });
+}
+
+/* ==========================================================================
+   9. DEDICATED PROJECTS PAGE (PROJECTS.HTML) TWO-TIER FILTER SYSTEM
+   ========================================================================== */
+function initProjectsPageFilters() {
+  const filterWrapper = document.querySelector('.projects-filter-wrapper');
+  if (!filterWrapper) return; // Only execute when on projects.html
+
+  const sectionTabs = filterWrapper.querySelectorAll('.filter-section-tab');
+  const capabilityTags = filterWrapper.querySelectorAll('.capability-tag');
+  const resultsCountEl = document.getElementById('resultsCount');
+  const activeSummaryEl = document.getElementById('activeFilterSummary');
+  const clearBtn = document.getElementById('clearFiltersBtn');
+  const mobileToggle = document.getElementById('mobileFilterToggle');
+  const tagsRow = document.getElementById('tagsFilterRow');
+  const mobileCountEl = document.getElementById('mobileActiveTagCount');
+  const chevron = document.getElementById('mobileFilterChevron');
+  const noResultsBox = document.getElementById('noResultsBox');
+  const projectCards = document.querySelectorAll('#archiveCardsGrid .project-card');
+
+  let currentSection = 'all'; // 'all', 'ai', 'security', 'overlap'
+  let selectedTags = new Set(); // Set of active tag names
+
+  // Tag to section mapping (tags that apply to each section)
+  const TAG_SECTIONS = {
+    'LangGraph': ['all', 'ai', 'overlap'],
+    'RAG & Agents': ['all', 'ai', 'overlap'],
+    'Vector Search': ['all', 'ai'],
+    'Computer Vision': ['all', 'ai', 'overlap'],
+    'Multimodal LLMs': ['all', 'ai'],
+    'Federated Privacy': ['all', 'overlap'],
+    'SIEM & SPL': ['all', 'security'],
+    'Packet Forensics': ['all', 'security', 'overlap'],
+    'DFIR': ['all', 'security'],
+    'OSINT': ['all', 'security'],
+    'Heuristic Search (GA)': ['all', 'overlap'],
+    'Adversarial AI': ['all', 'overlap']
+  };
+
+  // Sync state to URL search parameters for shareable links
+  function syncUrl() {
+    const params = new URLSearchParams();
+    if (currentSection !== 'all') {
+      params.set('section', currentSection);
+    }
+    if (selectedTags.size > 0) {
+      params.set('tags', Array.from(selectedTags).join(','));
+    }
+    const query = params.toString() ? '?' + params.toString() : window.location.pathname;
+    window.history.replaceState(null, '', query);
+  }
+
+  // Update tag accessibility/disabled state based on active section
+  function updateTagAvailability() {
+    capabilityTags.forEach(tagBtn => {
+      const tag = tagBtn.getAttribute('data-tag');
+      const validSections = TAG_SECTIONS[tag] || ['all'];
+      const isApplicable = validSections.includes(currentSection);
+
+      if (isApplicable) {
+        tagBtn.classList.remove('disabled');
+        tagBtn.removeAttribute('disabled');
+      } else {
+        tagBtn.classList.add('disabled');
+        tagBtn.setAttribute('disabled', 'true');
+        // Unselect if it was selected
+        if (selectedTags.has(tag)) {
+          selectedTags.delete(tag);
+          tagBtn.classList.remove('active');
+        }
+      }
+    });
+  }
+
+  // Core filter application
+  function applyFilters() {
+    let visibleCount = 0;
+
+    projectCards.forEach(card => {
+      const category = card.getAttribute('data-category'); // 'ai', 'security', 'overlap'
+      const rawTags = card.getAttribute('data-tags') || '';
+      const cardTags = rawTags.split(',').map(t => t.trim());
+
+      // 1. Section match:
+      let sectionMatches = false;
+      if (currentSection === 'all') {
+        sectionMatches = true;
+      } else if (currentSection === 'ai') {
+        sectionMatches = (category === 'ai' || category === 'overlap');
+      } else if (currentSection === 'security') {
+        sectionMatches = (category === 'security' || category === 'overlap');
+      } else if (currentSection === 'overlap') {
+        sectionMatches = (category === 'overlap');
+      }
+
+      // 2. Tag match (OR logic within selected tags as requested!):
+      let tagMatches = false;
+      if (selectedTags.size === 0) {
+        tagMatches = true;
+      } else {
+        // Does card contain AT LEAST ONE of the selected tags?
+        tagMatches = cardTags.some(tag => selectedTags.has(tag));
+      }
+
+      const show = sectionMatches && tagMatches;
+      if (show) {
+        card.style.display = 'flex';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+        card.style.opacity = '0';
+      }
+    });
+
+    // Update Result Counter
+    if (resultsCountEl) {
+      resultsCountEl.textContent = visibleCount;
+    }
+
+    // Toggle Empty State Box
+    if (noResultsBox) {
+      noResultsBox.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    // Update Mobile Count
+    if (mobileCountEl) {
+      mobileCountEl.textContent = selectedTags.size;
+    }
+
+    // Update Active Filter Summary Text
+    if (activeSummaryEl) {
+      const sectionNameMap = {
+        'all': 'All Systems',
+        'ai': 'AI Engineering',
+        'security': 'Cybersecurity',
+        'overlap': 'AI × Security'
+      };
+      const sectionLabel = sectionNameMap[currentSection] || 'All Systems';
+      if (selectedTags.size === 0) {
+        activeSummaryEl.textContent = `${sectionLabel} • All Capabilities`;
+      } else {
+        const tagsArr = Array.from(selectedTags);
+        activeSummaryEl.textContent = `${sectionLabel} • Tags: [${tagsArr.join(' OR ')}]`;
+      }
+    }
+
+    syncUrl();
+  }
+
+  // Section Tab Click Handler
+  sectionTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const section = tab.getAttribute('data-section') || 'all';
+      if (section === currentSection) return;
+
+      currentSection = section;
+
+      sectionTabs.forEach(t => {
+        const isCurrent = t.getAttribute('data-section') === section;
+        t.classList.toggle('active', isCurrent);
+        t.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
+      });
+
+      updateTagAvailability();
+      applyFilters();
+    });
+  });
+
+  // Capability Tag Click Handler (OR Multi-select)
+  capabilityTags.forEach(tagBtn => {
+    tagBtn.addEventListener('click', () => {
+      if (tagBtn.classList.contains('disabled')) return;
+
+      const tag = tagBtn.getAttribute('data-tag');
+      if (!tag) return;
+
+      if (selectedTags.has(tag)) {
+        selectedTags.delete(tag);
+        tagBtn.classList.remove('active');
+      } else {
+        selectedTags.add(tag);
+        tagBtn.classList.add('active');
+      }
+
+      applyFilters();
+    });
+  });
+
+  // Clear Filters Handler
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      currentSection = 'all';
+      selectedTags.clear();
+
+      sectionTabs.forEach(t => {
+        const isAll = t.getAttribute('data-section') === 'all';
+        t.classList.toggle('active', isAll);
+        t.setAttribute('aria-selected', isAll ? 'true' : 'false');
+      });
+
+      capabilityTags.forEach(t => {
+        t.classList.remove('active', 'disabled');
+        t.removeAttribute('disabled');
+      });
+
+      applyFilters();
+    });
+  }
+
+  // Mobile Filter Collapsible Toggle
+  if (mobileToggle && tagsRow) {
+    mobileToggle.addEventListener('click', () => {
+      const isOpen = tagsRow.classList.toggle('open');
+      if (chevron) {
+        chevron.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+      }
+    });
+  }
+
+  // Restore Filter State from URL Query Parameters (Shareable URLs)
+  function initFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const urlSection = params.get('section');
+    const urlTags = params.get('tags');
+
+    if (urlSection && ['all', 'ai', 'security', 'overlap'].includes(urlSection)) {
+      currentSection = urlSection;
+      sectionTabs.forEach(t => {
+        const isCurrent = t.getAttribute('data-section') === urlSection;
+        t.classList.toggle('active', isCurrent);
+        t.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
+      });
+      updateTagAvailability();
+    }
+
+    if (urlTags) {
+      const tagList = urlTags.split(',').map(t => decodeURIComponent(t.trim()));
+      tagList.forEach(tagName => {
+        capabilityTags.forEach(btn => {
+          if (btn.getAttribute('data-tag') === tagName && !btn.classList.contains('disabled')) {
+            selectedTags.add(tagName);
+            btn.classList.add('active');
+          }
+        });
+      });
+    }
+
+    applyFilters();
+  }
+
+  initFromUrl();
 }
