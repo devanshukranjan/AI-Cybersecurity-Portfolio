@@ -28,8 +28,11 @@ This portfolio represents **the convergence of Applied AI Systems Engineering an
 ```text
 AI-Cybersecurity-Portfolio/
 ├── index.html                   # Semantic Single-Page Application (SPA)
+├── projects.html                # Complete Systems Matrix & Two-Tier Filter Grid
 ├── style.css                    # Cyber-Tech Command Center Design System (Vanilla CSS)
-├── script.js                    # Dynamic Spectrum Controller & Architecture Drawer
+├── script.js                    # Dynamic Spectrum Controller & Case Study System
+├── work-experience/             # Master Career Records & Technical Dossiers
+│   └── kas-global-commerce-master-record.md
 ├── favicon.svg                  # Custom Vector Tech Icon
 ├── assets/
 │   ├── resumes/                 # Official ATS Resumes (AI & Cyber Tracks)
@@ -46,7 +49,7 @@ AI-Cybersecurity-Portfolio/
 
 ### 1. The Intersection (Core Edge)
 * **Privacy-Preserving Federated Sequential Recommendation (M.Tech Dissertation):** Formulated **LDP-SeqMask** and a calibrated Laplace perturbation mechanism with **View-based Contrastive Learning (View-CL)** to prevent trajectory leakage in sequential recommendation.
-* **Autonomous AI Threat Detection Engine:** Real-time ransomware and zero-day intrusion detection trained on **UGRansome 2024** and **UNSW-NB15** with an interactive monitoring GUI.
+* **Autonomous AI-Based Threat Detection & Threat Elimination Engine (Hermes):** Dual-tier intrusion detection and autonomous quarantine engine trained on **200,043 network records** (UGRansome2024 + UNSW-NB15). Fuses **Tab2Image 2D CNN spatial matrices** (96.9% acc) with an unsupervised **Deep Autoencoder zero-day override** (MSE threshold 0.05) and a live **Tkinter SOC console** with automated firewall quarantine.
 * **GA-Optimized Bot-IoT IDS:** Heuristic Genetic Algorithm wrapper eliminating 70%+ redundant network features while sustaining **>99% attack detection recall** with XGBoost.
 
 ### 2. Applied AI & Production Systems (KAS Global Commerce &bull; MySellerCentral / MSC IQ)

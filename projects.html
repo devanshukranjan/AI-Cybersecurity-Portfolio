@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Projects &amp; Systems Architecture | Devanshu Kumar Ranjan</title>
+  <meta name="description" content="Complete portfolio archive of 14 production AI engines, adversarial cybersecurity SOC laboratories, and privacy-preserving machine learning dissertations by Devanshu Kumar Ranjan.">
+
+  <!-- Google Fonts: Geist & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6.4.0 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       STICKY NAVIGATION HEADER
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-link" aria-label="Devanshu Kumar Ranjan Home">
+        <div class="brand-icon">DKR</div>
+        <div class="brand-text">
+          <span class="brand-name">Devanshu Kumar Ranjan</span>
+          <span class="brand-role">AI Engineer &bull; Cyber Security M.Tech</span>
+        </div>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+          <li><a href="index.html#projects" class="nav-link">Featured</a></li>
+          <li><a href="projects.html" class="nav-link active">All Projects (14)</a></li>
+          <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+          <li><a href="index.html#credentials" class="nav-link">Credentials</a></li>
+          <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Dual Resume Dropdown -->
+        <div class="dropdown">
+          <button class="btn-resume" id="resumeDropdownToggle" aria-haspopup="true" aria-expanded="false">
+            <i class="fa-solid fa-file-arrow-down"></i>
+            <span>Resume</span>
+            <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem;"></i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="resumeDropdownToggle">
+            <a href="assets/resumes/Devanshu_AI_Resume.pdf" class="dropdown-item" download="Devanshu_AI_Resume.pdf" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-microchip" style="color: var(--ai-blue); margin-top: 3px;"></i>
+              <div class="dropdown-item-content">
+                <span class="dropdown-item-title">AI Engineer Resume (PDF)</span>
+                <span class="dropdown-item-desc">Targeted for LLM, ML &amp; AI Systems Roles</span>
+              </div>
+            </a>
+            <a href="assets/resumes/Devanshu_Cybersecurity_Resume.pdf" class="dropdown-item" download="Devanshu_Cybersecurity_Resume.pdf" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-shield-halved" style="color: var(--green); margin-top: 3px;"></i>
+              <div class="dropdown-item-content">
+                <span class="dropdown-item-title">Cybersecurity Resume (PDF)</span>
+                <span class="dropdown-item-desc">Targeted for SOC, SIEM &amp; Security Roles</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========================================================================
+         PAGE HERO BANNER
+         ======================================================================== -->
+    <section class="projects-page-hero">
+      <div class="container">
+        <div class="section-tag">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Engineering Archive &bull; Complete Systems Matrix</span>
+        </div>
+        <h1 class="section-title">All Engineering Projects &amp; Security Labs</h1>
+        <p class="section-desc">
+          A comprehensive repository of 14 production multi-agent architectures, privacy-preserving recommender dissertations, autonomous SOC containment engines, and packet-level threat forensics. Filter by engineering discipline or multi-select technical capabilities.
+        </p>
+
+        <div class="projects-hero-stats">
+          <div class="stat-pill">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            <span><strong>14</strong> Systems Total</span>
+          </div>
+          <div class="stat-pill">
+            <i class="fa-solid fa-industry"></i>
+            <span><strong>7</strong> Enterprise Production</span>
+          </div>
+          <div class="stat-pill">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span><strong>4</strong> SOC &amp; Threat Labs</span>
+          </div>
+          <div class="stat-pill">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span><strong>3</strong> Research Dissertations</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         TWO-TIER INTERACTIVE FILTER BAR
+         ======================================================================== -->
+    <section class="projects-filter-section" style="padding: 0 0 5rem 0;">
+      <div class="container">
+        <div class="projects-filter-wrapper">
+          <!-- Row 1: Section Tabs -->
+          <div class="filter-row-sections">
+            <div class="filter-section-tabs" role="tablist" aria-label="Discipline Tabs">
+              <button class="filter-section-tab active" data-section="all" role="tab" aria-selected="true">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>All Systems (14)</span>
+              </button>
+              <button class="filter-section-tab" data-section="ai" role="tab" aria-selected="false">
+                <i class="fa-solid fa-microchip"></i>
+                <span>AI Engineering (9)</span>
+              </button>
+              <button class="filter-section-tab" data-section="security" role="tab" aria-selected="false">
+                <i class="fa-solid fa-shield-cat"></i>
+                <span>Cybersecurity (8)</span>
+              </button>
+              <button class="filter-section-tab" data-section="overlap" role="tab" aria-selected="false">
+                <i class="fa-solid fa-dna"></i>
+                <span>AI &times; Security (4)</span>
+              </button>
+            </div>
+
+            <button class="mobile-tags-toggle" id="mobileFilterToggle" aria-expanded="false">
+              <span><i class="fa-solid fa-sliders"></i> Filter by Capability (<strong id="mobileActiveTagCount">0</strong> active)</span>
+              <i class="fa-solid fa-chevron-down" id="mobileFilterChevron"></i>
+            </button>
+          </div>
+
+          <!-- Row 2: Multiselect Capability Tags (OR Logic) -->
+          <div class="filter-row-tags" id="tagsFilterRow">
+            <span class="tags-label"><i class="fa-solid fa-tag"></i> Capabilities (OR):</span>
+            <button class="capability-tag" data-tag="LangGraph">LangGraph</button>
+            <button class="capability-tag" data-tag="RAG & Agents">RAG &amp; Agents</button>
+            <button class="capability-tag" data-tag="Vector Search">Vector Search</button>
+            <button class="capability-tag" data-tag="Computer Vision">Computer Vision</button>
+            <button class="capability-tag" data-tag="Multimodal LLMs">Multimodal LLMs</button>
+            <button class="capability-tag" data-tag="Federated Privacy">Federated Privacy</button>
+            <button class="capability-tag" data-tag="SIEM & SPL">SIEM &amp; SPL</button>
+            <button class="capability-tag" data-tag="Packet Forensics">Packet Forensics</button>
+            <button class="capability-tag" data-tag="DFIR">DFIR</button>
+            <button class="capability-tag" data-tag="OSINT">OSINT</button>
+            <button class="capability-tag" data-tag="Heuristic Search (GA)">Heuristic Search (GA)</button>
+            <button class="capability-tag" data-tag="Adversarial AI">Adversarial AI</button>
+          </div>
+
+          <!-- Filter Controls Bar -->
+          <div class="filter-controls-bar">
+            <div class="filter-results-count">
+              Showing <strong id="resultsCount">14</strong> of 14 Systems
+            </div>
+
+            <div class="filter-active-summary" id="activeFilterSummary">
+              All Systems &bull; All Capabilities
+            </div>
+
+            <button id="clearFiltersBtn" class="btn-clear-filters" title="Reset all section and capability filters">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>Clear filters</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Full Archive Cards Grid (All 14 Cards) -->
+        <div class="cards-grid" id="archiveCardsGrid">
+          <!-- 1. RCA Diagnostic Engine (AI) -->
+          <article class="project-card featured-card" id="proj-rca-engine" data-featured="true" data-category="ai" data-project="rca-engine" data-tags="LangGraph,RAG & Agents,Vector Search">
+            <div class="provenance-badge badge-fulltime">
+              <i class="fa-solid fa-briefcase"></i> KAS Global Commerce &bull; AI Engineer (Full-Time)
+            </div>
+
+            <div class="project-card-header">
+              <span class="project-type-badge badge-ai">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                Production Diagnostic Engine
+              </span>
+              <div class="project-links">
+                <button class="project-icon-link inspect-spec-btn" data-project="rca-engine" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">Root Cause Analysis (RCA) Diagnostic Engine</h3>
+            <p class="project-desc">
+              AI investigator explaining complex advertising performance anomalies in plain English and Hinglish, architected from foundational research to production deployment.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-chart-line"></i> DIAGNOSTIC ENGINE FLOW</div>
+              <div class="blueprint-flow">
+                <code>[User Prompt]</code> &rarr; <code>[LangGraph Supervisor]</code> &rarr; <code>[/api/analyze]</code> &rarr; <code>[Dynamic Statistical Thresholds]</code> &rarr; <code>[RCAReport.jsx]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Shipped <strong>15 diagnostics live</strong> (ACOS Spike, Wasted Spend, CPC Spike, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop, etc.) out of <strong>30 total diagnostics</strong> covering <strong>50+ root-cause rules</strong>.</li>
+              <li>Engineered dynamic per-account statistical thresholding with baseline window comparisons and minimum-data guards to prevent false alarms.</li>
+              <li>Built automated negative keyword recommendations with over-blocking protection to curb wasted ad spend.</li>
+            </ul>
+
+            <div class="screenshot-preview-strip">
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/acos_spike_this_year.png" data-title="ACOS Annual Spike Investigation Report (Amazon.com)" data-query="Query: Why did my ACOS spike this year?">
+                <i class="fa-solid fa-chart-line"></i> ACOS Report (14 Causes)
+              </button>
+              <button class="screenshot-thumb-btn btn-amber open-lightbox-btn" data-img="assets/screenshots/wasted_spend.png" data-title="Wasted Ad Spend &amp; Negative Keywords (Amazon.com)" data-query="Query: Where am I wasting ad spend?">
+                <i class="fa-solid fa-ban"></i> Wasted Spend ($77.87 Flagged)
+              </button>
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/acos_spike_hindi.png" data-title="Hinglish Query Processing (Amazon.com)" data-query="Query: ACOS kyu badha pichle hafte?">
+                <i class="fa-solid fa-language"></i> Hinglish Anomaly Check
+              </button>
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/cpc_spike.png" data-title="CPC Cost Per Click Baseline Evaluation" data-query="Query: Why did my CPC increase this month?">
+                <i class="fa-solid fa-arrow-trend-down"></i> CPC Spike Check
+              </button>
+            </div>
+
+            <div class="tech-stack">
+              <span class="tech-tag">LangGraph Orchestrator</span>
+              <span class="tech-tag">FastAPI</span>
+              <span class="tech-tag">Statistical Thresholding</span>
+              <span class="tech-tag">Amazon Ads API</span>
+            </div>
+          </article>
+
+          <!-- 2. Hermes IDS Autonomous AI Defense (AI x Security) -->
+          <article class="project-card featured-card" id="proj-ai-threat-engine" data-featured="true" data-category="overlap" data-project="hermes-ids" data-tags="Computer Vision,Adversarial AI,Packet Forensics">
+            <div class="provenance-badge badge-personal">
+              <i class="fa-solid fa-shield-halved"></i> Independent Security ML Research
+            </div>
+            <div class="project-card-header">
+              <span class="project-type-badge badge-overlap">
+                <i class="fa-solid fa-brain"></i>
+                AI Security System
+              </span>
+              <div class="project-links">
+                <a href="https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/ai-intrusion-detection/hermes-ids" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+                <button class="project-icon-link inspect-spec-btn" data-project="hermes-ids" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">Autonomous AI-Based Threat Detection &amp; Threat Elimination Engine</h3>
+            <p class="project-desc">
+              Multi-model autonomous defense system combining Random Forest (98.6% acc), Tab2Image 2D CNN, and an Autoencoder zero-day override with calibrated 95th-percentile MSE thresholding to identify and eliminate ransomware and novel attacks.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-shield"></i> AUTONOMOUS DEFENSE PIPELINE</div>
+              <div class="blueprint-flow">
+                <code>[UNSW+UGRansome Merge]</code> &rarr; <code>[Tab2Image 2D CNN]</code> &rarr; <code>[Autoencoder Anomaly Override]</code> &rarr; <code>[Autonomous Quarantine]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Merged <strong>200,043 network records</strong> (UGRansome2024 ransomware + UNSW-NB15 benign flows); sanitized identifiers (`srcip`, `dstip`) and applied **SMOTE strictly post-split** on 140,030 train / 60,013 test records to eliminate synthetic data leakage.</li>
+              <li>Multi-model consensus: **Random Forest (98.6% accuracy, 1.4% FPR)** and **XGBoost (98.3%)** paired with **Tab2Image 2D CNN (8&times;6 spatial matrix, 96.9% accuracy)**.</li>
+              <li>Deep **Autoencoder bottleneck (48&rarr;16&rarr;48)** trained on normal traffic calculates MSE reconstruction error; calibrated 95th-percentile threshold (0.05) detects unseen zero-days that bypass supervised classifiers.</li>
+              <li>Built an interactive **Tkinter SOC console** with 2s live polling telemetry, instant host quarantine, IP firewall rules, and forensic logging.</li>
+            </ul>
+
+            <div class="tech-stack">
+              <span class="tech-tag">Deep Autoencoder (MSE 0.05)</span>
+              <span class="tech-tag">Tab2Image 2D CNN</span>
+              <span class="tech-tag">Random Forest (98.6%)</span>
+              <span class="tech-tag">UGRansome2024 + UNSW-NB15</span>
+              <span class="tech-tag">Tkinter SOC Console</span>
+            </div>
+          </article>
+
+          <!-- 3. M.Tech Thesis Dissertation (AI x Security) -->
+          <article class="project-card featured-card" id="proj-thesis-recsys" data-featured="true" data-category="overlap" data-project="mtech-dissertation" data-tags="Federated Privacy,Adversarial AI,Differential Privacy">
+            <div class="provenance-badge badge-research">
+              <i class="fa-solid fa-graduation-cap"></i> NIT Patna &bull; M.Tech Research Thesis
+            </div>
+            <div class="project-card-header">
+              <span class="project-type-badge badge-overlap">
+                <i class="fa-solid fa-lock"></i>
+                M.Tech Research Thesis
+              </span>
+              <div class="project-links">
+                <button class="project-icon-link inspect-spec-btn" data-project="mtech-dissertation" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">Privacy-Preserving Federated Sequential Recommendation</h3>
+            <p class="project-desc">
+              Master's thesis at NIT Patna solving user trajectory and interaction leakage in centralized recommender models using Locally Differentially Private (LDP) mechanisms.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-code-fork"></i> ARCHITECTURAL FORMULATION</div>
+              <div class="blueprint-flow">
+                <code>[Client Interaction]</code> &rarr; <code>[LDP-SeqMask Noise]</code> &rarr; <code>[View-CL Invariance]</code> &rarr; <code>[Laplace Aggregation]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li><strong>LDP-SeqMask:</strong> Formulated local sequence perturbation so raw interaction clickstreams never leave edge client devices.</li>
+              <li><strong>Laplace Perturbation:</strong> Replaced unstable Exponential Mechanism item selection with a Laplace mechanism, eliminating gradient explosion.</li>
+              <li><strong>View-based Contrastive Learning (View-CL):</strong> Preserved top recommendation ranking accuracy (NDCG@10) even under heavy differential privacy noise.</li>
+            </ul>
+
+            <div class="tech-stack">
+              <span class="tech-tag">Federated Learning</span>
+              <span class="tech-tag">Local Differential Privacy (LDP)</span>
+              <span class="tech-tag">PyTorch</span>
+              <span class="tech-tag">Contrastive Learning</span>
+            </div>
+          </article>
+
+          <!-- 4. Category Mapper & Vector Search (AI) -->
+          <article class="project-card featured-card" id="proj-vector-taxonomy" data-featured="true" data-category="ai" data-project="category-mapper" data-tags="Vector Search,RAG & Agents">
+            <div class="provenance-badge badge-intern">
+              <i class="fa-solid fa-flask"></i> KAS Global Commerce &bull; AI Research Intern
+            </div>
+
+            <div class="project-card-header">
+              <span class="project-type-badge badge-ai">
+                <i class="fa-solid fa-database"></i>
+                Vector Search Pipeline
+              </span>
+              <div class="project-links">
+                <button class="project-icon-link inspect-spec-btn" data-project="category-mapper" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">Scaled Taxonomy Vector Search &amp; Embedding Pipeline</h3>
+            <p class="project-desc">
+              Automated breadcrumb normalization, dense embedding generation, and sub-50ms vector similarity matching across multi-marketplace taxonomies.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-cubes"></i> VECTOR INGESTION &amp; QUERY</div>
+              <div class="blueprint-flow">
+                <code>[Taxonomy CSV]</code> &rarr; <code>[Cleaning &amp; Stopwords]</code> &rarr; <code>[text-embedding-3-large]</code> &rarr; <code>[pgvector IVFFLAT Index]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Engineered dense semantic vector search with OpenAI <code>text-embedding-3-large</code> (3,072 dimensions) and PostgreSQL with <code>pgvector</code>.</li>
+              <li>Architected IVFFLAT indexing strategy delivering <strong>sub-50ms retrieval latency</strong> across massive marketplace category catalogs.</li>
+              <li>Constructed the foundational category lookup tables that power conversational category RAG in the MSC IQ assistant.</li>
+            </ul>
+
+            <div class="tech-stack">
+              <span class="tech-tag">pgvector</span>
+              <span class="tech-tag">PostgreSQL</span>
+              <span class="tech-tag">OpenAI Embeddings (3,072-dim)</span>
+              <span class="tech-tag">Python ETL</span>
+            </div>
+          </article>
+
+          <!-- 5. Splunk SIEM Detection Lab (Security) -->
+          <article class="project-card featured-card" id="proj-splunk-siem" data-featured="true" data-category="security" data-project="splunk-siem-lab" data-tags="SIEM & SPL,Packet Forensics">
+            <div class="provenance-badge badge-personal">
+              <i class="fa-solid fa-server"></i> Hands-On SOC Lab &bull; Enterprise SIEM
+            </div>
+
+            <div class="project-card-header">
+              <span class="project-type-badge badge-security">
+                <i class="fa-solid fa-network-wired"></i>
+                SIEM &bull; Threat Detection
+              </span>
+              <div class="project-links">
+                <a href="https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/cybersecurity/splunk-siem-lab" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+                <button class="project-icon-link inspect-spec-btn" data-project="splunk-siem-lab" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">Enterprise Multi-Stage Attack Simulation &amp; SIEM Detection Lab</h3>
+            <p class="project-desc">
+              Production-grade 3-VM SOC environment simulating realistic cyber attack chains and authoring custom SPL detection rules with automated real-time alert triggers.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-terminal"></i> SOC ATTACK-TO-ALERT PIPELINE</div>
+              <div class="blueprint-flow">
+                <code>[Kali: Hydra &amp; Nikto]</code> &rarr; <code>[Target: DVWA Web Server]</code> &rarr; <code>[Splunk Universal Forwarder]</code> &rarr; <code>[Custom SPL]</code> &rarr; <code>[Triggered Alert]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Simulated multi-stage attacks: Hydra SSH and HTTP POST credential stuffing, Nikto web vulnerability reconnaissance, and Nmap stealth sweeps.</li>
+              <li>Authored production-ready SPL detection rules: <code>index=botsv1 sourcetype=stream:http</code> with threshold aggregations to flag brute-force spikes.</li>
+              <li>Configured Splunk Universal Forwarder pipelines ingesting Apache access logs, auth logs, and network stream telemetry in real time.</li>
+            </ul>
+
+            <div class="tech-stack">
+              <span class="tech-tag">Splunk Enterprise</span>
+              <span class="tech-tag">SPL</span>
+              <span class="tech-tag">Kali Linux</span>
+              <span class="tech-tag">Hydra</span>
+              <span class="tech-tag">Nikto</span>
+              <span class="tech-tag">Universal Forwarder</span>
+            </div>
+          </article>
+
+          <!-- 6. GA-Optimized Bot-IoT IDS (AI x Security) -->
+          <article class="project-card featured-card" id="proj-ga-ids" data-featured="true" data-category="overlap" data-project="bot-iot-ga-ids" data-tags="Heuristic Search (GA),Packet Forensics,Adversarial AI">
+            <div class="provenance-badge badge-personal">
+              <i class="fa-solid fa-microchip"></i> Independent Applied ML Research
+            </div>
+            <div class="project-card-header">
+              <span class="project-type-badge badge-overlap">
+                <i class="fa-solid fa-sliders"></i>
+                Heuristic Optimization
+              </span>
+              <div class="project-links">
+                <a href="https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/ai-intrusion-detection/bot-iot-ga-ids" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+                <button class="project-icon-link inspect-spec-btn" data-project="bot-iot-ga-ids" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">IDS Model with Genetic Algorithm Feature Selection</h3>
+            <p class="project-desc">
+              Heuristic feature optimization engine resolving dimensional curse in IoT network traffic while preserving high classification recall.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-microchip"></i> OPTIMIZATION PIPELINE</div>
+              <div class="blueprint-flow">
+                <code>[Bot-IoT Traffic]</code> &rarr; <code>[Genetic Algorithm Wrapper]</code> &rarr; <code>[70%+ Dimension Drop]</code> &rarr; <code>[XGBoost Classification]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Engineered a Genetic Algorithm (GA) fitness function searching the combinatorial feature space of the <strong>Bot-IoT</strong> dataset.</li>
+              <li>Eliminated over 70% of redundant network metrics while sustaining <strong>&gt;99% attack detection recall</strong> via XGBoost.</li>
+            </ul>
+
+            <div class="tech-stack">
+              <span class="tech-tag">Genetic Algorithms</span>
+              <span class="tech-tag">XGBoost</span>
+              <span class="tech-tag">Scikit-learn</span>
+              <span class="tech-tag">Bot-IoT Benchmark</span>
+            </div>
+          </article>
+
+          <!-- 7. Distributed Scraping Engine (AI) -->
+          <article class="project-card" id="proj-scraper-engine" data-featured="false" data-category="ai" data-project="scraping-engine" data-tags="Distributed Systems,ETL Pipelines">
+            <div class="provenance-badge badge-intern">
+              <i class="fa-solid fa-flask"></i> KAS Global Commerce &bull; AI Research Intern
+            </div>
+
+            <div class="project-card-header">
+              <span class="project-type-badge badge-ai">
+                <i class="fa-solid fa-cloud-arrow-down"></i>
+                High-Throughput Scraping
+              </span>
+              <div class="project-links">
+                <button class="project-icon-link inspect-spec-btn" data-project="scraping-engine" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">Distributed Two-Stage Web Scraping Engine</h3>
+            <p class="project-desc">
+              High-volume e-commerce catalog ingestion pipeline harvesting top 25 best-selling products per leaf category across global marketplaces with automated monthly scheduling.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-server"></i> DISTRIBUTED INGESTION</div>
+              <div class="blueprint-flow">
+                <code>[Browse Node Queue]</code> &rarr; <code>[Zyte API @ 1,000 req/min]</code> &rarr; <code>[HTML Extraction]</code> &rarr; <code>[MongoDB Atlas]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Slashed full-catalog scraping time from <strong>2–3 months down to 1.5 weeks</strong> (90%+ latency reduction).</li>
+              <li>Ingests structured product specs, pricing, ratings, reviews, and high-res media for Amazon, Walmart, ONDC, and eBay.</li>
+            </ul>
+
+            <div class="screenshot-preview-strip">
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/mongodb-db_structure.png" data-title="MongoDB Database Schema &amp; Storage Collections" data-query="Collection: leaf_category_products &amp; browse_nodes">
+                <i class="fa-solid fa-database"></i> Database Architecture
+              </button>
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/mongobb_product_doc.png" data-title="MongoDB Scraped Product Document Schema" data-query="Document: scraped_product_details">
+                <i class="fa-solid fa-file-code"></i> Product Document
+              </button>
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/mongodb-category_doc.png" data-title="MongoDB Category Node Document Schema" data-query="Document: leaf_category_metadata">
+                <i class="fa-solid fa-folder-tree"></i> Category Document
+              </button>
+            </div>
+
+            <div class="tech-stack">
+              <span class="tech-tag">Zyte API</span>
+              <span class="tech-tag">Python AsyncIO</span>
+              <span class="tech-tag">MongoDB Atlas</span>
+              <span class="tech-tag">Distributed Workers</span>
+            </div>
+          </article>
+
+          <!-- 8. Multimodal Insights Pipeline (AI) -->
+          <article class="project-card" id="proj-text-image-insights" data-featured="false" data-category="ai" data-project="text-image-insights" data-tags="Computer Vision,Multimodal LLMs">
+            <div class="provenance-badge badge-fulltime">
+              <i class="fa-solid fa-briefcase"></i> KAS Global Commerce &bull; Intern &rarr; Automated in Full-Time
+            </div>
+
+            <div class="project-card-header">
+              <span class="project-type-badge badge-ai">
+                <i class="fa-solid fa-images"></i>
+                Multimodal GenAI &amp; NLP
+              </span>
+              <div class="project-links">
+                <button class="project-icon-link inspect-spec-btn" data-project="text-image-insights" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">Multimodal Text &amp; Image Insight Pipeline</h3>
+            <p class="project-desc">
+              Automated category-level NLP and computer vision pipeline analyzing text attributes (titles, bullets, specs) and 6 visual image types across top 25 category best-sellers.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-layer-group"></i> DUAL-MODAL BATCH FLOW</div>
+              <div class="blueprint-flow">
+                <code>[Top 25 ASINs / Category]</code> &rarr; <code>[Gemini File API + Multi-Key Batch]</code> &rarr; <code>[Text &amp; 6-Type Image Synthesis]</code> &rarr; <code>[PostgreSQL text &amp; image columns]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Analyzes titles, bullet themes, and 6 image types (white bg, lifestyle, infographic, dimension, packaging, detail shots).</li>
+              <li>Engineered batch processing with Gemini File API, automatic cooldowns, and multi-key rotation to prevent rate-limiting.</li>
+              <li>Ingests structured YAML/JSON into marketplace PostgreSQL tables under <code>text_insights</code> and <code>image_insights</code> columns.</li>
+            </ul>
+
+            <div class="tech-stack">
+              <span class="tech-tag">Gemini File API</span>
+              <span class="tech-tag">Python Batch Runner</span>
+              <span class="tech-tag">PostgreSQL</span>
+              <span class="tech-tag">Computer Vision</span>
+              <span class="tech-tag">NLP Extraction</span>
+            </div>
+          </article>
+
+          <!-- 9. Multimodal A+ Content Engine (AI) -->
+          <article class="project-card" id="proj-aplus-engine" data-featured="false" data-category="ai" data-project="multimodal-aplus" data-tags="Computer Vision,Multimodal LLMs,Vector Search">
+            <div class="provenance-badge badge-fulltime">
+              <i class="fa-solid fa-briefcase"></i> KAS Global Commerce &bull; AI Engineer (Full-Time)
+            </div>
+
+            <div class="project-card-header">
+              <span class="project-type-badge badge-ai">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                Multimodal GenAI
+              </span>
+              <div class="project-links">
+                <button class="project-icon-link inspect-spec-btn" data-project="multimodal-aplus" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">Multimodal A+ Competitive Intelligence Engine</h3>
+            <p class="project-desc">
+              Visual and copywriting intelligence engine analyzing competitor Amazon A+ modules to extract visual design patterns, product placement, background settings, and headline messaging for automated A+ creation.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-palette"></i> A+ MODULAR SYNTHESIS</div>
+              <div class="blueprint-flow">
+                <code>[Top 25 ASIN Details &amp; Banners]</code> &rarr; <code>[Gemini 2.5 Flash Vision]</code> &rarr; <code>[Module 5 Overlay &amp; Copy Analysis]</code> &rarr; <code>[PostgreSQL aplus_insights]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Extracts visual design patterns, product placement, background settings, and headline messaging from top 25 category best-sellers.</li>
+              <li>Production implementation for <strong>Module 5 (Standard Image &amp; Dark Text Overlay)</strong>; roadmap extending across all <strong>19 Standard &amp; 21 Premium modules</strong>.</li>
+              <li>Stores structured insight JSONs into the marketplace PostgreSQL table under <code>aplus_insights_&lt;run_id&gt;</code>.</li>
+            </ul>
+
+            <div class="tech-stack">
+              <span class="tech-tag">Gemini 2.5 Flash</span>
+              <span class="tech-tag">Computer Vision</span>
+              <span class="tech-tag">Amazon A+ Content</span>
+              <span class="tech-tag">PostgreSQL</span>
+            </div>
+          </article>
+
+          <!-- 10. Common Microservices & Chatbot RAG (AI) -->
+          <article class="project-card" id="proj-common-api" data-featured="false" data-category="ai" data-project="chatbot-rag" data-tags="RAG & Agents,Vector Search">
+            <div class="provenance-badge badge-intern">
+              <i class="fa-solid fa-flask"></i> KAS Global Commerce &bull; AI Research Intern
+            </div>
+
+            <div class="project-card-header">
+              <span class="project-type-badge badge-ai">
+                <i class="fa-solid fa-code"></i>
+                Backend &amp; RAG Architecture
+              </span>
+              <div class="project-links">
+                <button class="project-icon-link inspect-spec-btn" data-project="chatbot-rag" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">Common API Endpoints &amp; MSC IQ Chatbot RAG</h3>
+            <p class="project-desc">
+              FastAPI microservice delivering category disambiguation, product detail extraction, and category strategy retrieval powering the MSC IQ conversational assistant.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-comments"></i> CHATBOT RAG INTERACTION</div>
+              <div class="blueprint-flow">
+                <code>"Price for my shoes?"</code> &rarr; <code>[/category-mapper]</code> &rarr; <code>[Option Chips]</code> &rarr; <code>[/insights RAG]</code> &rarr; <code>[Pricing Guidance]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Built 3 core production APIs: <code>/api/v1/category-mapper</code>, <code>/api/v1/insights</code>, and <code>/api/v1/product-details</code>.</li>
+              <li>Enabled multi-turn Category RAG: user selects a mapped category chip, triggering contextual data extraction from category insight JSONs.</li>
+            </ul>
+
+            <div class="screenshot-preview-strip">
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/category_pricing_rag.png" data-title="MSC IQ Conversational Category Pricing RAG" data-query="Query: What is the optimal pricing and coupon strategy for running shoes on Amazon?">
+                <i class="fa-solid fa-tags"></i> Category Pricing RAG
+              </button>
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/agent_creative_generation.png" data-title="Multi-Agent Creative Generation &amp; Content Dispatcher" data-query="Query: Generate Amazon compliant bullet points and lifestyle creative directives for our new hydration pack">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Creative Agent Dispatcher
+              </button>
+            </div>
+
+            <div class="tech-stack">
+              <span class="tech-tag">FastAPI</span>
+              <span class="tech-tag">LangGraph</span>
+              <span class="tech-tag">Category RAG</span>
+              <span class="tech-tag">Docker</span>
+            </div>
+          </article>
+
+          <!-- 11. AegisAgent: Enterprise AI Security Agent (Overlap) -->
+          <article class="project-card" id="proj-aegis-agent" data-featured="false" data-category="overlap" data-project="aegis-agent" data-tags="LangGraph,RAG & Agents,Adversarial AI">
+            <div class="provenance-badge badge-blueprint">
+              <i class="fa-solid fa-rocket"></i> Flagship Open-Source Architecture &bull; In Active Development
+            </div>
+
+            <div class="project-card-header">
+              <span class="project-type-badge badge-overlap">
+                <i class="fa-solid fa-shield-virus"></i>
+                AI Security &amp; Guardrailed Agent
+              </span>
+              <div class="project-links">
+                <button class="project-icon-link inspect-spec-btn" data-project="aegis-agent" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">AegisAgent: Enterprise AI Security &amp; Guardrailed RAG Agent</h3>
+            <p class="project-desc">
+              Production-grade agentic platform combining LangGraph multi-agent orchestration, NeMo Guardrails, and hybrid pgvector retrieval to prevent prompt injection and data exfiltration.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-shield-halved"></i> SECURE AGENT PIPELINE</div>
+              <div class="blueprint-flow">
+                <code>[User Request]</code> &rarr; <code>[NeMo Guardrails &amp; PII Redact]</code> &rarr; <code>[LangGraph Supervisor]</code> &rarr; <code>[pgvector Hybrid RAG]</code> &rarr; <code>[Langfuse Tracing]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li><strong>Adversarial Mitigation:</strong> Pre-execution input validation blocking jailbreaks, recursive prompt injection, and PII leakage before token generation.</li>
+              <li><strong>Hybrid Dense + Sparse RAG:</strong> PostgreSQL <code>pgvector</code> cosine search coupled with BM25 keyword matching and cross-encoder re-ranking for enterprise search.</li>
+              <li><strong>Zero-Cost Industrial Stack:</strong> Engineered entirely on accessible free infrastructure (Groq Llama-3.3-70B, Supabase pgvector, HuggingFace embeddings, and Langfuse cloud observability).</li>
+            </ul>
+
+            <div class="tech-stack">
+              <span class="tech-tag">LangGraph</span>
+              <span class="tech-tag">NeMo Guardrails</span>
+              <span class="tech-tag">FastAPI</span>
+              <span class="tech-tag">pgvector (Hybrid)</span>
+            </div>
+          </article>
+
+          <!-- 12. DoS Attack Simulation & Forensics (Security) -->
+          <article class="project-card" id="proj-dos-forensics" data-featured="false" data-category="security" data-project="dos-attack-simulation" data-tags="Packet Forensics,DFIR">
+            <div class="provenance-badge badge-personal">
+              <i class="fa-solid fa-network-wired"></i> Packet Traffic Forensics Lab
+            </div>
+
+            <div class="project-card-header">
+              <span class="project-type-badge badge-security">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                Network Protocol Analysis
+              </span>
+              <div class="project-links">
+                <a href="https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/network-analysis/dos-attack-simulation" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+                <button class="project-icon-link inspect-spec-btn" data-project="dos-attack-simulation" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">DoS Attack Simulation &amp; Packet Traffic Forensics</h3>
+            <p class="project-desc">
+              Controlled multi-vector Denial of Service (DoS) simulations on Metasploitable 2 with granular packet capture and protocol anomaly analysis.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-wave-square"></i> PCAP FORENSIC PIPELINE</div>
+              <div class="blueprint-flow">
+                <code>[Kali hping3 Floods]</code> &rarr; <code>[Bridged VirtualBox Net]</code> &rarr; <code>[Wireshark Capture]</code> &rarr; <code>[Protocol Signatures]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Executed 6 distinct DoS vectors: Slowloris, TCP SYN Flood, UDP Flood, TCP FIN Flood, PUSH+ACK Flood, and ICMP Flood.</li>
+              <li>Analyzed Wireshark PCAPs to isolate TCP handshake anomalies, socket exhaustion patterns, and SYN/ACK ratio skews.</li>
+            </ul>
+
+            <div class="tech-stack">
+              <span class="tech-tag">Wireshark</span>
+              <span class="tech-tag">Kali Linux</span>
+              <span class="tech-tag">hping3</span>
+              <span class="tech-tag">Metasploitable 2</span>
+              <span class="tech-tag">TCP/IP Forensics</span>
+            </div>
+          </article>
+
+          <!-- 13. Digital Forensics Disk Investigation (Security) -->
+          <article class="project-card" id="proj-autopsy-forensics" data-featured="false" data-category="security" data-project="autopsy-disk-investigation" data-tags="DFIR,Evidence Acquisition">
+            <div class="provenance-badge badge-personal">
+              <i class="fa-solid fa-hard-drive"></i> Digital Disk Forensics Lab
+            </div>
+
+            <div class="project-card-header">
+              <span class="project-type-badge badge-security">
+                <i class="fa-solid fa-file-shield"></i>
+                Digital Forensics (DFIR)
+              </span>
+              <div class="project-links">
+                <a href="https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/digital-forensics/autopsy-disk-investigation" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="GitHub Repository">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+                <button class="project-icon-link inspect-spec-btn" data-project="autopsy-disk-investigation" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">Digital Forensic Investigation &amp; File Recovery</h3>
+            <p class="project-desc">
+              End-to-end evidence preservation, timeline reconstruction, and unallocated cluster file carving using Autopsy and FTK Imager.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-magnifying-glass"></i> CHAIN OF CUSTODY</div>
+              <div class="blueprint-flow">
+                <code>[.dd Disk Image]</code> &rarr; <code>[Dual Hash Check (MD5/SHA1)]</code> &rarr; <code>[Autopsy Timeline]</code> &rarr; <code>[Hex Signature Recovery]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Maintained cryptographic evidence integrity via MD5 and SHA-1 hash verification before and after raw <code>.dd</code> acquisition.</li>
+              <li>Reconstructed user incident timelines and carved deleted artifacts from <code>$RECYCLE.BIN</code> and unallocated clusters.</li>
+              <li>Validated file integrity using hex signature analysis (PDF header <code>%PDF-</code> and trailer <code>%%EOF</code>).</li>
+            </ul>
+
+            <div class="tech-stack">
+              <span class="tech-tag">Autopsy</span>
+              <span class="tech-tag">FTK Imager</span>
+              <span class="tech-tag">Hex Analysis</span>
+              <span class="tech-tag">File Carving</span>
+              <span class="tech-tag">Evidence Handling</span>
+            </div>
+          </article>
+
+          <!-- 14. OSINT Missing Person Geolocation (Security) -->
+          <article class="project-card" id="proj-osint-missing-person" data-featured="false" data-category="security" data-project="osint-missing-person" data-tags="OSINT,Digital Footprint">
+            <div class="provenance-badge badge-personal">
+              <i class="fa-solid fa-user-secret"></i> Hands-On OSINT Lab &bull; TryHackMe
+            </div>
+
+            <div class="project-card-header">
+              <span class="project-type-badge badge-security">
+                <i class="fa-solid fa-magnifying-glass-location"></i>
+                OSINT &bull; Geospatial Recon
+              </span>
+              <div class="project-links">
+                <a href="https://tryhackme.com/room/missingperson" target="_blank" rel="noopener noreferrer" class="project-icon-link" title="TryHackMe Room">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <button class="project-icon-link inspect-spec-btn" data-project="osint-missing-person" title="Inspect Deep-Dive Case Study">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+              </div>
+            </div>
+
+            <h3 class="project-title">OSINT Investigation: Missing Person Geolocation &amp; Entity Resolution</h3>
+            <p class="project-desc">
+              End-to-end open-source intelligence investigation locating a missing subject through EXIF metadata extraction, reverse image geolocation, and SOCMINT link analysis.
+            </p>
+
+            <div class="blueprint-box">
+              <div class="blueprint-badge"><i class="fa-solid fa-compass"></i> INTELLIGENCE CYCLE PIPELINE</div>
+              <div class="blueprint-flow">
+                <code>[Photo EXIF Forensics]</code> &rarr; <code>[GEOINT Reverse Lookup]</code> &rarr; <code>[Event Corroboration]</code> &rarr; <code>[SOCMINT Video Pivot]</code> &rarr; <code>[Entity Resolution]</code>
+              </div>
+            </div>
+
+            <ul class="project-highlights">
+              <li>Extracted temporal and device telemetry from photo artifacts via <strong>exifmeta</strong>, establishing ground-truth timestamps and corroborating them against official <strong>MotoGP 2025 calendar schedules</strong>.</li>
+              <li>Conducted reverse image geolocation to identify the <strong>Pertamina Mandalika International Circuit</strong> and regional Indonesian dining venues.</li>
+              <li>Pivoted across <strong>Facebook video telemetry</strong>, attendee promotional reels, and cave expedition records (Gua Sumur) to trace associate networks and uncover verified business contact phone numbers.</li>
+            </ul>
+
+            <div class="tech-stack">
+              <span class="tech-tag">OSINT Tradecraft</span>
+              <span class="tech-tag">EXIF Forensics</span>
+              <span class="tech-tag">GEOINT</span>
+              <span class="tech-tag">SOCMINT</span>
+              <span class="tech-tag">Link Analysis</span>
+              <span class="tech-tag">TryHackMe</span>
+            </div>
+          </article>
+
+          <!-- No Results Box -->
+          <div class="no-results-box" id="noResultsBox" style="display: none;">
+            <i class="fa-solid fa-filter-circle-xmark"></i>
+            <h3 class="no-results-title">No matching systems found</h3>
+            <p class="no-results-desc">
+              No engineering projects match the combination of active discipline and selected capability tags. Try clearing tags or selecting another discipline.
+            </p>
+            <button class="btn btn-primary" onclick="document.getElementById('clearFiltersBtn').click()">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>Clear filters &amp; show all systems</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo">DKR</div>
+        <div>
+          <div class="footer-name">Devanshu Kumar Ranjan</div>
+          <div class="footer-role">AI Engineer &bull; Cyber Security M.Tech (NIT Patna)</div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="index.html#experience">Experience</a>
+        <a href="index.html#projects">Featured</a>
+        <a href="projects.html">All Projects (14)</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+
+      <div class="footer-copy">
+        &copy; 2026 Devanshu Kumar Ranjan &bull; Bilaspur, HP &bull; India. Crafted for Production AI &amp; Cybersecurity Excellence.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       PROJECT DEEP-DIVE CASE STUDY MODAL (FULL SCREEN VIEW)
+       ======================================================================== -->
+  <div class="modal-backdrop" id="projectCaseStudyModal" role="dialog" aria-modal="true" aria-labelledby="caseStudyTitle">
+    <div class="modal-content case-study-modal-content">
+      <button class="modal-close-btn" id="caseStudyCloseBtn" aria-label="Close case study dialog">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Case Study Header -->
+      <div class="case-study-header">
+        <div class="case-study-badge-row">
+          <span class="project-type-badge" id="caseStudyCategoryBadge">Category</span>
+          <span class="provenance-badge" id="caseStudyProvenanceBadge" style="margin: 0;">Provenance</span>
+        </div>
+        <h2 class="case-study-title" id="caseStudyTitle">Project Title</h2>
+        <p class="case-study-summary" id="caseStudySummary">Project summary description.</p>
+        <div class="case-study-meta-row" id="caseStudyMetaRow">
+          <!-- Dynamically populated meta chips -->
+        </div>
+      </div>
+
+      <!-- Case Study Grid (Main Article + Sidebar) -->
+      <div class="case-study-grid">
+        <!-- Main Column -->
+        <div class="case-study-main">
+          <!-- 1. Objective Section (Positioned First) -->
+          <section class="case-study-section" id="caseStudyObjectiveSection">
+            <h4 class="case-study-section-title">
+              <i class="fa-solid fa-bullseye"></i> Objective
+            </h4>
+            <p class="case-study-text" id="caseStudyObjective"></p>
+          </section>
+
+          <!-- 2. System Architecture & Interactive Execution Pipeline Section -->
+          <section class="case-study-section" id="caseStudyArchSection">
+            <div class="case-study-section-header">
+              <h4 class="case-study-section-title">
+                <i class="fa-solid fa-diagram-project"></i> System Architecture &bull; Interactive Pipeline
+              </h4>
+            </div>
+
+            <!-- Interactive Visual Pipeline Flow (Auto-fitting, No Horizontal Scrolling) -->
+            <div class="pipeline-container" id="caseStudyPipelineContainer">
+              <div class="pipeline-top-bar">
+                <span class="pipeline-kicker-tag" id="pipelineKickerTag">SYSTEM OVERVIEW / WORKFLOW</span>
+                <span class="pipeline-instruction"><i class="fa-solid fa-hand-pointer"></i> Select a step to see how it works.</span>
+              </div>
+
+              <!-- Steps Flow Track -->
+              <div class="pipeline-track-wrapper">
+                <div class="pipeline-track" id="caseStudyPipelineTrack">
+                  <!-- Dynamically populated step cards with inline indicator badges -->
+                </div>
+              </div>
+
+              <!-- Active Step Details Card (Glowing Amber Accent, Left Border) -->
+              <div class="pipeline-active-detail" id="caseStudyPipelineDetail">
+                <div class="pipeline-detail-header">
+                  <span class="pipeline-detail-step" id="pipelineDetailStepBadge">STEP 01</span>
+                  <span class="pipeline-detail-type" id="pipelineDetailType">Active Component</span>
+                </div>
+                <h5 class="pipeline-detail-title" id="pipelineDetailTitle">Step Title</h5>
+                <p class="pipeline-detail-desc" id="pipelineDetailDesc">Step description and technical mechanics.</p>
+                <div class="pipeline-detail-chips" id="pipelineDetailChips"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3. Evidence & Screenshot Gallery Section -->
+          <section class="case-study-section" id="caseStudyGallerySection">
+            <h4 class="case-study-section-title">
+              <i class="fa-solid fa-images"></i> Evidence &amp; Interactive Telemetry Screenshots (Click to Zoom)
+            </h4>
+            <div class="case-study-gallery" id="caseStudyGallery">
+              <!-- Dynamically populated screenshot cards -->
+            </div>
+          </section>
+
+          <!-- Key Findings Section -->
+          <section class="case-study-section" id="caseStudyFindingsSection">
+            <h4 class="case-study-section-title">
+              <i class="fa-solid fa-chart-line"></i> Key Findings &amp; Validated Metrics
+            </h4>
+            <ul class="case-study-findings-list" id="caseStudyFindings"></ul>
+          </section>
+
+          <!-- What I Learned Section -->
+          <section class="case-study-section" id="caseStudyLearnedSection">
+            <h4 class="case-study-section-title">
+              <i class="fa-solid fa-graduation-cap"></i> What I Learned &amp; Engineering Takeaways
+            </h4>
+            <p class="case-study-text" id="caseStudyLearned"></p>
+          </section>
+        </div>
+
+        <!-- Sidebar Column -->
+        <aside class="case-study-sidebar" aria-label="Project Metadata and Resources">
+          <div class="sidebar-block">
+            <div class="sidebar-label">Tools &amp; Frameworks</div>
+            <div class="sidebar-tag-wrap" id="caseStudyTools"></div>
+          </div>
+
+          <div class="sidebar-block">
+            <div class="sidebar-label">Skills Demonstrated</div>
+            <div class="sidebar-tag-wrap" id="caseStudySkills"></div>
+          </div>
+
+          <div class="sidebar-block" id="caseStudyResourcesBlock">
+            <div class="sidebar-label">Resources &amp; Documentation</div>
+            <div class="sidebar-actions" id="caseStudyLinks">
+              <a class="btn btn-primary" id="caseStudyReport" href="#" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-file-lines"></i> <span id="caseStudyReportLabel">Technical Report / PDF</span>
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Lightbox Modal for Telemetry Screenshots -->
+  <div class="image-lightbox" id="imageLightboxModal" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+    <div class="lightbox-content">
+      <div class="lightbox-header">
+        <div class="lightbox-title-wrap">
+          <h3 class="lightbox-title" id="lightboxTitle">Production UI Telemetry Screenshot</h3>
+          <p class="lightbox-subtitle" id="lightboxSubtitle">Evidence &amp; Threat Telemetry Interface</p>
+        </div>
+        <div class="lightbox-controls">
+          <span class="lightbox-zoom-level" id="lightboxZoomLevel" title="Current Zoom">100%</span>
+          <button class="lightbox-ctrl-btn" id="lightboxZoomInBtn" title="Zoom In (+)">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </button>
+          <button class="lightbox-ctrl-btn" id="lightboxZoomOutBtn" title="Zoom Out (-)">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+          </button>
+          <button class="lightbox-ctrl-btn" id="lightboxZoomResetBtn" title="Reset Zoom (100%)">
+            <i class="fa-solid fa-arrow-rotate-left"></i>
+          </button>
+          <a class="lightbox-ctrl-btn" id="lightboxOpenNewTabBtn" href="#" target="_blank" rel="noopener noreferrer" title="Open Full Image in New Tab">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          <button class="lightbox-ctrl-btn lightbox-close-btn" id="lightboxCloseBtn" aria-label="Close image modal" title="Close (Esc)">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+      <div class="lightbox-img-container">
+        <img id="lightboxImg" class="lightbox-img" src="" alt="Diagnostic Query Screenshot" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Javascript -->
+  <script src="script.js"></script>
+</body>
+</html>
