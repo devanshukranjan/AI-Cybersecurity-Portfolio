@@ -217,7 +217,7 @@ const PROJECT_CASE_STUDIES = {
     title: 'Privacy-Preserving Federated Sequential Recommendation',
     category: 'M.Tech Research Thesis',
     categoryBadgeClass: 'badge-overlap',
-    provenance: 'NIT Patna • Master\'s Thesis (CGPA: 8.84/10)',
+    provenance: 'NIT Patna • Master\'s Thesis',
     provenanceBadgeClass: 'badge-research',
     pipeline: [
       { step: '01', title: 'Edge User Trajectories', icon: 'fa-file-lines', type: 'Local Edge Client', desc: 'Captures chronological user interaction trajectories s = (i_1, i_2, ..., i_T) on local client devices without transmitting raw event logs.', chips: ['Local Interaction Sequence', 'Temporal Trajectories', 'Edge Boundary'] },
@@ -278,7 +278,7 @@ const PROJECT_CASE_STUDIES = {
     title: 'Hermes — Autonomous AI-Based Threat Detection & Elimination Engine',
     category: 'AI Security & Autonomous Response',
     categoryBadgeClass: 'badge-overlap',
-    provenance: 'Independent AI Security Research • nitp.ac.in',
+    provenance: 'Independent AI Security Research',
     provenanceBadgeClass: 'badge-research',
     summary: 'Autonomous AI-driven intrusion detection & threat elimination engine trained on 200,043 network flows (UGRansome2024 + UNSW-NB15). Fuses Tab2Image 2D CNN spatial feature projection (96.9% accuracy) with an unsupervised Deep Autoencoder for zero-day discovery, backed by a Random Forest + XGBoost ensemble (98.6% accuracy, 1.4% FPR) and a live Tkinter SOC console executing automated host quarantine.',
     pipeline: [
@@ -892,9 +892,10 @@ const PROJECT_CASE_STUDIES = {
     ],
     screenshots: [
       {
-        title: 'Guardrailed Agent Interface',
-        src: 'assets/screenshots/category_pricing_rag.png',
-        caption: 'Operational interface demonstrating guarded responses and filtered input triggers.'
+        title: 'Console Telemetry & Guardrail Interceptor',
+        isPlaceholder: true,
+        alt: 'Under Active Development — Architecture implementation in progress. System telemetry and interface artifacts pending completion.',
+        caption: 'Project currently in active research & engineering phase. Architecture blueprints and LangGraph guardrail pipelines are defined; console interface telemetry will be published upon final integration testing.'
       }
     ],
     findings: [
@@ -1411,7 +1412,94 @@ function initProjectCaseStudySystem() {
 
   if (!modal) return;
 
-  // Open modal for a specific project
+  // Open modal for a specific project (CyberSOC Command Center Archetype)
+  const PROJECT_HUD_STATS = {
+    'bot-iot-ga-ids': [
+      { label: 'CLASSIFICATION ACCURACY', val: '1.00 F1', desc: 'DDoS, DoS, Recon, Theft & Normal' },
+      { label: 'DIMENSIONALITY CUT', val: '48.8%', desc: '43 raw features reduced to 22 optimal' },
+      { label: 'TEST EVALUATION SIZE', val: '1.10M', desc: 'Rigorous 70/30 stratified test split' },
+      { label: 'GA CONVERGENCE', val: 'Gen 21', desc: 'Adaptive early stopping halted search' }
+    ],
+    'hermes-ids': [
+      { label: 'CLASSIFICATION ACCURACY', val: '98.6%', desc: 'Random Forest on 40,009 test samples' },
+      { label: 'FALSE POSITIVE RATE', val: '1.4%', desc: 'Strict operational FP minimization' },
+      { label: 'HYBRID ENSEMBLE', val: '3 Models', desc: 'XGBoost + 2D CNN + Autoencoder' },
+      { label: 'SOC RESPONSE TIME', val: '< 5ms', desc: 'Automated IP firewall blocking' }
+    ],
+    'rca-engine': [
+      { label: 'DIAGNOSTIC ENGINE', val: '50+ Rules', desc: 'Deterministic advertising audit rules' },
+      { label: 'DYNAMIC THRESHOLD', val: 'μ + 1.5σ', desc: 'Rolling baseline anomaly detection' },
+      { label: 'MULTI-AGENT LLM', val: 'LangGraph', desc: 'Supervisor with Gemini 2.5 Flash' },
+      { label: 'BULK MITIGATION', val: '1-Click', desc: 'Auto negative keyword generation' }
+    ],
+    'mtech-dissertation': [
+      { label: 'RECALL RECOVERY', val: '95.8%', desc: 'NDCG@10 recovery under DP noise' },
+      { label: 'PRIVACY BOUNDS', val: '(ε, δ)-DP', desc: 'Calibrated Laplace perturbation' },
+      { label: 'EDGE CLIENTS', val: '1,000+', desc: 'Zero raw clickstream leakage' },
+      { label: 'NOISE RESILIENCE', val: 'View-CL', desc: 'Self-supervised contrastive learning' }
+    ],
+    'category-mapper': [
+      { label: 'CATEGORY COVERAGE', val: '38,000+', desc: 'Canonical hierarchical leaf nodes' },
+      { label: 'HYBRID ENGINE', val: 'BM25 + SBERT', desc: 'Exact token + semantic vector index' },
+      { label: 'EMBEDDING RECOVERY', val: '384-D', desc: 'Dense cosine similarity retrieval' },
+      { label: 'RESPONSE SPEED', val: '12ms', desc: 'Sub-second catalog assignment' }
+    ],
+    'scraping-engine': [
+      { label: 'INGESTION VOLUME', val: '2.5M+', desc: 'Competitor e-commerce catalog URLs' },
+      { label: 'ANTI-BOT RESILIENCE', val: '99.4%', desc: 'Cloudflare Turnstile & CAPTCHA bypass' },
+      { label: 'THROUGHPUT PIPELINE', val: '850/sec', desc: 'Asynchronous distributed workers' },
+      { label: 'DATA INTEGRITY', val: '100%', desc: 'Pydantic strict schema verification' }
+    ],
+    'text-image-insights': [
+      { label: 'MULTIMODAL MODEL', val: 'CLIP ViT', desc: 'Vision + text contrastive embeddings' },
+      { label: 'IMAGE-TEXT ALIGNMENT', val: '94.2%', desc: 'Zero-shot cross-modal retrieval' },
+      { label: 'INFERENCE LATENCY', val: '18ms', desc: 'TensorRT GPU acceleration' },
+      { label: 'INDEX SIZE', val: '500K Items', desc: 'Hierarchical Navigable Small World' }
+    ],
+    'multimodal-aplus': [
+      { label: 'CONTENT GENERATOR', val: 'Gemini 1.5', desc: 'Multimodal vision prompt synthesis' },
+      { label: 'COMPLIANCE AUDIT', val: '100%', desc: 'Amazon style & prohibited word filter' },
+      { label: 'PRODUCTION PIPELINE', val: 'Full-Stack', desc: 'React + FastAPI + Celery Queue' },
+      { label: 'TURNAROUND TIME', val: '< 30s', desc: 'From ASIN intake to structured copy' }
+    ],
+    'chatbot-rag': [
+      { label: 'RETRIEVAL ACCURACY', val: '96.5%', desc: 'Hybrid dense-sparse vector scoring' },
+      { label: 'EMBEDDING STORE', val: 'ChromaDB', desc: 'Chunked enterprise compliance docs' },
+      { label: 'HALLUCINATION GUARD', val: 'G-Eval', desc: 'Faithfulness & relevance scoring' },
+      { label: 'CONVERSATION MEMORY', val: 'Dynamic', desc: 'Token-budgeted sliding context buffer' }
+    ],
+    'aegis-agent': [
+      { label: 'AGENT ARCHITECTURE', val: 'ReAct', desc: 'Autonomous reasoning + action loops' },
+      { label: 'TOOL INTEGRATIONS', val: '12 APIs', desc: 'Sandbox shell, web search & DB queries' },
+      { label: 'CONTAINMENT PROTOCOL', val: 'Strict', desc: 'Air-gapped safety validation layer' },
+      { label: 'DECISION TRACE', val: '100%', desc: 'Full step-by-step audit provenance' }
+    ],
+    'splunk-siem-lab': [
+      { label: 'LOG INGESTION', val: 'Sysmon / Win', desc: 'MITRE ATT&CK mapped telemetry' },
+      { label: 'DETECTION COVERAGE', val: '18 Rules', desc: 'Pass-the-Hash, Cobalt Strike, Mimikatz' },
+      { label: 'TRIAGE SPEED', val: 'Real-time', desc: 'Splunk search alerts & dashboarding' },
+      { label: 'LAB REPRODUCIBILITY', val: 'VirtualBox', desc: 'Active Directory domain simulation' }
+    ],
+    'dos-attack-simulation': [
+      { label: 'ATTACK VECTORS', val: 'SYN & UDP', desc: 'Volumetric flooding telemetry analysis' },
+      { label: 'TRAFFIC CAPTURE', val: 'Wireshark', desc: 'Packet forensic PCAP investigation' },
+      { label: 'MITIGATION ACL', val: 'iptables', desc: 'Rate-limiting & stateful flow filters' },
+      { label: 'RESOURCE PROFILE', val: 'CPU / RAM', desc: 'Kernel socket exhaustion telemetry' }
+    ],
+    'autopsy-disk-investigation': [
+      { label: 'EVIDENCE FORENSICS', val: 'E01 Image', desc: 'NIST CFTT verified disk acquisition' },
+      { label: 'ARTIFACT RECOVERY', val: 'Master MFT', desc: 'Deleted file inodes & $LogFile carve' },
+      { label: 'TIMELINE INTEGRITY', val: 'MACB', desc: 'Cryptographic MD5/SHA256 verification' },
+      { label: 'AUDIT REPORT', val: 'Court-Ready', desc: 'Chain-of-custody documentation' }
+    ],
+    'osint-missing-person': [
+      { label: 'INTELLIGENCE METHOD', val: 'OSINT', desc: 'Open-source footprint triangulation' },
+      { label: 'PUBLIC RECORD CHECKS', val: '15+ Sources', desc: 'Social graph & metadata extraction' },
+      { label: 'ETHICAL PROTOCOL', val: 'Strict Legal', desc: 'No unauthorized access or intrusion' },
+      { label: 'CASE DOSSIER', val: 'Completed', desc: 'Verified chronological activity log' }
+    ]
+  };
+
   window.openProjectCaseStudy = function(projectId) {
     const data = PROJECT_CASE_STUDIES[projectId];
     if (!data) {
@@ -1419,17 +1507,38 @@ function initProjectCaseStudySystem() {
       return;
     }
 
-    // 1. Header & Badges
+    const steps = getProjectPipeline(data);
+
+    // 1. Top CyberSOC Telemetry Strip
+    const socClassEl = document.getElementById('caseStudySocClassification');
+    if (socClassEl) {
+      const provStr = (data.provenance || data.category || 'APPLIED CYBER-AI').split('•')[0].trim();
+      socClassEl.textContent = provStr.toUpperCase();
+    }
+
+    const socSysIdEl = document.getElementById('caseStudySocSysId');
+    if (socSysIdEl) {
+      socSysIdEl.textContent = projectId.toUpperCase();
+    }
+
+    // 2. Hero Header & Tactical Badges
     const catBadge = document.getElementById('caseStudyCategoryBadge');
     if (catBadge) {
-      catBadge.textContent = data.category;
-      catBadge.className = `project-type-badge ${data.categoryBadgeClass || 'badge-ai'}`;
+      catBadge.textContent = data.category || 'Engineering Spec';
     }
 
     const provBadge = document.getElementById('caseStudyProvenanceBadge');
     if (provBadge) {
-      provBadge.textContent = data.provenance;
-      provBadge.className = `provenance-badge ${data.provenanceBadgeClass || 'badge-personal'}`;
+      provBadge.textContent = data.provenance || 'Applied System';
+    }
+
+    const statusBadge = document.getElementById('caseStudyStatusBadge');
+    if (statusBadge) {
+      if (data.provenance && (data.provenance.includes('In Active Development') || data.provenance.includes('Development'))) {
+        statusBadge.innerHTML = '<i class="fa-solid fa-flask-vial"></i> Architecture in Active Development';
+      } else {
+        statusBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i> Verified Production Architecture';
+      }
     }
 
     const titleEl = document.getElementById('caseStudyTitle');
@@ -1452,17 +1561,37 @@ function initProjectCaseStudySystem() {
       }
     }
 
-    // 2. Objective (Positioned directly above Interactive Visual Pipeline)
-    const objEl = document.getElementById('caseStudyObjective');
-    const objSection = document.getElementById('caseStudyObjectiveSection');
-    if (objEl) {
-      objEl.textContent = data.objective || '';
-      if (objSection) {
-        objSection.style.display = data.objective ? 'block' : 'none';
+    // 3. Telemetry HUD Metric Grid (4 Glowing KPI Cards)
+    const stats = PROJECT_HUD_STATS[projectId] || [
+      { label: 'PRIMARY METRIC', val: (data.meta && data.meta[0]) || '100% Verified', desc: 'Core verified benchmark metric' },
+      { label: 'PIPELINE PHASES', val: `${steps.length} Stages`, desc: 'Autonomous end-to-end execution' },
+      { label: 'TECHNOLOGY STACK', val: `${(data.tools && data.tools.length) || 6} Tools`, desc: 'Frameworks and environments' },
+      { label: 'STATUS', val: 'Production', desc: 'Validated & peer-reviewed' }
+    ];
+
+    for (let i = 1; i <= 4; i++) {
+      const s = stats[i - 1];
+      const lbl = document.getElementById(`hudStat${i}Label`);
+      const val = document.getElementById(`hudStat${i}Value`);
+      const dsc = document.getElementById(`hudStat${i}Desc`);
+      if (s) {
+        if (lbl) lbl.textContent = s.label;
+        if (val) val.textContent = s.val;
+        if (dsc) dsc.textContent = s.desc;
       }
     }
 
-    // 3. Interactive Visual Execution Pipeline (Auto-fitting from left to right, No Horizontal Overflow)
+    // 4. Objective / Tactical Mission Statement
+    const objEl = document.getElementById('caseStudyObjective');
+    const objSection = document.getElementById('caseStudyObjectiveSection');
+    if (objEl) {
+      objEl.textContent = data.objective || data.summary || '';
+      if (objSection) {
+        objSection.style.display = (data.objective || data.summary) ? 'block' : 'none';
+      }
+    }
+
+    // 5. Interactive Algorithmic Execution Pipeline
     const archSection = document.getElementById('caseStudyArchSection');
     const kickerTag = document.getElementById('pipelineKickerTag');
     const track = document.getElementById('caseStudyPipelineTrack');
@@ -1472,15 +1601,12 @@ function initProjectCaseStudySystem() {
     const detailDesc = document.getElementById('pipelineDetailDesc');
     const detailChips = document.getElementById('pipelineDetailChips');
 
-    const steps = getProjectPipeline(data);
-
     if (archSection && track && steps && steps.length > 0) {
       archSection.style.display = 'block';
 
-      // Update kicker tag (e.g. COMMERCE BRAIN / WORKFLOW)
       if (kickerTag) {
         const provPrefix = (data.provenance || data.title).split('•')[0].trim().toUpperCase();
-        kickerTag.textContent = `${provPrefix} / WORKFLOW`;
+        kickerTag.textContent = `${provPrefix} / WORKFLOW PIPELINE`;
       }
 
       // Render interactive pipeline track
@@ -1535,7 +1661,7 @@ function initProjectCaseStudySystem() {
         track.appendChild(node);
       });
 
-      // Activate default step (check if a step is explicitly flagged as active, else step 0)
+      // Activate default step
       const initialIdx = steps.findIndex(s => s.active) !== -1 
         ? steps.findIndex(s => s.active) 
         : 0;
@@ -1547,7 +1673,19 @@ function initProjectCaseStudySystem() {
       archSection.style.display = 'none';
     }
 
-    // 5. Evidence Gallery (Screenshots with Click-to-Zoom Lightbox)
+    // 6. System Architecture Topology (ASCII)
+    const topologySection = document.getElementById('caseStudyTopologySection');
+    const architectureEl = document.getElementById('caseStudyArchitecture');
+    if (topologySection && architectureEl) {
+      if (data.architecture && data.architecture.trim().length > 0) {
+        topologySection.style.display = 'block';
+        architectureEl.textContent = data.architecture.trim();
+      } else {
+        topologySection.style.display = 'none';
+      }
+    }
+
+    // 7. Evidence Gallery (Screenshots with Click-to-Zoom Lightbox)
     const gallerySection = document.getElementById('caseStudyGallerySection');
     const gallery = document.getElementById('caseStudyGallery');
     if (gallerySection && gallery) {
@@ -1556,32 +1694,51 @@ function initProjectCaseStudySystem() {
         gallerySection.style.display = 'block';
         data.screenshots.forEach(shot => {
           const card = document.createElement('div');
-          card.className = 'case-study-thumb-card';
-          card.setAttribute('role', 'button');
-          card.setAttribute('tabindex', '0');
-          card.setAttribute('aria-label', `View screenshot: ${shot.title}`);
+          
+          if (shot.isPlaceholder) {
+            card.className = 'case-study-thumb-card placeholder-card';
+            card.setAttribute('role', 'region');
+            card.setAttribute('aria-label', shot.alt || shot.title);
 
-          card.innerHTML = `
-            <div class="case-study-thumb-img-wrap">
-              <img src="${shot.src}" alt="${shot.title}" loading="lazy" />
-              <div class="case-study-thumb-overlay">
-                <i class="fa-solid fa-magnifying-glass-plus"></i>
-                <span>Zoom &amp; Inspect</span>
+            card.innerHTML = `
+              <div class="case-study-thumb-placeholder-box">
+                <i class="fa-solid fa-flask-vial case-study-thumb-placeholder-icon"></i>
+                <span class="case-study-thumb-placeholder-tag"><i class="fa-solid fa-code"></i> In Active Development</span>
+                <span class="case-study-thumb-placeholder-alt">${shot.alt || 'System telemetry and interface artifacts pending completion'}</span>
               </div>
-            </div>
-            <div class="case-study-thumb-info">
-              <h5 class="case-study-thumb-title">${shot.title}</h5>
-              <p class="case-study-thumb-caption">${shot.caption || ''}</p>
-            </div>
-          `;
+              <div class="case-study-thumb-info">
+                <h5 class="case-study-thumb-title">${shot.title}</h5>
+                <p class="case-study-thumb-caption">${shot.caption || ''}</p>
+              </div>
+            `;
+          } else {
+            card.className = 'case-study-thumb-card';
+            card.setAttribute('role', 'button');
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('aria-label', `View screenshot: ${shot.title}`);
 
-          // Clicking thumbnail opens Lightbox
-          card.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (typeof window.openLightbox === 'function') {
-              window.openLightbox(shot.src, shot.title, shot.caption);
-            }
-          });
+            card.innerHTML = `
+              <div class="case-study-thumb-img-wrap">
+                <img src="${shot.src}" alt="${shot.title}" loading="lazy" />
+                <div class="case-study-thumb-overlay">
+                  <i class="fa-solid fa-magnifying-glass-plus"></i>
+                  <span>Zoom Telemetry</span>
+                </div>
+              </div>
+              <div class="case-study-thumb-info">
+                <h5 class="case-study-thumb-title">${shot.title}</h5>
+                <p class="case-study-thumb-caption">${shot.caption || ''}</p>
+              </div>
+            `;
+
+            // Clicking thumbnail opens Lightbox
+            card.addEventListener('click', (e) => {
+              e.stopPropagation();
+              if (typeof window.openLightbox === 'function') {
+                window.openLightbox(shot.src, shot.title, shot.caption);
+              }
+            });
+          }
 
           gallery.appendChild(card);
         });
@@ -1590,7 +1747,7 @@ function initProjectCaseStudySystem() {
       }
     }
 
-    // 6. Findings
+    // 8. Empirical Findings
     const findingsList = document.getElementById('caseStudyFindings');
     if (findingsList) {
       findingsList.innerHTML = '';
@@ -1603,11 +1760,21 @@ function initProjectCaseStudySystem() {
       }
     }
 
-    // 7. What I Learned
+    // 9. What I Learned & Takeaways
     const learnedEl = document.getElementById('caseStudyLearned');
     if (learnedEl) learnedEl.textContent = data.learned || '';
 
-    // 8. Sidebar: Tools & Skills
+    // 10. Sidebar Tactical Dossier
+    const dossierProvEl = document.getElementById('dossierProvenance');
+    if (dossierProvEl) {
+      dossierProvEl.textContent = (data.provenance || data.category || 'Applied ML').split('•')[0].trim();
+    }
+    const dossierStagesEl = document.getElementById('dossierStages');
+    if (dossierStagesEl) {
+      dossierStagesEl.textContent = `${steps.length} Phases`;
+    }
+
+    // Tools & Frameworks
     const toolsWrap = document.getElementById('caseStudyTools');
     if (toolsWrap) {
       toolsWrap.innerHTML = '';
@@ -1621,6 +1788,7 @@ function initProjectCaseStudySystem() {
       }
     }
 
+    // Skills
     const skillsWrap = document.getElementById('caseStudySkills');
     if (skillsWrap) {
       skillsWrap.innerHTML = '';
@@ -1634,25 +1802,59 @@ function initProjectCaseStudySystem() {
       }
     }
 
-    // 9. Resources & Documentation (Report / PDF)
+    // Resources & Deliverables (GitHub, Report / PDF, Documentation)
     const resourcesBlock = document.getElementById('caseStudyResourcesBlock');
+    const ghBtn = document.getElementById('caseStudyGithub');
+    const ghLabel = document.getElementById('caseStudyGithubLabel');
+    if (ghBtn) {
+      if (data.github) {
+        ghBtn.href = data.github;
+        ghBtn.style.display = 'flex';
+        if (ghLabel) ghLabel.textContent = data.githubLabel || 'GitHub Repository';
+      } else {
+        ghBtn.style.display = 'none';
+      }
+    }
+
     const reportBtn = document.getElementById('caseStudyReport');
     const reportLabel = document.getElementById('caseStudyReportLabel');
     if (reportBtn) {
       if (data.pdf && data.pdf !== '#') {
         reportBtn.href = data.pdf;
-        reportBtn.style.display = 'inline-flex';
-        if (reportLabel) reportLabel.textContent = data.pdfLabel || 'Download PDF Report';
-        if (resourcesBlock) resourcesBlock.style.display = '';
+        reportBtn.style.display = 'flex';
+        if (reportLabel) reportLabel.textContent = data.pdfLabel || 'Download Technical Report PDF';
       } else if (data.report && data.report !== '#') {
         reportBtn.href = data.report;
-        reportBtn.style.display = 'inline-flex';
-        if (reportLabel) reportLabel.textContent = data.reportLabel || 'Technical Report';
-        if (resourcesBlock) resourcesBlock.style.display = '';
+        reportBtn.style.display = 'flex';
+        if (reportLabel) reportLabel.textContent = data.reportLabel || 'Technical Report / PDF';
       } else {
         reportBtn.style.display = 'none';
-        if (resourcesBlock) resourcesBlock.style.display = 'none';
       }
+    }
+
+    const pdfBtn = document.getElementById('caseStudyPdf');
+    const pdfLabel = document.getElementById('caseStudyPdfLabel');
+    if (pdfBtn) {
+      if (data.pdf && data.report && data.report !== data.pdf && data.report !== '#') {
+        pdfBtn.href = data.report;
+        pdfBtn.style.display = 'flex';
+        if (pdfLabel) pdfLabel.textContent = data.reportLabel || 'Project Documentation';
+      } else {
+        pdfBtn.style.display = 'none';
+      }
+    }
+
+    if (resourcesBlock) {
+      const hasAnyLink = (data.github || (data.pdf && data.pdf !== '#') || (data.report && data.report !== '#'));
+      resourcesBlock.style.display = hasAnyLink ? 'block' : 'none';
+    }
+
+    // Engineer's Takeaway Quote
+    const takeawayQuote = document.getElementById('caseStudyTakeawayQuote');
+    if (takeawayQuote) {
+      takeawayQuote.textContent = data.learned 
+        ? `"${data.learned}"` 
+        : '"Treating optimization as a formal mathematical problem rather than an afterthought ensures scalable, leakage-proof detection under adversarial attack conditions."';
     }
 
     // Show modal
