@@ -219,6 +219,7 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-overlap',
     provenance: 'NIT Patna • Master\'s Thesis',
     provenanceBadgeClass: 'badge-research',
+    status: 'Research Completed',
     pipeline: [
       { step: '01', title: 'Edge User Trajectories', icon: 'fa-file-lines', type: 'Local Edge Client', desc: 'Captures chronological user interaction trajectories s = (i_1, i_2, ..., i_T) on local client devices without transmitting raw event logs.', chips: ['Local Interaction Sequence', 'Temporal Trajectories', 'Edge Boundary'] },
       { step: '02', title: 'LDP-SeqMask Perturbation', icon: 'fa-shield-halved', type: 'Local Differential Privacy', active: true, desc: 'Injects calibrated Laplace noise locally into item transition vectors, eliminating numerical instability and gradient explosion of standard Exponential Mechanisms while bounding sensitivity under formal (ε, δ)-DP bounds.', chips: ['Calibrated Laplace Noise', 'Bounded Sensitivity', 'No Gradient Divergence', 'Differential Privacy'] },
@@ -280,6 +281,7 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-overlap',
     provenance: 'Independent AI Security Research',
     provenanceBadgeClass: 'badge-research',
+    status: 'Completed',
     summary: 'Autonomous AI-driven intrusion detection & threat elimination engine trained on 200,043 network flows (UGRansome2024 + UNSW-NB15). Fuses Tab2Image 2D CNN spatial feature projection (96.9% accuracy) with an unsupervised Deep Autoencoder for zero-day discovery, backed by a Random Forest + XGBoost ensemble (98.6% accuracy, 1.4% FPR) and a live Tkinter SOC console executing automated host quarantine.',
     pipeline: [
       { step: '01', title: 'Dual Telemetry Ingestion', icon: 'fa-network-wired', type: 'Dataset Fusion & Sanitization', desc: 'Merges 200,043 network flow records across UGRansome2024 (ransomware/zero-day) and UNSW-NB15 (51,000 benign baseline flows). Drops identifier fields (srcip, dstip, id) to prevent spatial/temporal bias and target leakage.', chips: ['200,043 Network Flows', 'UGRansome2024', 'UNSW-NB15', 'Zero Identifier Leakage'] },
@@ -366,6 +368,7 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-overlap',
     provenance: 'Independent Applied ML Research',
     provenanceBadgeClass: 'badge-personal',
+    status: 'Research Completed',
     pipeline: [
       { step: '01', title: 'Bot-IoT Dataset Intake', icon: 'fa-file-lines', type: 'High-Volume Dataset', desc: 'Ingests 3.66M network flow records from the Bot-IoT dataset across 43 raw telemetry features.', chips: ['3.66M Records', '43 Raw Features', 'IoT Traffic'] },
       { step: '02', title: 'Leakage Removal', icon: 'fa-filter', type: 'Preprocessing', desc: 'Combines raw Bot-IoT 5% CSVs, removes target-leakage fields (IP/MAC bias), encodes categorical attributes, and standardizes continuous flow telemetry.', chips: ['Zero Data Leakage', 'Categorical Encoding', 'Standardization', 'Identifier Removal'] },
@@ -435,55 +438,49 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-ai',
     provenance: 'KAS Global Commerce • AI Engineer (Full-Time)',
     provenanceBadgeClass: 'badge-fulltime',
-    summary: 'Architected and deployed an end-to-end autonomous AI advertising diagnostic system under a LangGraph multi-agent orchestrator. Translates natural language seller queries (English & Hinglish) into automated anomaly investigations.',
+    status: 'Production Ready',
+    summary: 'Completed the production RCA system connected end to end with MySellerCentral\'s MSC IQ assistant. LangGraph routes causal seller questions to FastAPI /api/analyze; the engine executes a 28-diagnostic catalog across six domains against read-only PostgreSQL evidence, then returns typed rca_report JSON for MSC IQ to persist and render.',
     pipeline: [
-      { step: '01', title: 'Dashboard Query', icon: 'fa-file-lines', type: 'Input Ingestion', desc: 'Accepts English & Hinglish seller queries (e.g. "ACOS kyu badha pichle hafte?") via AskAssistant.jsx; ms-auth-manager validates JWT & plan credits.', chips: ['FastAPI', 'JWT Auth', 'Hinglish Parsing'] },
-      { step: '02', title: 'Supervisor Routing', icon: 'fa-diagram-project', type: 'Agent Orchestration', desc: 'LangGraph multi-agent supervisor (Gemini 2.5 Flash) merges query frame with memory episodes and routes to the primary engine: rca_analytics.', chips: ['LangGraph', 'Gemini 2.5 Flash', 'Intent Routing'] },
-      { step: '03', title: 'Multi-Window Baseline', icon: 'fa-layer-group', type: 'Time-Series Prep', desc: 'Splits advertising metrics into fair equal-length evaluation windows: baseline period (t-1) vs. current investigation period (t).', chips: ['Equal-Length Windows', 'Time-Series Analysis'] },
-      { step: '04', title: 'Statistical Thresholding', icon: 'fa-database', type: 'Analytical Engine', active: true, desc: 'Computes dynamic per-account thresholds (μ + 1.5σ) over 30/60-day historical rolling windows with minimum-data confidence guards to prevent false anomalies.', chips: ['Dynamic μ + 1.5σ', 'Rolling Windows', 'Confidence Guards'] },
-      { step: '05', title: '50+ Evaluation Rules', icon: 'fa-shield-halved', type: 'Diagnostic Rules Engine', desc: 'Evaluates 50+ deterministic rules across Sponsored Products, Brands, and Display for bid shifts, budget exhaustion, and Buy Box loss, pairing negative keyword generation with mathematical over-blocking protection to protect profitable parent queries.', chips: ['50+ Rules', 'Negative Keyword Generator', 'Over-blocking Protection', 'Bid/Budget Audits'] },
-      { step: '06', title: 'Structured Insights', icon: 'fa-square-check', type: 'Output Formatter & Contract', desc: 'Synthesizes typed contract with 6 sections: Summary Card, 2x Data Tables, Root Causes, Changes Log, and 1-click Downloadable Negative Keyword bulk files.', chips: ['Typed Contract', 'RCAReport.jsx', '1-Click Action Cards'] }
+      { step: '01', title: 'Seller Query & Access Gate', icon: 'fa-comments', type: 'MySellerCentral Experience', desc: 'Accepts an English or Hinglish causal question with account and marketplace context. The authentication manager validates identity, subscription, payment state, plan credits, and target access before analysis begins.', chips: ['MySellerCentral', 'MSC IQ', 'JWT & Subscription Gate', 'Marketplace Scope'] },
+      { step: '02', title: 'MSC IQ Supervisor Routing', icon: 'fa-diagram-project', type: 'Conversation Orchestration', desc: 'MSC IQ owns conversation state and uses its LangGraph supervisor to select the rca_analytics engine for causal questions, preserving the query frame and authorized seller context.', chips: ['LangGraph', 'rca_analytics', 'Conversation State', 'Intent Routing'] },
+      { step: '03', title: 'Concurrent Interpretation', icon: 'fa-code-branch', type: 'FastAPI Ingress', desc: 'POST /api/analyze validates the request, builds an ordered de-duplicated marketplace scope, and resolves diagnostic intent and comparison dates concurrently. Windows shorter than seven days expand to a reliable 14-vs-14-day comparison.', chips: ['/api/analyze', 'Pydantic', 'Concurrent Intent + Dates', '14-Day Guard'] },
+      { step: '04', title: '28-Diagnostic Dispatch', icon: 'fa-layer-group', type: 'Registry-Driven Catalog', active: true, desc: 'Registry metadata dispatches 28 completed diagnostics across Marketing, Orders, Business, Inventory, Catalog, and Customer domains. Multi-diagnostic requests can execute up to three compatible investigations in parallel.', chips: ['28 Diagnostics', '6 Domains', 'Dynamic Registry', 'Parallel Diagnostics'] },
+      { step: '05', title: 'Evidence Investigation', icon: 'fa-database', type: 'Deterministic Analytics', desc: 'Read-only, pooled, parameterized PostgreSQL queries apply metric gates and drill from account to campaign, product, and entity evidence. Numerical claims come from the data layer, not the language model.', chips: ['Read-Only PostgreSQL', 'QueuePool', 'Metric Gates', 'Hierarchical Drill-Down'] },
+      { step: '06', title: 'Evidence Synthesis', icon: 'fa-shield-halved', type: 'Root-Cause Arbitration', desc: 'Before/after deltas and contextual signals become ranked causes, changes, severity, confidence, and recommendations. Cross-diagnostic arbitration removes duplicate or unsupported causes and their dependent actions.', chips: ['Ranked Causes', 'Bounded Confidence', 'Cause De-duplication', 'Bound Recommendations'] },
+      { step: '07', title: 'Persisted Typed Report', icon: 'fa-square-check', type: 'MSC IQ Delivery Contract', desc: 'The service sanitizes NaN and Infinity values, returns a typed rca_report envelope, and provides readable failures instead of raw exceptions. MSC IQ stores the full MessageData object in MongoDB and the dashboard renders it through RCAReport.jsx.', chips: ['rca_report JSON', 'MongoDB Persistence', 'RCAReport.jsx', 'Safe Failure Envelope'] }
     ],
     architecture: `
-[ Seller / Dashboard User ]
-           │ "Why did my ACOS spike last week?" (English or Hinglish)
-           ▼
-[ AskAssistant.jsx / UseChat.jsx ]
-           │ POST /chat (Client ID, Marketplaces, Timezone)
-           ▼
-[ ms-auth-manager Middleware ]  ── Validates JWT & Plan Credits
-           │
-           ▼
-[ LangGraph Orchestrator ]
-           │ Merges query frame + memory episodes
-           ▼
-[ Supervisor Node (Gemini 2.5 Flash) ] ── Picks primary_engine: rca_analytics
-           │
-           ▼
-[ RCA-Analysis Microservice (/api/analyze) ]
-    ├─ Multi-Window Temporal Split: Baseline (t-1) vs. Current (t)
-    ├─ Dynamic Statistical Thresholding: μ + 1.5σ (history rolling window)
-    ├─ 50+ Diagnostic Evaluation Rules:
-    │   • Bid/config shifts (Sponsored Products / Brands / Display)
-    │   • Buy Box loss & listing suppressions
-    │   • Budget exhaustion & pacing decay
-    │   • Conversion rate (CVR) and CTR degradation
-    └─ Over-blocking Guard + Negative Keyword Generator
-           │
-           ▼
-[ Output Formatter & Contract ]
-    └─ Returns 6 Typed Sections: Summary Card, 2x Tables, Root Causes, Changes Log, Recommendations
-           │
-           ▼
-[ React RCAReport.jsx UI Component ] (Rendered with interactive action cards)`,
-    objective: 'Eliminate manual advertising audit overhead for marketplace sellers by building an autonomous multi-agent diagnostic platform capable of evaluating multi-dimensional campaign metrics, pinpointing root drivers of wasted spend, and generating bulk negative keyword files in real time.',
+[ Seller in MySellerCentral / MSC IQ ]
+              |
+              v
+[ Authentication Manager ] -- identity, plan, credits, target access
+              |
+              v
+[ MSC IQ LangGraph Supervisor ] -- selects primary_engine: rca_analytics
+              |
+              v
+[ RCA-Analysis POST /api/analyze ]
+    |-- concurrent intent + comparison-date resolution
+    |-- ordered, de-duplicated marketplace scope
+    |-- registry dispatch across 28 diagnostics / 6 domains
+    |-- read-only PostgreSQL evidence hierarchy
+    |-- ranked causes, confidence, changes, recommendations
+    \\-- safe typed response_type: rca_report
+              |
+              v
+[ MSC IQ MessageData Persistence / MongoDB ]
+              |
+              v
+[ Universal Dashboard / RCAReport.jsx ]`,
+    objective: 'Give marketplace sellers an inspectable causal answer inside MSC IQ: route a natural-language question to the correct investigation, ground every numerical claim in authorized marketplace evidence, and return one stable report object that can be persisted and rendered without translation between services.',
     process: [
-      'Architected the rca_analytics microservice under a LangGraph multi-agent supervisor orchestrator.',
-      'Trained regex and semantic intent classifiers to parse natural seller queries across English and Hinglish (e.g., "ACOS kyu badha pichle hafte?").',
-      'Implemented dual equal-length window comparisons (current evaluation period vs. baseline period) to guarantee fair time-series comparisons.',
-      'Replaced rigid static thresholds with dynamic per-account statistical thresholding (μ + 1.5σ) computed over 30/60-day historical rolling windows with minimum-data confidence guards.',
-      'Formulated 50+ deterministic diagnostic rules across Sponsored Products, Sponsored Brands, and Sponsored Display evaluating bid changes, budget exhaustion, Buy Box loss, and stock-outs.',
-      'Engineered an automated negative keyword recommendation generator with mathematical over-blocking protection to prevent suppressing profitable parent broad search queries.'
+      'Connected MSC IQ conversation orchestration to the RCA service through the rca_analytics adapter and the POST /api/analyze contract.',
+      'Separated responsibilities across the stack: MySellerCentral handles access and conversation state; RCA performs deterministic analysis; the dashboard renders the returned object.',
+      'Implemented concurrent diagnostic-intent and comparison-date resolution, with explicit marketplace scoping and a 14-day minimum comparison guard.',
+      'Completed a registry-driven catalog of 28 diagnostics: 14 Marketing, 6 Orders, 3 Business, 2 Inventory, 2 Catalog, and 1 Customer workflow.',
+      'Built evidence-first investigation using parameterized read-only PostgreSQL queries, pooled connections, metric gates, and account-to-entity drill-downs.',
+      'Added multi-diagnostic arbitration to normalize and de-duplicate causes while keeping each recommendation bound to evidence that survives arbitration.',
+      'Defined a safe typed rca_report contract with null sanitization, readable failure envelopes, MongoDB conversation persistence, and direct RCAReport.jsx rendering.'
     ],
     screenshots: [
       {
@@ -508,14 +505,15 @@ const PROJECT_CASE_STUDIES = {
       }
     ],
     findings: [
-      'Shipped 15 live production diagnostics (ACOS Spikes, Wasted Spend, CPC Spikes, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop, etc.) out of 30 total diagnostics across 50+ root-cause rules.',
-      'Dynamic statistical thresholding eliminated 68% of false positive alerts previously caused by normal seasonal fluctuations.',
-      'Identified and flagged thousands of dollars in wasted ad spend across active client accounts, generating upload-ready negative keyword files.',
-      'Designed architectural expansion path across 30 total diagnostics spanning Advertising, Inventory, Orders, and Business domains.'
+      'Completed 28 diagnostic workflows across six domains: Marketing (14), Orders (6), Business (3), Inventory (2), Catalog (2), and Customer (1).',
+      'Established one traceable lifecycle from seller question and access validation through MSC IQ routing, RCA evidence analysis, persistence, and dashboard rendering.',
+      'Kept numerical evidence deterministic: foundation models assist with intent, dates, and arbitration, but do not invent marketplace metrics.',
+      'Delivered a stable typed report contract containing summary cards, evidence tables, ranked root causes, changes, and recommendations for the Universal Dashboard.',
+      'Preserved production safety with read-only parameterized queries, connection pooling, authorized marketplace scope, non-finite number sanitization, and readable error envelopes.'
     ],
-    learned: 'Production GenAI in financial domains must be backed by deterministic statistical guards. LLMs excel at understanding conversational intent, but statistical algorithms and mathematical guardrails must govern the actual business diagnostics.',
-    tools: ['Python', 'FastAPI', 'LangGraph', 'Gemini 2.5 Flash', 'PostgreSQL', 'Amazon Ads API', 'React'],
-    skills: ['Multi-Agent Systems', 'Anomaly Detection', 'Advertising Analytics', 'Statistical Thresholding', 'Rule Engine Engineering'],
+    learned: 'The strongest production AI boundary is evidence before prose. Language models are useful for interpreting the seller\'s intent and coordinating investigations, while deterministic services, typed contracts, and authorized database queries must own every business metric and conclusion.',
+    tools: ['Python', 'FastAPI', 'Pydantic', 'LangGraph', 'Gemini', 'PostgreSQL', 'MongoDB', 'React'],
+    skills: ['Multi-Agent Orchestration', 'Root-Cause Analysis', 'Evidence-Backed Analytics', 'Cross-Service API Contracts', 'Diagnostic Registry Design', 'Production Data Safety'],
     github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio',
     githubLabel: 'Portfolio Repository',
     report: '#',
@@ -850,8 +848,9 @@ const PROJECT_CASE_STUDIES = {
     title: 'AegisAgent: Enterprise AI Security & Guardrailed RAG Agent',
     category: 'AI Security & Guardrailed Agent',
     categoryBadgeClass: 'badge-ai',
-    provenance: 'Flagship Open-Source Architecture • In Active Development',
+    provenance: 'Flagship Open-Source Architecture • In Progress',
     provenanceBadgeClass: 'badge-blueprint',
+    status: 'In Progress',
     pipeline: [
       { step: '01', title: 'Inbound User Query', icon: 'fa-file-lines', type: 'Untrusted Ingestion', desc: 'Accepts enterprise user prompts through the secured API gateway with session token validation.', chips: ['Gateway Auth', 'Session State', 'Untrusted Input'] },
       { step: '02', title: 'NeMo Guardrails Interceptor', icon: 'fa-shield-halved', type: 'Input Firewall', desc: 'Runs heuristic jailbreak filters, detects prompt injection attempts, and redacts sensitive PII and credential tokens.', chips: ['NeMo Guardrails', 'PII Redaction', 'Anti-Jailbreak'] },
@@ -918,6 +917,7 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-security',
     provenance: 'Hands-On SOC Lab • Enterprise SIEM',
     provenanceBadgeClass: 'badge-personal',
+    status: 'Completed',
     summary: 'Full-cycle enterprise SOC monitoring lab deploying Splunk Enterprise 9.x to ingest live authentication and Apache telemetry from an Ubuntu web server over Universal Forwarder (port 9997). Simulated multi-vector adversary attacks with Hydra (620 failed SSH logins) and Nikto web vulnerability scans, establishing custom SPL detection rules, real-time alerting triggers, and a unified incident dashboard.',
     pipeline: [
       { step: '01', title: 'Enterprise SOC Architecture', icon: 'fa-server', type: 'Lab Virtualization', desc: 'Configured an enterprise SOC lab pairing an Ubuntu Server 22.04 Apache web target with a dedicated Splunk Enterprise 9.x SIEM indexer and a Kali Linux attacker VM.', chips: ['Splunk Enterprise 9.x', 'Ubuntu Server 22.04', 'Kali Linux', 'Enterprise Subnet'] },
@@ -1026,6 +1026,7 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-security',
     provenance: 'Packet Traffic Forensics Lab • Kali Linux & Wireshark',
     provenanceBadgeClass: 'badge-personal',
+    status: 'Completed',
     summary: 'Comprehensive Denial of Service simulation and protocol traffic forensics lab conducted in an isolated virtualized environment. Executed 6 distinct DoS attack vectors from Kali Linux against Metasploitable 2, performing deep packet inspection in Wireshark to isolate socket starvation signatures, half-open connection queues, ICMP diagnostics, and formulating defensive detection rules.',
     pipeline: [
       { step: '01', title: 'Isolated Lab Virtualization', icon: 'fa-server', type: 'Virtual Network Setup', desc: 'Constructed an isolated VirtualBox host-only subnet (192.168.56.0/24) pairing a Kali Linux attacking VM (192.168.56.101) with a vulnerable Metasploitable 2 target (192.168.56.102).', chips: ['VirtualBox Host-Only', 'Kali Linux', 'Metasploitable 2', 'Bridged Subnet'] },
@@ -1121,6 +1122,7 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-security',
     provenance: 'Digital Disk Forensics Lab • Sleuth Kit & FTK',
     provenanceBadgeClass: 'badge-personal',
+    status: 'Completed',
     summary: 'End-to-end digital disk forensics investigation on raw and Expert Witness (.E01) disk images. Followed strict chain-of-custody protocols with MD5 and SHA-1 hash integrity verification, automated Autopsy ingest module processing, keyword indexing, FTK Imager hexadecimal file carving of deleted PDF documents from $RECYCLE.BIN, and defensible chronological timeline reporting.',
     pipeline: [
       { step: '01', title: 'Evidence Intake & Hash Seals', icon: 'fa-file-shield', type: 'Chain of Custody', desc: 'Secured evidentiary disk image (.dd / .E01) with cryptographic MD5 and SHA-1 verification hashes, establishing an uncompromised chain of custody before forensic mounting.', chips: ['Cryptographic MD5 & SHA-1', 'Forensic Image Intake', 'Chain of Custody', 'Integrity Sealed'] },
@@ -1220,6 +1222,7 @@ const PROJECT_CASE_STUDIES = {
     categoryBadgeClass: 'badge-security',
     provenance: 'Hands-On OSINT Lab • TryHackMe',
     provenanceBadgeClass: 'badge-personal',
+    status: 'Completed',
     pipeline: [
       { step: '01', title: 'Artifact Intake & EXIF', icon: 'fa-file-lines', type: 'Metadata Forensics', desc: 'Ingests uncaptioned photos (MotoGP.jpg, food.jpg) and extracts camera metadata using exifmeta to recover original capture dates and timestamps.', chips: ['exifmeta', 'EXIF Metadata', 'Timestamp Forensics', 'Image Intake'] },
       { step: '02', title: 'Geospatial Recon (GEOINT)', icon: 'fa-earth-americas', type: 'Location Geolocation', desc: 'Reverse image lookups on track landmarks geolocate the event to Pertamina Mandalika International Circuit in Lombok, Indonesia, correlating local dining venues.', chips: ['Reverse Image Search', 'Pertamina Mandalika Circuit', 'Lombok, Indonesia', 'GEOINT'] },
@@ -1427,10 +1430,10 @@ function initProjectCaseStudySystem() {
       { label: 'SOC RESPONSE TIME', val: '< 5ms', desc: 'Automated IP firewall blocking' }
     ],
     'rca-engine': [
-      { label: 'DIAGNOSTIC ENGINE', val: '50+ Rules', desc: 'Deterministic advertising audit rules' },
-      { label: 'DYNAMIC THRESHOLD', val: 'μ + 1.5σ', desc: 'Rolling baseline anomaly detection' },
-      { label: 'MULTI-AGENT LLM', val: 'LangGraph', desc: 'Supervisor with Gemini 2.5 Flash' },
-      { label: 'BULK MITIGATION', val: '1-Click', desc: 'Auto negative keyword generation' }
+      { label: 'DIAGNOSTIC CATALOG', val: '28', desc: 'Completed evidence-backed workflows' },
+      { label: 'BUSINESS COVERAGE', val: '6 Domains', desc: 'Marketing through customer retention' },
+      { label: 'ENGINE PIPELINE', val: '4 Phases', desc: 'Interpret, investigate, synthesize, deliver' },
+      { label: 'MSC IQ CONTRACT', val: 'rca_report', desc: 'Persisted typed dashboard response' }
     ],
     'mtech-dissertation': [
       { label: 'RECALL RECOVERY', val: '95.8%', desc: 'NDCG@10 recovery under DP noise' },
@@ -1508,6 +1511,7 @@ function initProjectCaseStudySystem() {
     }
 
     const steps = getProjectPipeline(data);
+    const projectStatus = data.status || 'Production Ready';
 
     // 1. Top CyberSOC Telemetry Strip
     const socClassEl = document.getElementById('caseStudySocClassification');
@@ -1534,11 +1538,19 @@ function initProjectCaseStudySystem() {
 
     const statusBadge = document.getElementById('caseStudyStatusBadge');
     if (statusBadge) {
-      if (data.provenance && (data.provenance.includes('In Active Development') || data.provenance.includes('Development'))) {
-        statusBadge.innerHTML = '<i class="fa-solid fa-flask-vial"></i> Architecture in Active Development';
-      } else {
-        statusBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i> Verified Production Architecture';
-      }
+      const isInProgress = projectStatus === 'In Progress';
+      const isResearch = projectStatus === 'Research Completed';
+      const icon = isInProgress ? 'fa-spinner' : (isResearch ? 'fa-flask-vial' : 'fa-circle-check');
+      statusBadge.className = `tactical-badge ${isInProgress ? 'badge-amber' : (isResearch ? 'badge-cyan' : 'badge-emerald')}`;
+      statusBadge.innerHTML = `<i class="fa-solid ${icon}"></i> ${projectStatus}`;
+    }
+
+    const dossierStatus = document.getElementById('dossierStatus');
+    if (dossierStatus) {
+      dossierStatus.textContent = projectStatus;
+      dossierStatus.style.color = projectStatus === 'In Progress'
+        ? 'var(--amber)'
+        : (projectStatus === 'Research Completed' ? 'var(--cyan)' : 'var(--emerald)');
     }
 
     const titleEl = document.getElementById('caseStudyTitle');
@@ -1566,7 +1578,7 @@ function initProjectCaseStudySystem() {
       { label: 'PRIMARY METRIC', val: (data.meta && data.meta[0]) || '100% Verified', desc: 'Core verified benchmark metric' },
       { label: 'PIPELINE PHASES', val: `${steps.length} Stages`, desc: 'Autonomous end-to-end execution' },
       { label: 'TECHNOLOGY STACK', val: `${(data.tools && data.tools.length) || 6} Tools`, desc: 'Frameworks and environments' },
-      { label: 'STATUS', val: 'Production', desc: 'Validated & peer-reviewed' }
+      { label: 'STATUS', val: projectStatus, desc: projectStatus === 'In Progress' ? 'Active implementation' : 'Validated project state' }
     ];
 
     for (let i = 1; i <= 4; i++) {

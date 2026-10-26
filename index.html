@@ -128,8 +128,8 @@
           <h2>Engineering outcomes, not just technology lists.</h2>
           <div class="hero-impact-list">
             <div class="hero-impact-item">
-              <strong>15</strong>
-              <span>live diagnostics backed by 50+ root-cause rules</span>
+              <strong>28</strong>
+              <span>completed RCA diagnostics across six seller domains</span>
             </div>
             <div class="hero-impact-item">
               <strong>&lt;7s</strong>
@@ -220,8 +220,8 @@
               <span class="kpi-lbl">Catalog Scraping (90%+ Latency Cut)</span>
             </div>
             <div class="exp-kpi-tile">
-              <span class="kpi-num">15 Live Diagnostics</span>
-              <span class="kpi-lbl">Production Multi-Agent RCA Engine</span>
+              <span class="kpi-num">28 Diagnostics</span>
+              <span class="kpi-lbl">Completed MSC IQ RCA Catalog</span>
             </div>
             <div class="exp-kpi-tile">
               <span class="kpi-num">&gt;1min &rarr; &lt;7s</span>
@@ -250,7 +250,7 @@
 
               <ul class="role-bullet-list">
                 <li>
-                  Architected and deployed a production LangGraph multi-agent RCA engine from scratch (research to deployment): <strong>15 live diagnostics and 50+ root-cause rules</strong> turning seller queries (English/Hinglish) into automated anomaly investigations; reduced PostgreSQL analytics fetch latency from <strong>&gt;1 minute down to &lt;7 seconds (88%+ speedup)</strong> via multi-query parallelization, compound B-tree/GIN indexing, and optimized relational joins.
+                  Architected and completed the production RCA engine behind <strong>MySellerCentral's MSC IQ assistant</strong>: <strong>28 diagnostic workflows across 6 domains</strong> route English/Hinglish seller questions through <code>/api/analyze</code> into evidence-backed <code>rca_report</code> dashboards; reduced PostgreSQL analytics fetch latency from <strong>&gt;1 minute down to &lt;7 seconds (88%+ speedup)</strong> via multi-query parallelization, compound B-tree/GIN indexing, and optimized relational joins.
                   <a href="projects.html#proj-rca-engine" class="exp-bullet-link" title="Open RCA Engine in All Projects">↗</a>
                 </li>
                 <li>
@@ -552,20 +552,20 @@
 
             <h3 class="project-title">Root Cause Analysis (RCA) Diagnostic Engine</h3>
             <p class="project-desc">
-              AI investigator explaining complex advertising performance anomalies in plain English and Hinglish, architected from foundational research to production deployment.
+              Completed RCA system behind MSC IQ, turning English and Hinglish seller questions into evidence-backed reports across 28 diagnostics and six business domains.
             </p>
 
             <div class="blueprint-box">
               <div class="blueprint-badge"><i class="fa-solid fa-chart-line"></i> DIAGNOSTIC ENGINE FLOW</div>
               <div class="blueprint-flow">
-                <code>[User Prompt]</code> &rarr; <code>[LangGraph Supervisor]</code> &rarr; <code>[/api/analyze]</code> &rarr; <code>[Dynamic Statistical Thresholds]</code> &rarr; <code>[RCAReport.jsx]</code>
+                <code>[Seller Query]</code> &rarr; <code>[MSC IQ / LangGraph]</code> &rarr; <code>[/api/analyze]</code> &rarr; <code>[28 Diagnostics]</code> &rarr; <code>[rca_report / RCAReport.jsx]</code>
               </div>
             </div>
 
             <ul class="project-highlights">
-              <li>Shipped <strong>15 diagnostics live</strong> (ACOS Spike, Wasted Spend, CPC Spike, Impressions Drop, CTR Drop, Ad CVR Drop, ROAS Drop, etc.) out of <strong>30 total diagnostics</strong> covering <strong>50+ root-cause rules</strong>.</li>
-              <li>Engineered dynamic per-account statistical thresholding with baseline window comparisons and minimum-data guards to prevent false alarms.</li>
-              <li>Built automated negative keyword recommendations with over-blocking protection to curb wasted ad spend.</li>
+              <li>Completed <strong>28 diagnostic workflows</strong> across Marketing, Orders, Business, Inventory, Catalog, and Customer domains.</li>
+              <li>Connected MSC IQ authentication and LangGraph routing to concurrent intent/date interpretation, read-only PostgreSQL evidence, and typed report delivery.</li>
+              <li>Returns safe <code>rca_report</code> JSON that MSC IQ persists in MongoDB and renders through <code>RCAReport.jsx</code>.</li>
             </ul>
 
             <div class="screenshot-preview-strip">
@@ -840,7 +840,7 @@
           <!-- Project 10: AegisAgent Flagship Blueprint (Overlap) -->
           <article class="project-card" id="proj-aegis-agent" data-featured="false" data-category="overlap" data-project="aegis-agent" data-tags="LangGraph,RAG & Agents,Adversarial AI">
             <div class="provenance-badge badge-blueprint">
-              <i class="fa-solid fa-rocket"></i> Flagship Open-Source Architecture &bull; In Active Development
+              <i class="fa-solid fa-rocket"></i> Flagship Open-Source Architecture &bull; In Progress
             </div>
 
             <div class="project-card-header">
@@ -1501,7 +1501,7 @@
             <span class="tactical-badge badge-cyan" id="caseStudyCategoryBadge">Category</span>
             <span class="tactical-badge badge-amber" id="caseStudyProvenanceBadge">Provenance</span>
             <span class="tactical-badge badge-emerald" id="caseStudyStatusBadge">
-              <i class="fa-solid fa-circle-check"></i> Verified Production Architecture
+              <i class="fa-solid fa-circle-check"></i> Project Status
             </span>
           </div>
 
@@ -1675,7 +1675,7 @@
                 </div>
                 <div class="meta-spec-item">
                   <span class="meta-spec-key">STATUS</span>
-                  <span class="meta-spec-val" style="color: var(--emerald);">Production Ready</span>
+                  <span class="meta-spec-val" id="dossierStatus">Project Status</span>
                 </div>
               </div>
             </div>
