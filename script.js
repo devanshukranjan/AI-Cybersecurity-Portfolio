@@ -5,6 +5,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initThemeToggle();
   initNavbar();
   initModeSwitcher();
   initProjectCaseStudySystem();
@@ -14,6 +15,39 @@ document.addEventListener('DOMContentLoaded', () => {
   initExperienceInternToggle();
   initProjectsPageFilters();
 });
+
+/* ==========================================================================
+   0. THEME PREFERENCE
+   ========================================================================== */
+function initThemeToggle() {
+  const toggle = document.getElementById('themeToggle');
+  if (!toggle) return;
+
+  const root = document.documentElement;
+
+  function updateToggle(theme) {
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    const label = `Switch to ${nextTheme} theme`;
+    toggle.setAttribute('aria-label', label);
+    toggle.setAttribute('title', label);
+    toggle.setAttribute('aria-pressed', String(theme === 'light'));
+  }
+
+  const currentTheme = root.dataset.theme === 'light' ? 'light' : 'dark';
+  root.dataset.theme = currentTheme;
+  updateToggle(currentTheme);
+
+  toggle.addEventListener('click', () => {
+    const nextTheme = root.dataset.theme === 'light' ? 'dark' : 'light';
+    root.dataset.theme = nextTheme;
+    try {
+      localStorage.setItem('portfolio-theme', nextTheme);
+    } catch (error) {
+      // Theme switching still works when browser storage is unavailable.
+    }
+    updateToggle(nextTheme);
+  });
+}
 
 /* ==========================================================================
    1. NAVBAR & DROPDOWNS
@@ -36,12 +70,14 @@ function initNavbar() {
   if (dropdownToggle && dropdown) {
     dropdownToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      dropdown.classList.toggle('open');
+      const isOpen = dropdown.classList.toggle('open');
+      dropdownToggle.setAttribute('aria-expanded', String(isOpen));
     });
 
     document.addEventListener('click', (e) => {
       if (!dropdown.contains(e.target)) {
         dropdown.classList.remove('open');
+        dropdownToggle.setAttribute('aria-expanded', 'false');
       }
     });
   }
@@ -53,6 +89,7 @@ function initNavbar() {
     mobileToggle.addEventListener('click', () => {
       const isVisible = navLinks.style.display === 'flex';
       navLinks.style.display = isVisible ? 'none' : 'flex';
+      mobileToggle.setAttribute('aria-expanded', String(!isVisible));
       if (!isVisible) {
         navLinks.style.flexDirection = 'column';
         navLinks.style.position = 'absolute';
@@ -70,6 +107,7 @@ function initNavbar() {
       link.addEventListener('click', () => {
         if (window.innerWidth <= 960) {
           navLinks.style.display = 'none';
+          mobileToggle.setAttribute('aria-expanded', 'false');
         }
       });
     });
@@ -2079,7 +2117,7 @@ function initExperienceInternToggle() {
 /* ==========================================================================
    9. DEDICATED PROJECTS PAGE (PROJECTS.HTML) TWO-TIER FILTER SYSTEM
    ========================================================================== */
-function initProjectsPageFilters() {
+function initProjectsPageFiltersLegacy() {
   const filterWrapper = document.querySelector('.projects-filter-wrapper');
   if (!filterWrapper) return; // Only execute when on projects.html
 
@@ -2328,4 +2366,445 @@ function initProjectsPageFilters() {
   }
 
   initFromUrl();
+}
+
+/* ==========================================================================
+   10. INTELLIGENT PROJECT DISCOVERY
+   Weighted, typo-tolerant local search layered on the archive filters.
+   ========================================================================== */
+function initProjectsPageFilters() {
+  const filterWrapper = document.querySelector('.projects-filter-wrapper');
+  if (!filterWrapper) return;
+
+  const sectionTabs = Array.from(filterWrapper.querySelectorAll('.filter-section-tab'));
+  const capabilityTags = Array.from(filterWrapper.querySelectorAll('.capability-tag'));
+  const projectCards = Array.from(document.querySelectorAll('#archiveCardsGrid .project-card'));
+  const searchInput = document.getElementById('projectSearchInput');
+  const searchClearBtn = document.getElementById('searchClearBtn');
+  const suggestionsBox = document.getElementById('searchSuggestions');
+  const resultsCountEl = document.getElementById('resultsCount');
+  const activeSummaryEl = document.getElementById('activeFilterSummary');
+  const clearBtn = document.getElementById('clearFiltersBtn');
+  const mobileToggle = document.getElementById('mobileFilterToggle');
+  const tagsRow = document.getElementById('tagsFilterRow');
+  const mobileCountEl = document.getElementById('mobileActiveTagCount');
+  const chevron = document.getElementById('mobileFilterChevron');
+  const noResultsBox = document.getElementById('noResultsBox');
+
+  let currentSection = 'all';
+  let selectedTags = new Set();
+  let searchQuery = '';
+  let activeSuggestion = -1;
+
+  const TAG_SECTIONS = {
+    'LangGraph': ['all', 'ai', 'overlap'],
+    'RAG & Agents': ['all', 'ai', 'overlap'],
+    'Vector Search': ['all', 'ai'],
+    'Computer Vision': ['all', 'ai', 'overlap'],
+    'Multimodal LLMs': ['all', 'ai'],
+    'Federated Privacy': ['all', 'overlap'],
+    'SIEM & SPL': ['all', 'security'],
+    'Packet Forensics': ['all', 'security', 'overlap'],
+    'DFIR': ['all', 'security'],
+    'OSINT': ['all', 'security'],
+    'Heuristic Search (GA)': ['all', 'overlap'],
+    'Adversarial AI': ['all', 'overlap']
+  };
+
+  const SYNONYM_GROUPS = [
+    ['ai', 'artificial intelligence', 'machine learning', 'ml'],
+    ['generative ai', 'genai', 'llm', 'large language model', 'gemini', 'llama'],
+    ['agent', 'agents', 'agentic', 'multi agent', 'langgraph', 'supervisor'],
+    ['rag', 'retrieval augmented generation', 'semantic retrieval', 'knowledge retrieval'],
+    ['vector', 'vector search', 'embedding', 'embeddings', 'pgvector', 'semantic search'],
+    ['root cause', 'rca', 'diagnostic', 'diagnostics', 'anomaly investigation'],
+    ['cybersecurity', 'cyber security', 'infosec', 'security'],
+    ['siem', 'soc', 'splunk', 'threat hunting', 'security monitoring'],
+    ['forensics', 'dfir', 'digital forensics', 'file recovery', 'autopsy', 'ftk'],
+    ['intrusion detection', 'ids', 'threat detection', 'anomaly detection'],
+    ['network', 'packet', 'pcap', 'wireshark', 'tcp ip'],
+    ['privacy', 'differential privacy', 'ldp', 'federated learning'],
+    ['scraping', 'crawler', 'harvesting', 'extraction', 'zyte'],
+    ['database', 'postgresql', 'postgres', 'mongodb', 'redis'],
+    ['computer vision', 'vision', 'image analysis', 'multimodal'],
+    ['osint', 'geoint', 'socmint', 'open source intelligence']
+  ];
+
+  const PROJECT_ALIASES = {
+    'rca-engine': 'advertising analytics seller diagnostics business intelligence performance anomaly postgres optimization',
+    'mtech-dissertation': 'recommendation recommender sequence privacy research thesis laplace contrastive learning',
+    'hermes-ids': 'autonomous containment intrusion detection malware network defense cnn lstm',
+    'bot-iot-ga-ids': 'genetic algorithm feature selection bot iot intrusion dataset research',
+    'category-mapper': 'taxonomy category mapping semantic similarity ecommerce embeddings',
+    'scraping-engine': 'catalog crawler web data collection distributed ingestion automation',
+    'text-image-insights': 'product listing content intelligence image text marketplace analytics',
+    'multimodal-aplus': 'amazon a plus creative competitor content image generation',
+    'chatbot-rag': 'api microservices conversational assistant category mapper product details',
+    'aegis-agent': 'guardrails prompt injection pii redaction secure enterprise assistant',
+    'splunk-siem-lab': 'soc log monitoring ssh brute force nikto alert dashboard spl',
+    'dos-attack-simulation': 'denial service syn udp icmp flood slowloris traffic analysis',
+    'autopsy-disk-investigation': 'disk image evidence chain custody deleted file carving hex',
+    'osint-missing-person': 'geolocation exif social media investigation entity resolution'
+  };
+
+  const STOP_WORDS = new Set(['a', 'an', 'and', 'for', 'in', 'of', 'on', 'the', 'to', 'with']);
+
+  const normalize = value => (value || '')
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9+#.]+/g, ' ')
+    .trim();
+
+  function levenshtein(a, b) {
+    if (a === b) return 0;
+    if (!a.length) return b.length;
+    if (!b.length) return a.length;
+    const row = Array.from({ length: b.length + 1 }, (_, index) => index);
+    for (let i = 1; i <= a.length; i++) {
+      let previous = row[0];
+      row[0] = i;
+      for (let j = 1; j <= b.length; j++) {
+        const held = row[j];
+        row[j] = Math.min(
+          row[j] + 1,
+          row[j - 1] + 1,
+          previous + (a[i - 1] === b[j - 1] ? 0 : 1)
+        );
+        previous = held;
+      }
+    }
+    return row[b.length];
+  }
+
+  function isFuzzyMatch(needle, words) {
+    if (needle.length < 4) return false;
+    const tolerance = needle.length >= 8 ? 2 : 1;
+    return words.some(word => Math.abs(word.length - needle.length) <= tolerance && levenshtein(needle, word) <= tolerance);
+  }
+
+  function variantsFor(term) {
+    const variants = new Set([term]);
+    SYNONYM_GROUPS.forEach(group => {
+      const normalizedGroup = group.map(normalize);
+      if (normalizedGroup.some(item => item === term || item.includes(term) || term.includes(item))) {
+        normalizedGroup.forEach(item => variants.add(item));
+      }
+    });
+    return Array.from(variants);
+  }
+
+  const searchDocuments = projectCards.map((card, order) => {
+    const title = normalize(card.querySelector('.project-title')?.textContent);
+    const description = normalize(card.querySelector('.project-desc')?.textContent);
+    const tags = normalize(card.getAttribute('data-tags'));
+    const projectKey = card.getAttribute('data-project') || '';
+    const aliases = normalize(PROJECT_ALIASES[projectKey] || '');
+    const body = normalize(card.textContent);
+    return {
+      card,
+      order,
+      title,
+      description,
+      tags,
+      aliases,
+      body,
+      words: new Set(`${title} ${description} ${tags} ${aliases} ${body}`.split(/\s+/).filter(Boolean))
+    };
+  });
+
+  const suggestionCatalog = Array.from(new Set([
+    ...searchDocuments.map(doc => doc.card.querySelector('.project-title')?.textContent.trim()).filter(Boolean),
+    ...capabilityTags.map(tag => tag.textContent.trim()),
+    'Multi-agent AI', 'PostgreSQL', 'Privacy-preserving ML', 'Splunk SIEM',
+    'Digital forensics', 'Computer vision', 'Network security'
+  ]));
+
+  function scoreDocument(doc, query) {
+    const normalizedQuery = normalize(query);
+    if (!normalizedQuery) return { score: 0, reasons: [] };
+    const terms = normalizedQuery.split(/\s+/).filter(term => term && !STOP_WORDS.has(term));
+    const reasons = new Set();
+    let score = 0;
+
+    for (const term of terms) {
+      const variants = variantsFor(term);
+      let best = 0;
+      let bestReason = '';
+
+      for (const variant of variants) {
+        if (doc.title.includes(variant)) {
+          if (18 > best) { best = 18; bestReason = 'title'; }
+        } else if (doc.tags.includes(variant)) {
+          if (14 > best) { best = 14; bestReason = 'tools'; }
+        } else if (doc.aliases.includes(variant)) {
+          if (11 > best) { best = 11; bestReason = 'related skill'; }
+        } else if (doc.description.includes(variant)) {
+          if (8 > best) { best = 8; bestReason = 'description'; }
+        } else if (doc.body.includes(variant)) {
+          if (4 > best) { best = 4; bestReason = 'case study'; }
+        } else if (!variant.includes(' ') && isFuzzyMatch(variant, Array.from(doc.words))) {
+          if (2 > best) { best = 2; bestReason = 'close spelling'; }
+        }
+      }
+
+      if (best === 0) return { score: 0, reasons: [] };
+      score += best;
+      if (bestReason) reasons.add(bestReason);
+    }
+
+    if (doc.title.includes(normalizedQuery)) score += 30;
+    if (doc.tags.includes(normalizedQuery)) score += 20;
+    return { score, reasons: Array.from(reasons) };
+  }
+
+  function sectionMatches(category) {
+    if (currentSection === 'all') return true;
+    if (currentSection === 'ai') return category === 'ai' || category === 'overlap';
+    if (currentSection === 'security') return category === 'security' || category === 'overlap';
+    return category === 'overlap';
+  }
+
+  function syncUrl() {
+    const params = new URLSearchParams();
+    if (searchQuery) params.set('q', searchQuery);
+    if (currentSection !== 'all') params.set('section', currentSection);
+    if (selectedTags.size) params.set('tags', Array.from(selectedTags).join(','));
+    const suffix = params.toString();
+    window.history.replaceState(null, '', suffix ? `${window.location.pathname}?${suffix}` : window.location.pathname);
+  }
+
+  function updateTagAvailability() {
+    capabilityTags.forEach(tagBtn => {
+      const tag = tagBtn.getAttribute('data-tag');
+      const applicable = (TAG_SECTIONS[tag] || ['all']).includes(currentSection);
+      tagBtn.classList.toggle('disabled', !applicable);
+      tagBtn.disabled = !applicable;
+      if (!applicable) {
+        selectedTags.delete(tag);
+        tagBtn.classList.remove('active');
+        tagBtn.setAttribute('aria-pressed', 'false');
+      }
+    });
+  }
+
+  function updateMatchReason(card, reasons) {
+    let reasonEl = card.querySelector('.search-match-reason');
+    if (!searchQuery || !reasons.length) {
+      reasonEl?.remove();
+      return;
+    }
+    if (!reasonEl) {
+      reasonEl = document.createElement('div');
+      reasonEl.className = 'search-match-reason';
+      const description = card.querySelector('.project-desc');
+      description?.insertAdjacentElement('afterend', reasonEl);
+    }
+    reasonEl.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Matched in ${reasons.join(', ')}`;
+  }
+
+  function applyFilters({ updateUrl = true } = {}) {
+    const ranked = searchDocuments.map(doc => ({ ...doc, result: scoreDocument(doc, searchQuery) }));
+    if (searchQuery) {
+      ranked.sort((a, b) => b.result.score - a.result.score || a.order - b.order);
+    } else {
+      ranked.sort((a, b) => a.order - b.order);
+    }
+
+    let visibleCount = 0;
+    ranked.forEach(doc => {
+      const category = doc.card.getAttribute('data-category');
+      const cardTags = (doc.card.getAttribute('data-tags') || '').split(',').map(tag => tag.trim());
+      const tagMatch = selectedTags.size === 0 || cardTags.some(tag => selectedTags.has(tag));
+      const searchMatch = !searchQuery || doc.result.score > 0;
+      const show = sectionMatches(category) && tagMatch && searchMatch;
+
+      doc.card.style.display = show ? 'flex' : 'none';
+      doc.card.style.opacity = show ? '1' : '0';
+      doc.card.classList.toggle('search-result-card', Boolean(show && searchQuery));
+      updateMatchReason(doc.card, show ? doc.result.reasons : []);
+      document.getElementById('archiveCardsGrid')?.appendChild(doc.card);
+      if (show) visibleCount++;
+    });
+
+    if (resultsCountEl) resultsCountEl.textContent = visibleCount;
+    if (noResultsBox) noResultsBox.style.display = visibleCount ? 'none' : 'block';
+    if (mobileCountEl) mobileCountEl.textContent = selectedTags.size;
+    if (searchClearBtn) searchClearBtn.hidden = !searchQuery;
+
+    const sectionLabels = {
+      all: 'All Systems', ai: 'AI Engineering', security: 'Cybersecurity', overlap: 'AI × Security'
+    };
+    const parts = [sectionLabels[currentSection]];
+    if (searchQuery) parts.push(`Search: “${searchQuery}”`);
+    if (selectedTags.size) parts.push(Array.from(selectedTags).join(' OR '));
+    else parts.push('All Capabilities');
+    if (activeSummaryEl) activeSummaryEl.textContent = parts.join(' • ');
+    if (updateUrl) syncUrl();
+  }
+
+  function renderSuggestions() {
+    if (!suggestionsBox || !searchInput) return;
+    const query = normalize(searchInput.value);
+    if (!query) {
+      suggestionsBox.hidden = true;
+      suggestionsBox.innerHTML = '';
+      return;
+    }
+    const queryWords = query.split(/\s+/);
+    const matches = suggestionCatalog
+      .map(label => {
+        const normalizedLabel = normalize(label);
+        let score = normalizedLabel.includes(query) ? 10 : 0;
+        if (!score && queryWords.every(word => isFuzzyMatch(word, normalizedLabel.split(/\s+/)))) score = 4;
+        return { label, score };
+      })
+      .filter(item => item.score)
+      .sort((a, b) => b.score - a.score || a.label.length - b.label.length)
+      .slice(0, 6);
+
+    suggestionsBox.innerHTML = matches.map((item, index) =>
+      `<button type="button" class="search-suggestion" role="option" data-index="${index}" aria-selected="false"><i class="fa-solid fa-arrow-turn-up"></i><span>${item.label}</span></button>`
+    ).join('');
+    suggestionsBox.hidden = matches.length === 0;
+    activeSuggestion = -1;
+
+    suggestionsBox.querySelectorAll('.search-suggestion').forEach(button => {
+      button.addEventListener('mousedown', event => event.preventDefault());
+      button.addEventListener('click', () => {
+        searchInput.value = button.textContent.trim();
+        searchQuery = searchInput.value.trim();
+        suggestionsBox.hidden = true;
+        applyFilters();
+        searchInput.focus();
+      });
+    });
+  }
+
+  function clearSearch() {
+    if (!searchInput) return;
+    searchInput.value = '';
+    searchQuery = '';
+    if (suggestionsBox) suggestionsBox.hidden = true;
+    applyFilters();
+    searchInput.focus();
+  }
+
+  sectionTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      currentSection = tab.getAttribute('data-section') || 'all';
+      sectionTabs.forEach(item => {
+        const active = item === tab;
+        item.classList.toggle('active', active);
+        item.setAttribute('aria-selected', String(active));
+      });
+      updateTagAvailability();
+      applyFilters();
+    });
+  });
+
+  capabilityTags.forEach(tagBtn => {
+    tagBtn.setAttribute('aria-pressed', 'false');
+    tagBtn.addEventListener('click', () => {
+      if (tagBtn.disabled) return;
+      const tag = tagBtn.getAttribute('data-tag');
+      if (selectedTags.has(tag)) selectedTags.delete(tag);
+      else selectedTags.add(tag);
+      const active = selectedTags.has(tag);
+      tagBtn.classList.toggle('active', active);
+      tagBtn.setAttribute('aria-pressed', String(active));
+      applyFilters();
+    });
+  });
+
+  searchInput?.addEventListener('input', () => {
+    searchQuery = searchInput.value.trim();
+    renderSuggestions();
+    applyFilters();
+  });
+
+  searchInput?.addEventListener('keydown', event => {
+    const options = Array.from(suggestionsBox?.querySelectorAll('.search-suggestion') || []);
+    if (event.key === 'Escape') {
+      if (searchQuery) clearSearch();
+      else if (suggestionsBox) suggestionsBox.hidden = true;
+      return;
+    }
+    if (!options.length || !['ArrowDown', 'ArrowUp', 'Enter'].includes(event.key)) return;
+    event.preventDefault();
+    if (event.key === 'ArrowDown') activeSuggestion = (activeSuggestion + 1) % options.length;
+    if (event.key === 'ArrowUp') activeSuggestion = (activeSuggestion - 1 + options.length) % options.length;
+    if (event.key === 'Enter' && activeSuggestion >= 0) {
+      options[activeSuggestion].click();
+      return;
+    }
+    options.forEach((option, index) => {
+      const active = index === activeSuggestion;
+      option.classList.toggle('active', active);
+      option.setAttribute('aria-selected', String(active));
+    });
+  });
+
+  searchInput?.addEventListener('blur', () => {
+    window.setTimeout(() => { if (suggestionsBox) suggestionsBox.hidden = true; }, 120);
+  });
+
+  searchClearBtn?.addEventListener('click', clearSearch);
+
+  clearBtn?.addEventListener('click', () => {
+    currentSection = 'all';
+    selectedTags.clear();
+    searchQuery = '';
+    if (searchInput) searchInput.value = '';
+    if (suggestionsBox) suggestionsBox.hidden = true;
+    sectionTabs.forEach(tab => {
+      const active = tab.getAttribute('data-section') === 'all';
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', String(active));
+    });
+    capabilityTags.forEach(tag => {
+      tag.classList.remove('active', 'disabled');
+      tag.disabled = false;
+      tag.setAttribute('aria-pressed', 'false');
+    });
+    applyFilters();
+  });
+
+  mobileToggle?.addEventListener('click', () => {
+    const open = tagsRow?.classList.toggle('open');
+    mobileToggle.setAttribute('aria-expanded', String(Boolean(open)));
+    if (chevron) chevron.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
+  });
+
+  document.addEventListener('keydown', event => {
+    const target = event.target;
+    const isTyping = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target?.isContentEditable;
+    if (event.key === '/' && !isTyping) {
+      event.preventDefault();
+      searchInput?.focus();
+    }
+  });
+
+  const params = new URLSearchParams(window.location.search);
+  const urlSection = params.get('section');
+  const urlTags = params.get('tags');
+  const urlQuery = params.get('q') || '';
+
+  if (urlSection && ['all', 'ai', 'security', 'overlap'].includes(urlSection)) currentSection = urlSection;
+  if (urlTags) selectedTags = new Set(urlTags.split(',').map(tag => tag.trim()).filter(Boolean));
+  searchQuery = urlQuery.trim();
+  if (searchInput) searchInput.value = searchQuery;
+
+  sectionTabs.forEach(tab => {
+    const active = tab.getAttribute('data-section') === currentSection;
+    tab.classList.toggle('active', active);
+    tab.setAttribute('aria-selected', String(active));
+  });
+  capabilityTags.forEach(tag => {
+    const active = selectedTags.has(tag.getAttribute('data-tag'));
+    tag.classList.toggle('active', active);
+    tag.setAttribute('aria-pressed', String(active));
+  });
+  updateTagAvailability();
+  applyFilters({ updateUrl: false });
 }
