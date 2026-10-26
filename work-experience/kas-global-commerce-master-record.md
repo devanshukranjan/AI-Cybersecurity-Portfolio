@@ -25,7 +25,7 @@ While the public web portfolio condenses these systems for quick recruiter scann
 |---|---|---|---|
 | **Full-Catalog Scraping Latency** | 2–3 Months | **1.5 Weeks (90%+ latency reduction)** | Distributed 2-stage Zyte API crawler @ 1,000 req/min with MongoDB |
 | **PostgreSQL RCA Query Latency** | >1 Minute (60s+) | **<7 Seconds (88%+ speedup)** | Parallelized multi-query execution, compound B-tree/GIN indexing, optimized joins |
-| **RCA Diagnostic Coverage** | Manual Analyst Audits | **15 Live Production Diagnostics** (30 Planned) | LangGraph Multi-Agent Orchestrator, 50+ root-cause rules, dynamic thresholding |
+| **RCA Diagnostic Coverage** | Manual Analyst Audits | **28 Completed Diagnostics across 6 Domains** | MSC IQ LangGraph routing, registry-driven RCA services, typed `rca_report` delivery |
 | **Marketplace Scaling** | 2 (Amazon, ONDC) | **9 Global Marketplaces** | Amazon.in, Amazon.com, ONDC, Walmart, Flipkart, eBay, OnBuy modular schema adapters |
 | **Taxonomy Vector Search** | Keyword Search | **<50ms Retrieval Latency** (96% Top-1 Accuracy) | OpenAI `text-embedding-3-large` (3,072-dim) + PostgreSQL `pgvector` |
 | **Multimodal Vision Analysis** | Zero Automated Insights | **Batch Analysis across 6 Image Types** | Gemini 2.5 Flash Vision + statistical scoring across top 25 category best-sellers |
@@ -40,27 +40,14 @@ While the public web portfolio condenses these systems for quick recruiter scann
 * **Core Mandate:** End-to-end design, research, prototyping, and production deployment of autonomous multi-agent diagnostic systems, high-concurrency analytical engines, and automated multimodal intelligence pipelines.
 
 ### 1. Root Cause Analysis (RCA) Engine (Research to Production)
-* **Architecture:** LangGraph Multi-Agent Orchestrator translating unstructured natural language seller inquiries (English & Hinglish) into automated anomaly investigations.
+* **Architecture:** MySellerCentral's MSC IQ assistant validates seller access and uses a LangGraph supervisor to route English/Hinglish causal questions to the RCA service through `POST /api/analyze`. The typed `rca_report` result is persisted with the conversation in MongoDB and rendered by `RCAReport.jsx`.
 * **Diagnostic Scope:**
-  * Shipped **15 live diagnostics in production** (out of 30 total roadmap diagnostics):
-    * ACOS Spike (Advertising Cost of Sales)
-    * Wasted Ad Spend
-    * CPC Spike (Cost Per Click)
-    * Impressions Drop
-    * CTR Drop (Click-Through Rate)
-    * Ad CVR Drop (Conversion Rate)
-    * ROAS Drop (Return on Ad Spend)
-    * Spend Without Sales
-    * Top-of-Search Impression Loss
-    * Budget Depletion Velocity
-    * Keyword Cannibalization
-    * Non-Converting Search Terms
-    * Buy Box Loss Correlation
-    * Out-of-Stock Traffic Impact
-    * Organic vs Paid Ranking Divergence
-  * Governed by **50+ root-cause deterministic rules** (bid shifts, budget exhaustion, Buy Box loss, inventory stockouts).
+  * Completed **28 diagnostic workflows across 6 domains**: Marketing (14), Orders (6), Business (3), Inventory (2), Catalog (2), and Customer (1).
+  * Registry-driven dispatch covers advertising efficiency, orders and revenue, business health, supply risk, listing quality, product impact, and retention.
+  * Evidence is produced by read-only, pooled, parameterized PostgreSQL queries; foundation models assist with intent, date resolution, and cross-diagnostic arbitration rather than inventing metrics.
+  * The v3 investigation path can execute up to three compatible diagnostics in parallel, normalize their outputs, de-duplicate causes, and remove recommendations whose evidence does not survive arbitration.
 * **Statistical Thresholding & Safety:**
-  * Implemented dynamic per-account statistical thresholding and normalized period-over-period baseline comparisons (e.g. 7-day vs 30-day trailing windows).
+  * Applied diagnostic-owned metric gates and equal comparison windows; requests shorter than seven days expand to a reliable 14-day current period versus the prior 14 days.
   * Automated negative keyword generation with **traffic-loss safeguards** (checking organic rank and past conversion volume before recommending negative matches).
 * **Database Query Performance Engineering:**
   * Reduced complex analytics fetch latency from **>1 minute down to <7 seconds (88%+ reduction)** across millions of advertising records.
