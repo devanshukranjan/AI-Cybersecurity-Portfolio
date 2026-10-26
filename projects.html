@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    try {
+      document.documentElement.dataset.theme = localStorage.getItem('portfolio-theme') === 'light' ? 'light' : 'dark';
+    } catch (error) {
+      document.documentElement.dataset.theme = 'dark';
+    }
+  </script>
   <title>All Projects &amp; Systems Architecture | Devanshu Kumar Ranjan</title>
   <meta name="description" content="Complete portfolio archive of 14 production AI engines, adversarial cybersecurity SOC laboratories, and privacy-preserving machine learning dissertations by Devanshu Kumar Ranjan.">
 
@@ -17,7 +24,7 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="projects-archive-page">
 
   <!-- ========================================================================
        STICKY NAVIGATION HEADER
@@ -44,6 +51,11 @@
       </nav>
 
       <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme" title="Switch to light theme">
+          <i class="fa-solid fa-sun theme-icon-light" aria-hidden="true"></i>
+          <i class="fa-solid fa-moon theme-icon-dark" aria-hidden="true"></i>
+        </button>
+
         <!-- Dual Resume Dropdown -->
         <div class="dropdown">
           <button class="btn-resume" id="resumeDropdownToggle" aria-haspopup="true" aria-expanded="false">
@@ -69,7 +81,7 @@
           </div>
         </div>
 
-        <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">
+        <button class="mobile-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
           <i class="fa-solid fa-bars"></i>
         </button>
       </div>
@@ -117,7 +129,40 @@
          ======================================================================== -->
     <section class="projects-filter-section" style="padding: 0 0 5rem 0;">
       <div class="container">
-        <div class="projects-filter-wrapper">
+        <div class="projects-explorer-layout">
+        <aside class="projects-filter-wrapper" aria-label="Project search and filters">
+          <div class="filter-sidebar-heading">
+            <span class="filter-sidebar-kicker"><i class="fa-solid fa-sliders"></i> Project explorer</span>
+            <h2>Find relevant work</h2>
+            <p>Search by problem, technology, skill, or outcome, then narrow the results.</p>
+          </div>
+
+          <!-- Intelligent local search: titles, descriptions, tools, skills, aliases and outcomes -->
+          <div class="project-search-area">
+            <div class="project-search-box">
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+              <label class="sr-only" for="projectSearchInput">Search projects, tools, skills, and outcomes</label>
+              <input
+                type="search"
+                id="projectSearchInput"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="Search projects or tools…"
+                aria-describedby="projectSearchHelp"
+                aria-controls="searchSuggestions"
+                aria-autocomplete="list"
+              >
+              <kbd class="search-shortcut" aria-hidden="true">/</kbd>
+              <button class="search-clear-btn" id="searchClearBtn" type="button" aria-label="Clear project search" hidden>
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <div class="search-suggestions" id="searchSuggestions" role="listbox" aria-label="Search suggestions" hidden></div>
+            <p class="project-search-help" id="projectSearchHelp">
+              Try “multi-agent PostgreSQL”, “privacy recommendation”, “Splunk”, or even a close spelling such as “langgrpah”.
+            </p>
+          </div>
+
           <!-- Row 1: Section Tabs -->
           <div class="filter-row-sections">
             <div class="filter-section-tabs" role="tablist" aria-label="Discipline Tabs">
@@ -164,7 +209,7 @@
 
           <!-- Filter Controls Bar -->
           <div class="filter-controls-bar">
-            <div class="filter-results-count">
+            <div class="filter-results-count" aria-live="polite">
               Showing <strong id="resultsCount">14</strong> of 14 Systems
             </div>
 
@@ -177,10 +222,19 @@
               <span>Clear filters</span>
             </button>
           </div>
-        </div>
+        </aside>
 
-        <!-- Full Archive Cards Grid (All 14 Cards) -->
-        <div class="cards-grid" id="archiveCardsGrid">
+        <div class="projects-results-area">
+          <div class="archive-results-heading">
+            <div>
+              <span class="archive-results-kicker">Engineering archive</span>
+              <h2>Projects and security labs</h2>
+            </div>
+            <a href="index.html#projects" class="archive-back-link"><i class="fa-solid fa-arrow-left"></i> Selected work</a>
+          </div>
+
+          <!-- Full Archive Cards Grid (All 14 Cards) -->
+          <div class="cards-grid" id="archiveCardsGrid">
           <!-- 1. RCA Diagnostic Engine (AI) -->
           <article class="project-card featured-card" id="proj-rca-engine" data-featured="true" data-category="ai" data-project="rca-engine" data-tags="LangGraph,RAG & Agents,Vector Search">
             <div class="provenance-badge badge-fulltime">
@@ -865,6 +919,8 @@
               <span>Clear filters &amp; show all systems</span>
             </button>
           </div>
+          </div>
+        </div>
         </div>
       </div>
     </section>

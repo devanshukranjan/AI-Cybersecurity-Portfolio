@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    try {
+      document.documentElement.dataset.theme = localStorage.getItem('portfolio-theme') === 'light' ? 'light' : 'dark';
+    } catch (error) {
+      document.documentElement.dataset.theme = 'dark';
+    }
+  </script>
   <title>Devanshu Kumar Ranjan | AI Engineer & Cyber Security Specialist</title>
   <meta name="description" content="Production AI Engineer and M.Tech Cyber Security graduate from NIT Patna. Specialized in enterprise LLM diagnostics, vector search, distributed data pipelines, and privacy-preserving federated learning.">
   <meta name="author" content="Devanshu Kumar Ranjan">
@@ -19,7 +26,7 @@
   <!-- Custom Styles -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="home-page">
 
   <!-- ========================================================================
        SITE HEADER & NAVIGATION
@@ -46,6 +53,11 @@
       </nav>
 
       <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme" title="Switch to light theme">
+          <i class="fa-solid fa-sun theme-icon-light" aria-hidden="true"></i>
+          <i class="fa-solid fa-moon theme-icon-dark" aria-hidden="true"></i>
+        </button>
+
         <!-- Dual Resume Dropdown -->
         <div class="dropdown">
           <button class="btn-resume" id="resumeDropdownToggle" aria-haspopup="true" aria-expanded="false">
@@ -71,7 +83,7 @@
           </div>
         </div>
 
-        <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">
+        <button class="mobile-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
           <i class="fa-solid fa-bars"></i>
         </button>
       </div>
@@ -87,83 +99,49 @@
         <div class="hero-content">
           <div class="hero-badge-wrap">
             <div class="status-dot"></div>
-            <span>PRODUCTION TELEMETRY: ALL SYSTEMS OPERATIONAL</span>
+            <span>AI ENGINEER &bull; PRODUCTION SYSTEMS &bull; CYBERSECURITY</span>
           </div>
 
           <h1 class="hero-title">
-            Engineering Production AI Systems with <span class="hero-gradient-text">Systems Security Rigor</span>
+            Building production AI systems that are <span class="hero-gradient-text">fast, reliable, and secure.</span>
           </h1>
 
           <p class="hero-subtitle">
-            <strong>AI Engineer</strong> at <strong>KAS Global Commerce</strong> and <strong>M.Tech Cyber Security graduate from NIT Patna</strong> (CGPA: 9.06/10). Architect of enterprise AI diagnostic engines, high-throughput vector retrieval systems, and researcher in privacy-preserving federated sequential learning.
+            AI Engineer at KAS Global Commerce and M.Tech Cyber Security graduate from NIT Patna. I build multi-agent diagnostics, retrieval systems, and privacy-aware machine learning pipelines that turn complex data into useful decisions.
           </p>
 
           <div class="hero-ctas">
-            <a href="#projects" class="btn btn-primary" data-mode-jump="ai">
-              <i class="fa-solid fa-network-wired"></i>
-              <span>Explore AI Engineering</span>
+            <a href="#projects" class="btn btn-primary">
+              <i class="fa-solid fa-arrow-down"></i>
+              <span>View selected work</span>
             </a>
-            <a href="#projects" class="btn btn-secondary" data-mode-jump="security">
-              <i class="fa-solid fa-shield-halved"></i>
-              <span>Explore Cybersecurity</span>
-            </a>
-            <a href="#projects" class="btn btn-outline" data-mode-jump="overlap">
-              <i class="fa-solid fa-dna"></i>
-              <span>The Intersection</span>
+            <a href="projects.html" class="btn btn-secondary">
+              <i class="fa-solid fa-layer-group"></i>
+              <span>All projects</span>
             </a>
           </div>
         </div>
 
-        <!-- Hero Terminal Telemetry Card -->
-        <div class="hero-terminal-card">
-          <div class="terminal-header">
-            <div class="terminal-dots">
-              <div class="terminal-dot dot-red"></div>
-              <div class="terminal-dot dot-yellow"></div>
-              <div class="terminal-dot dot-green"></div>
+        <!-- Selected, measurable production impact -->
+        <aside class="hero-impact-card" aria-label="Selected production impact">
+          <div class="impact-card-kicker"><i class="fa-solid fa-chart-line"></i> Selected production impact</div>
+          <h2>Engineering outcomes, not just technology lists.</h2>
+          <div class="hero-impact-list">
+            <div class="hero-impact-item">
+              <strong>15</strong>
+              <span>live diagnostics backed by 50+ root-cause rules</span>
             </div>
-            <div class="terminal-title">dkr-core-telemetry@production-v2.6</div>
-            <i class="fa-solid fa-terminal" style="color: var(--text-muted); font-size: 0.8rem;"></i>
-          </div>
-          <div class="terminal-body">
-            <div class="terminal-line">
-              <span class="term-prompt">user@msc-iq:~$</span>
-              <span class="term-cmd">msc-iq status --engines rca,vector,security</span>
+            <div class="hero-impact-item">
+              <strong>&lt;7s</strong>
+              <span>analytics response time, reduced from more than one minute</span>
             </div>
-            <div class="term-output">
-              [INIT] Root Cause Analysis Engine: <b>15 LIVE DIAGNOSTICS</b> (30 Total, 50+ Rules)<br>
-              [AUTH] Supervisor Routing: <b>LangGraph Multi-Agent Dispatcher</b><br>
-              [VECT] Vector Index: <b>PostgreSQL + pgvector (3,072-dim)</b><br>
-              [PRIV] Edge Privacy: <b>LDP-SeqMask Laplace Mechanism Active</b><br>
-              [SIEM] Security Lab: <b>Splunk Enterprise 3-VM SOC Online</b>
-            </div>
-            <div class="terminal-line">
-              <span class="term-prompt">user@msc-iq:~$</span>
-              <span class="term-cmd">cat current_role.json</span>
-            </div>
-            <div class="term-output">
-              { "company": "KAS Global Commerce Inc.", "product": "My Seller Central", "role": "AI Engineer", "location": "Bilaspur, HP (On-site)", "focus": "RCA Engine &amp; Multimodal Intelligence" }
-            </div>
-
-            <div class="term-metric-strip">
-              <div class="metric-item">
-                <div class="metric-num">12</div>
-                <div class="metric-lbl">Featured Projects</div>
-              </div>
-              <div class="metric-item">
-                <div class="metric-num">4</div>
-                <div class="metric-lbl">Industry Certifications</div>
-              </div>
-              <div class="metric-item">
-                <div class="metric-num">9.06 / 10</div>
-                <div class="metric-lbl">M.Tech Cyber Security CGPA</div>
-              </div>
-              <div class="metric-item">
-                <div class="metric-num">8.83 / 10</div>
-                <div class="metric-lbl">B.Tech CSE CGPA</div>
-              </div>
+            <div class="hero-impact-item">
+              <strong>1.5 weeks</strong>
+              <span>catalog harvesting time, reduced from 2–3 months</span>
             </div>
           </div>
+          <p class="impact-card-note">Current focus: agentic diagnostics, multimodal intelligence, retrieval infrastructure, and secure ML systems.</p>
+        </aside>
         </div>
       </div>
     </section>
@@ -273,19 +251,19 @@
               <ul class="role-bullet-list">
                 <li>
                   Architected and deployed a production LangGraph multi-agent RCA engine from scratch (research to deployment): <strong>15 live diagnostics and 50+ root-cause rules</strong> turning seller queries (English/Hinglish) into automated anomaly investigations; reduced PostgreSQL analytics fetch latency from <strong>&gt;1 minute down to &lt;7 seconds (88%+ speedup)</strong> via multi-query parallelization, compound B-tree/GIN indexing, and optimized relational joins.
-                  <a href="#proj-rca-engine" class="exp-bullet-link" title="Inspect RCA Engine System">↗</a>
+                  <a href="projects.html#proj-rca-engine" class="exp-bullet-link" title="Open RCA Engine in All Projects">↗</a>
                 </li>
                 <li>
                   Cut monthly catalog harvesting and multimodal vision processing overhead to <strong>zero manual intervention</strong> via scheduled cron orchestrators and automated schema recovery.
-                  <a href="#proj-scraper-engine" class="exp-bullet-link" title="Inspect Scraping Pipeline">↗</a>
+                  <a href="projects.html#proj-scraper-engine" class="exp-bullet-link" title="Open Scraping Pipeline in All Projects">↗</a>
                 </li>
                 <li>
                   Scaled catalog harvesting, normalization, and vision intelligence to <strong>9 global marketplaces</strong> (Amazon.in, Amazon.com, ONDC, Walmart, Flipkart, eBay, etc.).
-                  <a href="#proj-text-image-insights" class="exp-bullet-link" title="Inspect Multimodal Pipeline">↗</a>
+                  <a href="projects.html#proj-text-image-insights" class="exp-bullet-link" title="Open Multimodal Pipeline in All Projects">↗</a>
                 </li>
                 <li>
                   Analyzed visual design patterns, product placement, background settings, and headline messaging across competitor Amazon A+ content to generate structured insight JSONs for automated A+ content creation.
-                  <a href="#proj-aplus-engine" class="exp-bullet-link" title="Inspect A+ Content Engine">↗</a>
+                  <a href="projects.html#proj-aplus-engine" class="exp-bullet-link" title="Open A+ Content Engine in All Projects">↗</a>
                 </li>
               </ul>
 
@@ -301,10 +279,10 @@
 
               <div class="exp-related-row">
                 <span class="exp-related-lbl">Related Systems:</span>
-                <a href="#proj-rca-engine" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> RCA Engine</a>
-                <a href="#proj-scraper-engine" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Scraping Engine</a>
-                <a href="#proj-text-image-insights" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Multimodal Insights</a>
-                <a href="#proj-aplus-engine" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> A+ Content Engine</a>
+                <a href="projects.html#proj-rca-engine" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> RCA Engine</a>
+                <a href="projects.html#proj-scraper-engine" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Scraping Engine</a>
+                <a href="projects.html#proj-text-image-insights" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Multimodal Insights</a>
+                <a href="projects.html#proj-aplus-engine" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> A+ Content Engine</a>
               </div>
             </div>
 
@@ -326,19 +304,19 @@
                 <ul class="role-bullet-list">
                   <li>
                     <strong>Distributed Two-Stage Web Scraping Engine:</strong> Engineered high-volume catalog harvesting across <strong>Amazon.in</strong>, <strong>Amazon.com</strong>, and <strong>ONDC</strong>; reduced full-catalog scraping time from <strong>2–3 months down to 1.5 weeks</strong> (90%+ latency reduction) via threaded Zyte API calls at <strong>1,000 req/min</strong> with MongoDB persistence.
-                    <a href="#proj-scraper-engine" class="exp-bullet-link" title="Jump to Two-Stage Scraping Architecture">↗</a>
+                    <a href="projects.html#proj-scraper-engine" class="exp-bullet-link" title="Open Two-Stage Scraping Architecture in All Projects">↗</a>
                   </li>
                   <li>
                     <strong>Taxonomy ETL &amp; Dense Vector Search:</strong> Developed taxonomy breadcrumb normalization and dense semantic vector search using OpenAI <code>text-embedding-3-large</code> (3,072 dimensions) and PostgreSQL with <code>pgvector</code> (IVFFLAT indexing) for cross-marketplace category mapping, achieving sub-50ms retrieval latency.
-                    <a href="#proj-vector-taxonomy" class="exp-bullet-link" title="Jump to pgvector Taxonomy Pipeline">↗</a>
+                    <a href="projects.html#proj-vector-taxonomy" class="exp-bullet-link" title="Open pgvector Taxonomy Pipeline in All Projects">↗</a>
                   </li>
                   <li>
                     <strong>Common API Endpoints &amp; Chatbot RAG:</strong> Built 3 core microservices (<code>/api/v1/category-mapper</code>, <code>/api/v1/insights</code>, <code>/api/v1/product-details</code>) enabling multi-turn conversational category RAG with dynamic chip disambiguation powering the MSC IQ assistant.
-                    <a href="#proj-common-api" class="exp-bullet-link" title="Jump to Chatbot RAG API Spec">↗</a>
+                    <a href="projects.html#proj-common-api" class="exp-bullet-link" title="Open Chatbot RAG API Spec in All Projects">↗</a>
                   </li>
                   <li>
                     <strong>Multimodal Text &amp; Image Insight Pipeline (Amazon &amp; ONDC):</strong> Designed foundational category intelligence combining quantitative statistical analysis with Gemini 2.5 Flash inference for Amazon and ONDC product listings.
-                    <a href="#proj-text-image-insights" class="exp-bullet-link" title="Jump to Text &amp; Image Pipeline Card">↗</a>
+                    <a href="projects.html#proj-text-image-insights" class="exp-bullet-link" title="Open Text &amp; Image Pipeline in All Projects">↗</a>
                   </li>
                 </ul>
 
@@ -353,8 +331,8 @@
 
                 <div class="exp-related-row">
                   <span class="exp-related-lbl">Related Systems:</span>
-                  <a href="#proj-vector-taxonomy" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Taxonomy pgvector</a>
-                  <a href="#proj-common-api" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Chatbot RAG APIs</a>
+                  <a href="projects.html#proj-vector-taxonomy" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Taxonomy pgvector</a>
+                  <a href="projects.html#proj-common-api" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Chatbot RAG APIs</a>
                 </div>
               </div>
             </div>
@@ -376,11 +354,11 @@
         <div class="section-header">
           <div class="section-tag">
             <i class="fa-solid fa-layer-group"></i>
-            <span>Engineering Systems &bull; Architectural Deep Dives</span>
+            <span>Selected Work</span>
           </div>
-          <h2 class="section-title">Featured Projects &amp; Architectures</h2>
+          <h2 class="section-title">Three systems that represent my work</h2>
           <p class="section-desc">
-            Production AI pipelines, autonomous threat detection engines, and privacy-preserving machine learning research. Filter by role domain or explore the complete 14-project matrix.
+            A focused selection spanning production AI, privacy-preserving research, and autonomous threat detection. Open any card for the complete case study and evidence.
           </p>
         </div>
 
