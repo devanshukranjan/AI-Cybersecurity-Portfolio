@@ -957,119 +957,252 @@
        PROJECT DEEP-DIVE CASE STUDY MODAL (FULL SCREEN VIEW)
        ======================================================================== -->
   <div class="modal-backdrop" id="projectCaseStudyModal" role="dialog" aria-modal="true" aria-labelledby="caseStudyTitle">
-    <div class="modal-content case-study-modal-content">
-      <button class="modal-close-btn" id="caseStudyCloseBtn" aria-label="Close case study dialog">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-
-      <!-- Case Study Header -->
-      <div class="case-study-header">
-        <div class="case-study-badge-row">
-          <span class="project-type-badge" id="caseStudyCategoryBadge">Category</span>
-          <span class="provenance-badge" id="caseStudyProvenanceBadge" style="margin: 0;">Provenance</span>
+    <div class="modal-content case-study-modal-content cybersoc-modal">
+      
+      <!-- Top CyberSOC Telemetry Strip (Fixed Modal Header) -->
+      <div class="cybersoc-top-strip">
+        <div class="soc-status-group">
+          <div class="soc-indicator">
+            <span class="pulse-dot"></span>
+            DEFENSE NODE: ONLINE
+          </div>
+          <div class="soc-telemetry-tag d-none-sm">CLASSIFICATION: <span id="caseStudySocClassification">APPLIED CYBER-AI</span></div>
+          <div class="soc-telemetry-tag d-none-md">SYSTEM ID: <span id="caseStudySocSysId">NODE-ACTIVE</span></div>
         </div>
-        <h2 class="case-study-title" id="caseStudyTitle">Project Title</h2>
-        <p class="case-study-summary" id="caseStudySummary">Project summary description.</p>
-        <div class="case-study-meta-row" id="caseStudyMetaRow">
-          <!-- Dynamically populated meta chips -->
-        </div>
+        <button class="cybersoc-close-btn" id="caseStudyCloseBtn" aria-label="Close case study dialog" title="Close [ESC]">
+          <span class="close-label">CLOSE</span>
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
 
-      <!-- Case Study Grid (Main Article + Sidebar) -->
-      <div class="case-study-grid">
-        <!-- Main Column -->
-        <div class="case-study-main">
-          <!-- 1. Objective Section (Positioned First) -->
-          <section class="case-study-section" id="caseStudyObjectiveSection">
-            <h4 class="case-study-section-title">
-              <i class="fa-solid fa-bullseye"></i> Objective
-            </h4>
-            <p class="case-study-text" id="caseStudyObjective"></p>
-          </section>
+      <div class="cybersoc-scroll-body">
+        <!-- Case Study Hero (Without duplicate action buttons) -->
+        <div class="case-study-hero">
+          <div class="case-study-badge-row">
+            <span class="tactical-badge badge-cyan" id="caseStudyCategoryBadge">Category</span>
+            <span class="tactical-badge badge-amber" id="caseStudyProvenanceBadge">Provenance</span>
+            <span class="tactical-badge badge-emerald" id="caseStudyStatusBadge">
+              <i class="fa-solid fa-circle-check"></i> Verified Production Architecture
+            </span>
+          </div>
 
-          <!-- 2. System Architecture & Interactive Execution Pipeline Section -->
-          <section class="case-study-section" id="caseStudyArchSection">
-            <div class="case-study-section-header">
-              <h4 class="case-study-section-title">
-                <i class="fa-solid fa-diagram-project"></i> System Architecture &bull; Interactive Pipeline
-              </h4>
-            </div>
-
-            <!-- Interactive Visual Pipeline Flow (Auto-fitting, No Horizontal Scrolling) -->
-            <div class="pipeline-container" id="caseStudyPipelineContainer">
-              <div class="pipeline-top-bar">
-                <span class="pipeline-kicker-tag" id="pipelineKickerTag">SYSTEM OVERVIEW / WORKFLOW</span>
-                <span class="pipeline-instruction"><i class="fa-solid fa-hand-pointer"></i> Select a step to see how it works.</span>
-              </div>
-
-              <!-- Steps Flow Track -->
-              <div class="pipeline-track-wrapper">
-                <div class="pipeline-track" id="caseStudyPipelineTrack">
-                  <!-- Dynamically populated step cards with inline indicator badges -->
-                </div>
-              </div>
-
-              <!-- Active Step Details Card (Glowing Amber Accent, Left Border) -->
-              <div class="pipeline-active-detail" id="caseStudyPipelineDetail">
-                <div class="pipeline-detail-header">
-                  <span class="pipeline-detail-step" id="pipelineDetailStepBadge">STEP 01</span>
-                  <span class="pipeline-detail-type" id="pipelineDetailType">Active Component</span>
-                </div>
-                <h5 class="pipeline-detail-title" id="pipelineDetailTitle">Step Title</h5>
-                <p class="pipeline-detail-desc" id="pipelineDetailDesc">Step description and technical mechanics.</p>
-                <div class="pipeline-detail-chips" id="pipelineDetailChips"></div>
-              </div>
-            </div>
-          </section>
-
-          <!-- 3. Evidence & Screenshot Gallery Section -->
-          <section class="case-study-section" id="caseStudyGallerySection">
-            <h4 class="case-study-section-title">
-              <i class="fa-solid fa-images"></i> Evidence &amp; Interactive Telemetry Screenshots (Click to Zoom)
-            </h4>
-            <div class="case-study-gallery" id="caseStudyGallery">
-              <!-- Dynamically populated screenshot cards -->
-            </div>
-          </section>
-
-          <!-- Key Findings Section -->
-          <section class="case-study-section" id="caseStudyFindingsSection">
-            <h4 class="case-study-section-title">
-              <i class="fa-solid fa-chart-line"></i> Key Findings &amp; Validated Metrics
-            </h4>
-            <ul class="case-study-findings-list" id="caseStudyFindings"></ul>
-          </section>
-
-          <!-- What I Learned Section -->
-          <section class="case-study-section" id="caseStudyLearnedSection">
-            <h4 class="case-study-section-title">
-              <i class="fa-solid fa-graduation-cap"></i> What I Learned &amp; Engineering Takeaways
-            </h4>
-            <p class="case-study-text" id="caseStudyLearned"></p>
-          </section>
+          <h2 class="case-study-title" id="caseStudyTitle">Project Title</h2>
+          <p class="case-study-summary" id="caseStudySummary">Project summary description.</p>
+          
+          <div class="case-study-meta-row" id="caseStudyMetaRow">
+            <!-- Dynamically populated meta chips -->
+          </div>
         </div>
 
-        <!-- Sidebar Column -->
-        <aside class="case-study-sidebar" aria-label="Project Metadata and Resources">
-          <div class="sidebar-block">
-            <div class="sidebar-label">Tools &amp; Frameworks</div>
-            <div class="sidebar-tag-wrap" id="caseStudyTools"></div>
-          </div>
-
-          <div class="sidebar-block">
-            <div class="sidebar-label">Skills Demonstrated</div>
-            <div class="sidebar-tag-wrap" id="caseStudySkills"></div>
-          </div>
-
-          <div class="sidebar-block" id="caseStudyResourcesBlock">
-            <div class="sidebar-label">Resources &amp; Documentation</div>
-            <div class="sidebar-actions" id="caseStudyLinks">
-              <a class="btn btn-primary" id="caseStudyReport" href="#" target="_blank" rel="noopener noreferrer">
-                <i class="fa-solid fa-file-lines"></i> <span id="caseStudyReportLabel">Technical Report / PDF</span>
-              </a>
+        <!-- Telemetry HUD Metric Grid (4 Glowing KPI Cards) -->
+        <div class="telemetry-hud-grid" id="caseStudyHudGrid">
+          <div class="hud-stat-card cyan-edge">
+            <div class="hud-stat-label">
+              <span id="hudStat1Label">METRIC SPEC</span>
+              <i class="fa-solid fa-crosshairs text-cyan"></i>
             </div>
+            <div class="hud-stat-value" id="hudStat1Value">1.00 F1</div>
+            <div class="hud-stat-desc" id="hudStat1Desc">Validated Predictive Precision</div>
           </div>
-        </aside>
+
+          <div class="hud-stat-card emerald-edge">
+            <div class="hud-stat-label">
+              <span id="hudStat2Label">ARCHITECTURE PRUNING</span>
+              <i class="fa-solid fa-arrow-down-short-wide text-emerald"></i>
+            </div>
+            <div class="hud-stat-value" id="hudStat2Value">48.8%</div>
+            <div class="hud-stat-desc" id="hudStat2Desc">Dimensional Subspace Reduction</div>
+          </div>
+
+          <div class="hud-stat-card amber-edge">
+            <div class="hud-stat-label">
+              <span id="hudStat3Label">EVALUATION VOLUME</span>
+              <i class="fa-solid fa-database text-amber"></i>
+            </div>
+            <div class="hud-stat-value" id="hudStat3Value">1.10M</div>
+            <div class="hud-stat-desc" id="hudStat3Desc">Stratified Verification Flows</div>
+          </div>
+
+          <div class="hud-stat-card purple-edge">
+            <div class="hud-stat-label">
+              <span id="hudStat4Label">HEURISTIC SEARCH</span>
+              <i class="fa-solid fa-bolt text-purple"></i>
+            </div>
+            <div class="hud-stat-value" id="hudStat4Value">Gen 21</div>
+            <div class="hud-stat-desc" id="hudStat4Desc">Adaptive Early Stopping Trigger</div>
+          </div>
+        </div>
+
+        <!-- Case Study Grid (Main Workspace + Sidebar Tactical Dossier) -->
+        <div class="case-study-grid">
+          <!-- Main Column -->
+          <div class="case-study-main">
+            <!-- 1. Objective / Tactical Threat Mission -->
+            <section class="case-study-section" id="caseStudyObjectiveSection">
+              <div class="case-study-section-header">
+                <h4 class="case-study-section-title">
+                  <i class="fa-solid fa-bullseye"></i> Tactical Mission &amp; Threat Formulation
+                </h4>
+                <span class="panel-action-badge">PROBLEM CONTEXT</span>
+              </div>
+              <div class="mission-brief-card" id="caseStudyObjective"></div>
+            </section>
+
+            <!-- 2. System Architecture & Interactive Execution Pipeline Section -->
+            <section class="case-study-section" id="caseStudyArchSection">
+              <div class="case-study-section-header">
+                <h4 class="case-study-section-title">
+                  <i class="fa-solid fa-microchip"></i> Interactive Algorithmic Pipeline
+                </h4>
+                <span class="panel-action-badge">SELECT A STEP TO INSPECT</span>
+              </div>
+
+              <!-- Interactive Visual Pipeline Flow (Auto-fitting, No Horizontal Scrolling) -->
+              <div class="pipeline-container" id="caseStudyPipelineContainer">
+                <div class="pipeline-top-bar">
+                  <span class="pipeline-kicker-tag" id="pipelineKickerTag">SYSTEM OVERVIEW / WORKFLOW</span>
+                  <span class="pipeline-instruction"><i class="fa-solid fa-hand-pointer"></i> Select a step to inspect mechanics.</span>
+                </div>
+
+                <!-- Steps Flow Track -->
+                <div class="pipeline-track-wrapper">
+                  <div class="pipeline-track" id="caseStudyPipelineTrack">
+                    <!-- Dynamically populated step cards with inline indicator badges -->
+                  </div>
+                </div>
+
+                <!-- Active Step Details Card (Glowing Cyan Accent, Left Border) -->
+                <div class="pipeline-active-detail" id="caseStudyPipelineDetail">
+                  <div class="pipeline-detail-header">
+                    <span class="pipeline-detail-step" id="pipelineDetailStepBadge">STEP 01</span>
+                    <span class="pipeline-detail-type" id="pipelineDetailType">Active Component</span>
+                  </div>
+                  <h5 class="pipeline-detail-title" id="pipelineDetailTitle">Step Title</h5>
+                  <p class="pipeline-detail-desc" id="pipelineDetailDesc">Step description and technical mechanics.</p>
+                  <div class="pipeline-detail-chips" id="pipelineDetailChips"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- 3. Architecture Blueprint & ASCII Topology (Tabbed) -->
+            <section class="case-study-section" id="caseStudyTopologySection">
+              <div class="case-study-section-header">
+                <h4 class="case-study-section-title">
+                  <i class="fa-solid fa-network-wired"></i> System Architecture Topology
+                </h4>
+                <div class="arch-tab-bar" id="archTabBar">
+                  <button class="arch-tab-btn active" id="tabAsciiBtn" type="button">
+                    <i class="fa-solid fa-terminal"></i> Topology Blueprint
+                  </button>
+                </div>
+              </div>
+              <div class="architecture-box">
+                <pre class="arch-content" id="caseStudyArchitecture"></pre>
+              </div>
+            </section>
+
+            <!-- 4. Evidence & Screenshot Gallery Section -->
+            <section class="case-study-section" id="caseStudyGallerySection">
+              <div class="case-study-section-header">
+                <h4 class="case-study-section-title">
+                  <i class="fa-solid fa-images"></i> Forensic Evidence &amp; Visual Telemetry
+                </h4>
+                <span class="panel-action-badge">CLICK TO ENLARGE</span>
+              </div>
+              <div class="case-study-gallery" id="caseStudyGallery">
+                <!-- Dynamically populated screenshot cards -->
+              </div>
+            </section>
+
+            <!-- 5. Key Findings Section -->
+            <section class="case-study-section" id="caseStudyFindingsSection">
+              <div class="case-study-section-header">
+                <h4 class="case-study-section-title">
+                  <i class="fa-solid fa-award"></i> Validated Empirical Findings
+                </h4>
+                <span class="panel-action-badge">BENCHMARK AUDIT</span>
+              </div>
+              <ul class="case-study-findings-list" id="caseStudyFindings"></ul>
+            </section>
+
+            <!-- 6. What I Learned Section -->
+            <section class="case-study-section" id="caseStudyLearnedSection">
+              <div class="case-study-section-header">
+                <h4 class="case-study-section-title">
+                  <i class="fa-solid fa-graduation-cap"></i> What I Learned &amp; Engineering Takeaways
+                </h4>
+              </div>
+              <p class="case-study-text" id="caseStudyLearned"></p>
+            </section>
+          </div>
+
+          <!-- Sidebar Column (Tactical Dossier) -->
+          <aside class="case-study-sidebar" aria-label="Project Metadata and Resources">
+            <!-- Project Dossier Block -->
+            <div class="sidebar-block">
+              <div class="sidebar-label"><i class="fa-solid fa-id-card-clip"></i> Project Dossier</div>
+              <div class="meta-spec-list" id="caseStudyDossierList">
+                <div class="meta-spec-item">
+                  <span class="meta-spec-key">ENGINEER</span>
+                  <span class="meta-spec-val">Devanshu Kumar Ranjan</span>
+                </div>
+                <div class="meta-spec-item">
+                  <span class="meta-spec-key">PROVENANCE</span>
+                  <span class="meta-spec-val" id="dossierProvenance">Applied ML</span>
+                </div>
+                <div class="meta-spec-item">
+                  <span class="meta-spec-key">STAGES</span>
+                  <span class="meta-spec-val" id="dossierStages">5 Phases</span>
+                </div>
+                <div class="meta-spec-item">
+                  <span class="meta-spec-key">STATUS</span>
+                  <span class="meta-spec-val" style="color: var(--emerald);">Production Ready</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tools & Frameworks Block -->
+            <div class="sidebar-block">
+              <div class="sidebar-label"><i class="fa-solid fa-layer-group"></i> Technologies &amp; Tools</div>
+              <div class="sidebar-tag-wrap" id="caseStudyTools"></div>
+            </div>
+
+            <!-- Skills Block -->
+            <div class="sidebar-block">
+              <div class="sidebar-label"><i class="fa-solid fa-brain"></i> Core Capabilities</div>
+              <div class="sidebar-tag-wrap" id="caseStudySkills"></div>
+            </div>
+
+            <!-- Resources & Deliverables Block -->
+            <div class="sidebar-block" id="caseStudyResourcesBlock">
+              <div class="sidebar-label"><i class="fa-solid fa-folder-open"></i> Project Deliverables</div>
+              <div class="sidebar-actions" id="caseStudyLinks">
+                <a class="resource-link-btn" id="caseStudyGithub" href="#" target="_blank" rel="noopener noreferrer">
+                  <span><i class="fa-brands fa-github" style="color: var(--cyan); margin-right: 0.5rem;"></i> <span id="caseStudyGithubLabel">GitHub Repository</span></span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <a class="resource-link-btn" id="caseStudyReport" href="#" target="_blank" rel="noopener noreferrer">
+                  <span><i class="fa-solid fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i> <span id="caseStudyReportLabel">Technical Report / PDF</span></span>
+                  <i class="fa-solid fa-download"></i>
+                </a>
+                <a class="resource-link-btn" id="caseStudyPdf" href="#" target="_blank" rel="noopener noreferrer" style="display: none;">
+                  <span><i class="fa-solid fa-file-lines" style="color: var(--amber); margin-right: 0.5rem;"></i> <span id="caseStudyPdfLabel">Project Documentation</span></span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Engineer's Highlight Takeaway Block -->
+            <div class="sidebar-block takeaway-block">
+              <div class="sidebar-label" style="color: var(--purple);">
+                <i class="fa-solid fa-lightbulb"></i> Engineer's Takeaway
+              </div>
+              <p class="takeaway-text" id="caseStudyTakeawayQuote">
+                "Treating optimization and feature engineering as a mathematical problem rather than an afterthought ensures scalable, leakage-proof detection under adversarial attack conditions."
+              </p>
+            </div>
+          </aside>
+        </div>
       </div>
     </div>
   </div>
