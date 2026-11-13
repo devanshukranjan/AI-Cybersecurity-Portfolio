@@ -1,169 +1,206 @@
-# KAS Global Commerce Inc. — Master Engineering Record & Technical Dossier
+# KAS Global Commerce — Master Engineering Experience Record
 
-> **Author:** Devanshu Kumar Ranjan  
-> **Tenure:** September 2025 – Present (Continuous Production Tenure)  
-> **Location:** Bilaspur, Himachal Pradesh, India (On-site)  
-> **Company:** KAS Global Commerce Inc. • Enterprise E-Commerce Intelligence  
-> **Product Suite:** My Seller Central (MSC IQ Assistant & Diagnostic Suite)  
-> **Career Trajectory:** AI Research Intern (Sept 2025 – June 2026) ──●── Promoted to AI Engineer (July 2026 – Present)
+> **Record status:** Updated November 2026 using the project owner's current clarifications. Earlier RCA documents are historical snapshots.
+> **Employer:** KAS Global Commerce Inc. — MySellerCentral / MSC IQ
+> **Role progression:** AI Research Intern (**Sep 2025–Jun 2026**) → AI Engineer (**Jul 2026–present**)
+> **Work location:** Bilaspur, Himachal Pradesh, India (on-site)
+> **Publication guidance:** Keep private code, customer information, service credentials, internal network topologies and undisclosed weaknesses out of the public portfolio.
 
----
+## 1. Executive summary
 
-## 📌 Executive Summary & Purpose of this Document
-This dossier serves as the **unabridged master source of truth** for all engineering architectures, database optimizations, distributed crawlers, multi-agent systems, and multimodal pipelines built and deployed at KAS Global Commerce Inc. 
+Two flagship, separate business-facing production systems summarize this work:
 
-While the public web portfolio condenses these systems for quick recruiter scanning, this document preserves every metric, architectural design decision, SQL optimization, and implementation detail for:
-1. **Technical System Design & Behavioral Interviews** (STAR format deep dives).
-2. **ATS Resume Customization** for specific AI/ML and Data Engineering positions.
-3. **Patent, Academic, or Tech Blog Publications**.
-4. **Promotion, Review, and Architecture Decision Records (ADRs)**.
+1. **Multimodal Marketplace Category Intelligence Platform:** an integrated catalog-to-insights system for helping sellers understand category trends, competitor products, buyer preferences and listing improvements. Its foundation was built during the internship and its recurring monthly process was subsequently automated and expanded to nine marketplaces during full-time employment.
+2. **Completed 30-diagnostic LangGraph RCA Investigator:** a natural-language root-cause analysis workflow where Python services retrieve and calculate analytical evidence using read-only access to PostgreSQL tables, and AI evaluates the evidence to identify plausible causes and seller actions. The final diagnostic suite is complete, across marketing, orders, business and inventory topics.
 
----
+Also separately developed competitive Amazon A+ visual intelligence and mentored engineering teammates. Do **not** merge the A+ project into the category intelligence platform or RCA product.
 
-## 🚀 Key Quantified Impact Cheat Sheet
-| Metric | Baseline | Production Result | Method / Key Tech |
-|---|---|---|---|
-| **Full-Catalog Scraping Latency** | 2–3 Months | **1.5 Weeks (90%+ latency reduction)** | Distributed 2-stage Zyte API crawler @ 1,000 req/min with MongoDB |
-| **PostgreSQL RCA Query Latency** | >1 Minute (60s+) | **<7 Seconds (88%+ speedup)** | Parallelized multi-query execution, compound B-tree/GIN indexing, optimized joins |
-| **RCA Diagnostic Coverage** | Manual Analyst Audits | **28 Completed Diagnostics across 6 Domains** | MSC IQ LangGraph routing, registry-driven RCA services, typed `rca_report` delivery |
-| **Marketplace Scaling** | 2 (Amazon, ONDC) | **9 Global Marketplaces** | Amazon.in, Amazon.com, ONDC, Walmart, Flipkart, eBay, OnBuy modular schema adapters |
-| **Taxonomy Vector Search** | Keyword Search | **<50ms Retrieval Latency** (96% Top-1 Accuracy) | OpenAI `text-embedding-3-large` (3,072-dim) + PostgreSQL `pgvector` |
-| **Multimodal Vision Analysis** | Zero Automated Insights | **Batch Analysis across 6 Image Types** | Gemini 2.5 Flash Vision + statistical scoring across top 25 category best-sellers |
-| **Amazon A+ Content Intelligence** | Manual Review | **Structured Insight JSON Generation** | Module 5 visual hierarchy extraction & cross-marketplace schema extension |
+## 2. End-user value and ownership boundaries
 
----
+**Category intelligence:** Sellers use MSC IQ to explore category demand/trends, competitor patterns, likely customer preferences and listing opportunities. The Category Mapper provides semantic taxonomy matching, the Insights API retrieves *precomputed monthly JSONB intelligence*, and Product Details supplies record-level context. The underlying batch process runs separately from interactive seller queries.
 
-## 💼 Full-Time Staff Role: AI Engineer
-* **Period:** July 2026 – Present
-* **Title:** AI Engineer (Promoted from Pre-Placement Research Intern)
-* **Location:** Bilaspur, HP (On-site)
-* **Core Mandate:** End-to-end design, research, prototyping, and production deployment of autonomous multi-agent diagnostic systems, high-concurrency analytical engines, and automated multimodal intelligence pipelines.
+**RCA investigator:** Sellers ask questions such as "Why did ACOS rise?", "Why did ROAS fall?", or "Why are sales down?". MSC IQ routes to the RCA engine, which combines account-scoped evidence gathering with read-only PostgreSQL table access, AI interpretation of evidence, and typed reports containing ranked causes, severity and recommendations.
 
-### 1. Root Cause Analysis (RCA) Engine (Research to Production)
-* **Architecture:** MySellerCentral's MSC IQ assistant validates seller access and uses a LangGraph supervisor to route English/Hinglish causal questions to the RCA service through `POST /api/analyze`. The typed `rca_report` result is persisted with the conversation in MongoDB and rendered by `RCAReport.jsx`.
-* **Diagnostic Scope:**
-  * Completed **28 diagnostic workflows across 6 domains**: Marketing (14), Orders (6), Business (3), Inventory (2), Catalog (2), and Customer (1).
-  * Registry-driven dispatch covers advertising efficiency, orders and revenue, business health, supply risk, listing quality, product impact, and retention.
-  * Evidence is produced by read-only, pooled, parameterized PostgreSQL queries; foundation models assist with intent, date resolution, and cross-diagnostic arbitration rather than inventing metrics.
-  * The v3 investigation path can execute up to three compatible diagnostics in parallel, normalize their outputs, de-duplicate causes, and remove recommendations whose evidence does not survive arbitration.
-* **Statistical Thresholding & Safety:**
-  * Applied diagnostic-owned metric gates and equal comparison windows; requests shorter than seven days expand to a reliable 14-day current period versus the prior 14 days.
-  * Automated negative keyword generation with **traffic-loss safeguards** (checking organic rank and past conversion volume before recommending negative matches).
-* **Database Query Performance Engineering:**
-  * Reduced complex analytics fetch latency from **>1 minute down to <7 seconds (88%+ reduction)** across millions of advertising records.
-  * *Mechanisms:* Parallelization of independent database sub-queries, compound B-tree and GIN indexing on high-cardinality foreign keys (`account_id`, `campaign_id`, `date`, `keyword_id`), and denormalized relational joins.
-* **Linked Project:** `https://devanshukranjan.github.io/AI-Cybersecurity-Portfolio/#proj-rca-engine`
+## 3. ONE integrated Multimodal Marketplace Category Intelligence Platform
 
-### 2. Automated Monthly Scraping & Multimodal Text/Image Insights (Production Scheduling)
-* **Orchestration:** Fully automated end-to-end catalog intelligence cycle.
-* **Autonomous Cron Workflows:**
-  * As soon as the two-stage catalog scraper completes its monthly crawl for a given marketplace, the downstream Multimodal Text and Image Insights pipeline triggers automatically via cron workflows.
-  * Ingests, processes, and calculates statistical quality scores and Gemini 2.5 Flash Vision insights with zero manual engineer intervention.
-* **Maintainability:**
-  * Modular architecture where engineering code modifications are strictly isolated to onboarding new marketplace schema adapters.
-* **Linked Projects:** 
-  * `https://devanshukranjan.github.io/AI-Cybersecurity-Portfolio/#proj-scraper-engine`
-  * `https://devanshukranjan.github.io/AI-Cybersecurity-Portfolio/#proj-text-image-insights`
+**Public portfolio canonical anchor:** `#proj-marketplace-category-intelligence`
+**Historic anchors (redirect to the same project):** `#proj-scraper-engine`, `#proj-vector-taxonomy`, `#proj-text-image-insights`, `#proj-common-api`.
 
-### 3. Cross-Marketplace Expansion (9 Global Platforms)
-* **Coverage:** Scaled scraping and multimodal text/image analysis engines across **9 global marketplaces**:
-  * Amazon.in (India)
-  * Amazon.com (United States)
-  * ONDC (Open Network for Digital Commerce)
-  * Walmart.com (US)
-  * Flipkart (India)
-  * eBay (Global)
-  * OnBuy (UK/Europe)
-  * Additional regional marketplace endpoints
-* **Analysis Depth:** Analyzes titles, bullet points, technical specifications, and **6 distinct image types** (Main White-Background, Infographics, Lifestyle, Packaging/Dimensions, Ingredients/Nutrition, Comparison Charts) across the top 25 category best-sellers.
-* **Linked Project:** `https://devanshukranjan.github.io/AI-Cybersecurity-Portfolio/#proj-text-image-insights`
+### 3.1 Offline monthly preparation / online query serving
 
-### 4. Multimodal A+ Content Intelligence & Modular Architecture
-* **Vision & NLP Extraction:** Analyzed visual layout patterns, product placement, background settings, color harmony, typography contrast, and headline messaging across competitor Amazon A+ content to generate structured insight JSONs for automated A+ content generation.
-* **Modular Coverage:**
-  * Built and validated production analysis for **Module 5** (Standard Image & Dark Text Overlay) across top 25 category best-sellers.
-  * Formulated an architectural scaling roadmap targeting all **19 Standard Modules** and **21 Premium Amazon A+ Modules**.
-* **Database Partitioning Strategy:**
-  * Built upon the PostgreSQL infrastructure originally created during the Taxonomy Vector Search pipeline (containing 3,072-dimensional vector embeddings).
-  * Progressively extended schema with dedicated `text_insights`, `image_insights`, and `aplus_insights` JSONB columns partitioned by month and year (`run_id`).
-* **Linked Project:** `https://devanshukranjan.github.io/AI-Cybersecurity-Portfolio/#proj-aplus-engine`
+```mermaid
+flowchart TB
+    subgraph Monthly["MONTHLY INTELLIGENCE PIPELINE · internship foundation, later automated + scaled"]
+      TRIG["Monthly scheduler and recovery controls\nFull-time automation"] --> SCRAPE["Two-stage catalog harvesting\nAmazon / ONDC initially; expanded to 9 marketplaces"]
+      SCRAPE --> RAW["Category-wise product records\nTitles, specs, images, pricing and reviews"]
+      RAW --> STATS["Statistical category analysis"]
+      RAW --> GEMINI["Gemini 2.5 Flash\nMultimodal text and image inference"]
+      STATS --> VALIDATE["Structured category-level JSON\nSchema validation and normalization"]
+      GEMINI --> VALIDATE
+      VALIDATE --> DB[("Marketplace-specific PostgreSQL taxonomy tables\nMonthly JSONB columns:\ntext_insights_<mm-yyyy>\nimage_insights_<mm-yyyy>")]
+    end
+    subgraph Seller["SELLER-FACING MSC IQ WORKFLOW · precomputed insights, not an LLM call on each request"]
+      USER["Seller asks about trends, competitors,\nbuyer preferences or listing improvements"] --> MSC["MSC IQ conversational assistant"]
+      MSC --> MAP["FastAPI: Category Mapper\nSemantic taxonomy matching with pgvector"]
+      MSC --> INSIGHTS["FastAPI: Insights API\nRetrieve stored category intelligence"]
+      MSC --> DETAILS["FastAPI: Product Details\nRetrieve product metadata"]
+      MAP --> MSC
+      INSIGHTS --> MSC
+      DETAILS --> MSC
+      MSC --> ANSWER["Category insights and seller-facing guidance"]
+    end
+    DB -. "month-specific JSONB read" .-> INSIGHTS
+    DB -. "taxonomy data and embeddings" .-> MAP
+    RAW -. "product record storage / lookup" .-> DETAILS
+```
 
-### 5. Engineering Mentorship & Pipeline Governance
-* Guided and mentored junior engineering teammates on:
-  * Marketplace schema adapter development and normalization.
-  * Distributed error recovery telemetry and automatic retry backoffs.
-  * Zyte API rate-limit balancing (1,000 req/min) across concurrent worker pools.
-  * Health monitoring and alert dispatch for monthly scheduled cron pipelines.
+**Offline work:** The two-stage Zyte scraper gathers category-wise product records (metadata, titles, attributes, images, reviews and pricing as available), initially for Amazon and ONDC. Statistical analysis and Gemini 2.5 Flash multimodal text/image inference transform product records into category-level structured JSON insights. PostgreSQL stores those precomputed outputs in marketplace-specific taxonomy tables. Scheduled monthly orchestration and downstream processing automation were added after promotion.
 
----
+**Online work:** MSC IQ handles seller-facing conversation. The category mapper (`/api/v1/category-mapper`) uses normalized taxonomy embeddings and PostgreSQL `pgvector` to disambiguate categories. The Insights API (`/api/v1/insights`) retrieves previously generated category insights from PostgreSQL JSONB; Product Details (`/api/v1/product-details`) provides listing context. The three APIs are **not** three independent business products and do not imply that Gemini is re-run per API request.
 
-## 🎓 Pre-Placement Research Internship: AI Research Intern
-* **Period:** September 2025 – June 2026
-* **Title:** AI Research Intern
-* **Location:** Bilaspur, HP (On-site)
-* **Core Mandate:** Foundational data extraction, semantic search infrastructure, and multimodal microservice engineering.
+### 3.2 PostgreSQL storage contract
 
-### 1. Distributed Two-Stage Web Scraping Engine
-* **Problem:** Legacy scraping took 2–3 months to harvest comprehensive category data, causing stale competitive intelligence.
-* **Solution:** Engineered a distributed two-stage harvesting pattern:
-  * *Stage 1:* Lightweight browse node traverser extracting top 25 best-seller product identifiers and ASINs across leaf categories.
-  * *Stage 2:* Multithreaded Zyte API extraction pool operating at **1,000 requests/minute** with anti-bot fingerprint rotation and exponential backoff.
-* **Result:** Reduced full-catalog scraping time from **2–3 months down to 1.5 weeks (90%+ latency reduction)** with indexed document persistence in MongoDB Atlas.
-* **Linked Project:** `https://devanshukranjan.github.io/AI-Cybersecurity-Portfolio/#proj-scraper-engine`
+- Marketplace-specific taxonomy tables contain category identifiers, normalized breadcrumbs and embeddings needed for mapping.
+- Monthly text and image insight outputs are JSONB stored in columns named **`text_insights_<mm-yyyy>`** and **`image_insights_<mm-yyyy>`**.
+- Example monthly suffix: `text_insights_11-2026` / `image_insights_11-2026`.
+- These are **columns**, not physical PostgreSQL partitions or separate month-tables. Do not claim partitioning solely from the naming scheme.
+- `/api/v1/insights` retrieves precomputed category JSON; selection of current/historic month is part of the logical storage access. Do not claim a specific month-fallback algorithm without inspecting code.
 
-### 2. Taxonomy ETL & Dense Vector Search
-* **Problem:** Different e-commerce marketplaces use divergent taxonomy breadcrumbs for identical products (e.g., "Electronics > Audio > Headphones" vs "Consumer Tech > Portable Sound > Earphones").
-* **Solution:** Developed an automated taxonomy normalization pipeline:
-  * Generated 3,072-dimensional semantic embeddings using OpenAI `text-embedding-3-large`.
-  * Ingested and indexed over 10,000+ category leaf nodes into PostgreSQL using `pgvector` with IVFFLAT and HNSW indexing.
-  * Implemented cosine distance retrieval with dynamic distance thresholding.
-* **Result:** Achieved **sub-50ms retrieval latency** with 96% top-1 category mapping accuracy across cross-platform listings.
-* **Linked Project:** `https://devanshukranjan.github.io/AI-Cybersecurity-Portfolio/#proj-vector-taxonomy`
+### 3.3 Internship: build the foundation (Sep 2025–Jun 2026)
 
-### 3. Common API Endpoints & Chatbot RAG
-* **Deliverable:** Architected and deployed 3 core REST microservices:
-  * `/api/v1/category-mapper` — Vector similarity lookup and taxonomy breadcrumb resolution.
-  * `/api/v1/insights` — Aggregated statistical and multimodal category insights.
-  * `/api/v1/product-details` — Enriched product metadata, reviews, and specification extraction.
-* **Impact:** Enabled multi-turn conversational category RAG with dynamic chip disambiguation powering the **MSC IQ assistant**.
-* **Linked Project:** `https://devanshukranjan.github.io/AI-Cybersecurity-Portfolio/#proj-common-api`
+- Designed and implemented the **two-stage distributed catalog scraper**, with Zyte API concurrency at up to **1,000 requests/min** and MongoDB persistence. Reduced complete catalog harvesting from **2–3 months to around 1.5 weeks**, a substantial reduction versus legacy operations.
+- Developed taxonomy breadcrumb normalization and dense semantic category mapping using OpenAI `text-embedding-3-large` (3,072-dimensional vectors), PostgreSQL `pgvector` and IVFFLAT nearest-neighbor indexing; observed **sub-50 ms vector lookups**.
+- Built **Gemini 2.5 Flash multimodal category insight generation** from scraped product text and images, combined with category-level statistical analysis, structured output processing and monthly PostgreSQL JSONB storage.
+- Implemented **three FastAPI microservices**: category mapper, insights retrieval and product details for MSC IQ seller interaction.
+- **Scope boundary:** Initial Amazon/ONDC foundation and monthly insight dataset development. Do not attribute the later full zero-touch monthly orchestration or all nine marketplaces to the internship.
 
-### 4. Multimodal Text & Image Insight Pipeline (Amazon & ONDC)
-* **Design:** Built foundational category intelligence combining quantitative statistical analysis with Gemini 2.5 Flash inference for Amazon.in, Amazon.com, and ONDC product listings.
-* **Extraction:** Extracted sentiment distributions, feature mentions, packaging claims, and image compliance metrics into normalized database tables.
-* **Linked Project:** `https://devanshukranjan.github.io/AI-Cybersecurity-Portfolio/#proj-text-image-insights`
+### 3.4 Full-time: automate and scale (Jul 2026–present)
 
----
+- Orchestrated recurring monthly catalog harvesting with **cron**, then triggered downstream Gemini multimodal insights processing after extraction completion, with error recovery/schema-handling enhancements.
+- Expanded the same integrated scraping, normalization, insight generation and storage workflow to **nine global marketplaces** through modular marketplace adapters; do not invent undocumented marketplace names.
+- Reduced routine manual work for the recurring monthly catalog-to-insights cycle to **zero intervention** under normal operation, while retaining the FastAPI retrieval path for MSC IQ.
 
-## 🛠 Complete Tech Stack Reference
-* **Agentic AI & LLMs:** LangGraph, Multi-Agent Supervisors, Gemini 2.5 Flash, Gemini Flash Vision, OpenAI `text-embedding-3-large`, RAG Workflows, Structured JSON Outputs.
-* **Databases & Vector Storage:** PostgreSQL, `pgvector` (HNSW & IVFFLAT indexing), MongoDB Atlas, Document Validation, Table Partitioning (by `run_id` month/year).
-* **Distributed Engineering & Web Scraping:** Zyte API (1,000 req/min), Asyncio/Threading, Anti-Bot Fingerprint Rotation, Scheduled Linux Cron Orchestrators.
-* **Backend & API Microservices:** Python 3.11+, FastAPI, Pydantic, RESTful API Design, Docker Containers.
-* **Statistical Methods & Analytics:** Anomaly Detection, Moving Averages, Standard Deviation Thresholding, Period-over-Period Normalization.
+### 3.5 Resume-ready category-platform bullets
 
----
+**Internship (GenAI):** Built a Gemini 2.5 Flash text/image category intelligence pipeline from Zyte-scraped Amazon/ONDC product catalogs; persisted monthly JSONB insights in marketplace-specific PostgreSQL taxonomy tables and exposed precomputed outputs through FastAPI to support sellers' competitive and listing decisions.
 
-## 💡 STAR Interview Guide (Situational Cheat Sheet)
+**Full-time (platform scaling):** Automated monthly catalog scraping → Gemini multimodal insight generation → JSONB persistence with cron-based recovery, scaling the integrated category intelligence platform to nine marketplaces without routine manual intervention.
 
-### Story 1: Optimizing PostgreSQL Query Performance (From >1min to <7s)
-* **Situation:** In the RCA engine, when a seller asked for diagnostic root causes across their catalog, backend queries were taking over 60 seconds to join advertising, inventory, and bid data, causing frontend timeouts.
-* **Task:** Reduce query response times to under 10 seconds without sacrificing calculation depth or data integrity.
-* **Action:** 
-  1. Analyzed query execution plans using `EXPLAIN ANALYZE` and identified table scans on non-indexed foreign keys.
-  2. Created compound B-tree indexes for `(account_id, campaign_id, date)` and GIN indexes for queryable JSONB insight fields.
-  3. Decomposed large monolithic queries into independent asynchronous queries dispatched in parallel using Python `asyncio.gather`.
-  4. Restructured relational joins to filter candidate rows before joining high-volume time-series tables.
-* **Result:** Slashed query execution latency by **88%+ from >1 minute down to <7 seconds**, eliminating timeouts and enabling real-time conversational RCA.
+**Python Backend:** Built the data ingestion, semantic matching and three FastAPI retrieval services connecting batch LLM insights to MSC IQ's online seller experience.
 
-### Story 2: Slashing Catalog Scraping Time from Months to 1.5 Weeks
-* **Situation:** Market intelligence was stale because legacy single-threaded scraping took 2–3 months to cycle through thousands of category leaf nodes.
-* **Task:** Re-engineer the scraper to complete full-catalog harvesting in under 2 weeks.
-* **Action:**
-  1. Split the pipeline into a distributed two-stage model: Stage 1 solely harvested product IDs/ASINs; Stage 2 handled heavy extraction.
-  2. Integrated multithreaded Zyte API calls throttled at 1,000 requests/minute with exponential backoff and proxy rotation.
-  3. Persisted structured records into indexed MongoDB Atlas collections and configured autonomous cron schedulers to auto-trigger multimodal vision processing upon crawl completion.
-* **Result:** Achieved a **90%+ latency reduction (2–3 months down to 1.5 weeks)**, keeping competitive product intelligence continuously up to date.
+## 4. Completed 30-diagnostic LangGraph RCA Investigator (full-time)
 
----
-*(End of Master Technical Dossier)*
+### 4.1 User-facing problem and outcome
+
+A seller can ask why a marketplace metric deteriorated (e.g., ACOS, ROAS, CPC, CTR, conversion, sales). The completed **30-diagnostic** system covers the finalized marketing, orders, business and inventory diagnostic scope and returns evidence-based, prioritized causes with severity and suggested actions.
+
+### 4.2 CURRENT evidence-grounded AI architecture
+
+```mermaid
+flowchart TB
+    SELLER["Seller asks why a metric changed\nEnglish or Hinglish"] --> UI["MSC IQ conversation UI"]
+    UI --> AUTH["Upstream authentication,\nscope and permissions"]
+    AUTH --> SUP["LangGraph supervisor\nSelect RCA investigator"]
+    SUP --> RCA["RCA FastAPI diagnostic service\n30 completed diagnostics · scope and dates"]
+    RCA --> FETCH["Python analytical evidence service\nRead-only PostgreSQL table access"]
+    FETCH --> PG[("Marketplace PostgreSQL\nSales, ads, inventory and other authorized metrics")]
+    PG --> EVIDENCE["Structured evidence package\nBaseline vs current, threshold checks,\nmetric deltas and entity breakdowns"]
+    EVIDENCE --> REASON["LLM evidence-grounded reasoning\nIdentify and explain plausible root causes"]
+    REASON --> CHECK["Evidence and safety validation\nInsufficient-data guards, severity,\nconfirmed vs directional distinctions"]
+    CHECK --> REPORT["Typed structured RCA report\nCauses, evidence and recommendations"]
+    REPORT --> UI_OUT["MSC IQ RCA report renderer\nSeller-facing explanation and actions"]
+    SEC["Input sanitization and prompt-injection\nsafeguards across the workflow"] -.-> SUP
+    SEC -.-> REASON
+    EVIDENCE -. "Only approved evidence passed to AI" .-> REASON
+```
+
+The full-time system evolved beyond the historical rule-centric stage:
+
+1. MSC IQ authenticates and scopes the seller's request and LangGraph supervisor routes the question to RCA.
+2. The RCA service resolves the diagnostic, comparison time windows, marketplace and authorized data scope.
+3. A **Python analytics service** accesses authorized PostgreSQL tables in read-only mode through bounded queries and computes or collects evidence: baseline/current deltas, statistical thresholds and relevant campaign, ASIN, inventory, order or keyword-level records.
+4. **AI reasons over the structured evidence** to determine and explain root causes and propose recommendations; numerical inputs are grounded in the Python evidence, not fabricated by the model.
+5. Evidence sufficiency, comparison windows, input sanitization, prompt-injection guards and typed schema checks constrain invalid or unsupported results.
+6. MSC IQ renders structured report sections, prioritized causes, severity and recommendations in the seller dashboard.
+
+**Important:** The September RCA playbook and October system architecture document describe **earlier snapshots**: 23 diagnostics scoped and a smaller loaded registry, plus deterministic evidence-to-formatter logic. The user confirms **the final system is complete with 30 diagnostics and a newer AI reasoning stage**. Do not repeat outdated live/planned counts as current or claim the old documents describe the final code path. The updated inventory of all 30 *names* has not been furnished; do not invent the missing names.
+
+### 4.3 Query optimization (evidence retrieval, not end-to-end LLM latency)
+
+| Metric | Before | After | Method |
+|---|---:|---:|---|
+| PostgreSQL analytics/evidence fetch | >60 seconds | <7 seconds (88%+ reduction) | Independent query parallelization, B-tree/GIN indexing and optimized joins |
+
+This stage metric **must not** be mislabeled as total RCA response time. The former documentation also describes historical longer end-to-end requests; they measured a different scope and earlier system state.
+
+### 4.4 Security and evidence safeguards
+
+- Input validation and prompt-injection safeguards around seller questions and LLM interpretation.
+- Account- and marketplace-scoped evidence fetching with read-only access to PostgreSQL tables; the AI analysis stage receives prepared evidence rather than arbitrary database access.
+- Data sufficiency guards, proper current/baseline comparison windows and appropriate severity/confidence communication.
+- Typed report outputs and safe formatting for the UI; do not publicly disclose private service topology or unapproved details.
+
+### 4.5 Resume-ready RCA bullets
+
+**GenAI / Agentic AI:** Architected a production LangGraph RCA investigator spanning 30 completed diagnostics; integrated Python evidence retrieval through read-only PostgreSQL table access with LLM-based root-cause reasoning and evidence-backed structured seller explanations.
+
+**AI Security:** Built a bounded Python analytics layer with read-only access to PostgreSQL tables and prompt-injection/input safeguards for evidence-grounded agentic inference, limiting the model to scoped business evidence and validated outputs.
+
+**Python Backend:** Reduced PostgreSQL RCA evidence-fetch latency by 88%+ (>60s to <7s) through parallel independent queries, compound indexes and query optimization.
+
+## 5. Other distinct engineering contributions
+
+### Amazon A+ Multimodal Competitive Intelligence
+
+- Built structured analysis of competitor Amazon A+ visuals (layout, background, product positioning, headline messaging and visual patterns) using Gemini 2.5 Flash Vision.
+- Production analysis was implemented for Module 5 (Standard Image & Dark Text Overlay) across category best-sellers. Other modules were described as roadmap coverage in the original dossier; do not claim their completion without later confirmation.
+
+### Engineering mentorship and operational governance
+
+- Guided junior engineering teammates on marketplace adapter normalization, retries/backoffs, and monitoring of recurring ingestion and multimodal analytics workflows.
+
+## 6. Verified impact summary
+
+| Outcome | Source phase | Statement safe for resume / public portfolio |
+|---|---|---|
+| Catalog harvesting | Internship | Legacy 2–3 months → about 1.5 weeks, up to 1,000 Zyte requests/min |
+| Taxonomy matching | Internship | PostgreSQL/pgvector semantic category lookup in sub-50 ms |
+| Multimodal category intelligence | Internship | Gemini 2.5 Flash + statistics → marketplace-specific month-suffixed JSONB insights → FastAPI Insights API |
+| Recurring monthly automation | Full-time | Scheduled scraping and downstream insight generation without routine manual intervention |
+| Marketplace expansion | Full-time | Same integrated platform extended to nine marketplaces |
+| RCA delivery | Full-time | 30 completed diagnostics, owner-confirmed November 2026 |
+| RCA query optimization | Full-time | Evidence retrieval >60 seconds → <7 seconds, 88%+ reduction |
+
+## 7. Interview-ready STAR narratives
+
+**Integrated marketplace category intelligence:** Situation — sellers needed repeated, cross-marketplace category and competitor analysis rather than one-off catalog dumps. Task — make category product information usable through MSC IQ. Action — built two-stage harvesting, multimodal JSON generation and pgvector/JSONB/API retrieval during internship, then automated scheduled upstream/downstream processing and expanded adapters across marketplaces in full-time work. Result — extraction time reduced to 1.5 weeks, sub-50 ms semantic lookups, nine marketplaces and monthly zero-routine-intervention operation.
+
+**Evidence-grounded RCA upgrade:** Situation — sellers needed credible reasons behind changing ad, revenue and operational metrics, but expensive analytical fetches and rules alone limited the investigation workflow. Task — deliver an evidence-backed AI investigator. Action — architected LangGraph-to-RCA orchestration, implemented Python evidence gathering through read-only access to PostgreSQL tables, optimized analytical queries, passed structured evidence to AI reasoning, and validated structured reports. Result — 30 completed diagnostics and 88%+ lower evidence-fetch latency, with actionable seller reports.
+
+## 8. Final accuracy checks before publishing
+
+- Confirm the currently public 30-diagnostic implementation with the latest engineering inventory; **30 is owner-confirmed**, but the complete named registry is not attached.
+- The portfolio's Bot-IoT project describes 43 → 22 features (48.8%). Older over-70% statements elsewhere are inconsistent and should be corrected to match the exact run.
+- M.Tech Cyber Security CGPA: 9.06/10 across current resumes; a legacy JavaScript metadata label of 8.84/10 should be corrected.
+- Check public availability/permission for screenshots and nonpublic internals before publishing to GitHub.
+
+
+## 9. Engineering tradeoffs and verification boundaries
+
+**Precomputation and freshness:** Monthly multimodal inference is separated from interactive retrieval. Sellers receive the last completed batch rather than a live model analysis of the marketplace. Batch completion and data freshness need operational monitoring.
+
+**Storage:** Month-suffixed JSONB columns keep category insights attached to marketplace taxonomy records and allow monthly outputs to coexist. Adding months requires schema handling; the column naming convention is not evidence of physical database partitioning. No undocumented month-fallback algorithm is claimed.
+
+**Batch reliability:** Completion-triggered downstream processing, recovery and marketplace normalization support the recurring workflow. Zero routine monthly intervention describes normal operation, not an absence of exceptional failures or adapter maintenance.
+
+**Evidence versus inference:** A diagnostic scopes an investigation. Metric checks establish observations; AI reasons over those observations to infer causes. Reports distinguish directly supported findings from directional interpretations. Numeric/data-sufficiency guards and typed outputs reduce unsupported conclusions without guaranteeing every explanation.
+
+**Outstanding verification:** The full named list of all 30 diagnostics, continued applicability of the historical 50+ root-cause-rule count, end-to-end AI report latency, and final reasoning accuracy are not supplied. The 30-completed status is owner-confirmed. No additional diagnostic names, accuracy figures, model identity or confidence algorithm are inferred.
+
+## 10. Role-specific resume summaries
+
+**AI / GenAI:** Production AI Engineer building evidence-grounded LangGraph diagnostics and multimodal seller intelligence. Delivered 30 completed RCA diagnostics and an internship-built category platform later automated across nine marketplaces; combines Python analytics, Gemini batch inference, pgvector and FastAPI.
+
+**AI Security:** AI Engineer and M.Tech Cyber Security graduate applying scoped evidence retrieval through read-only PostgreSQL table access, input/prompt-injection safeguards and validated structured outputs to agentic diagnostics, alongside practical intrusion-detection and SOC laboratory work.
+
+**Python Backend:** Python Engineer connecting high-throughput harvesting, PostgreSQL/JSONB, semantic retrieval and three FastAPI services to MSC IQ. Reduced RCA evidence-fetch latency from >60 seconds to <7 seconds and automated recurring cross-marketplace data processing.

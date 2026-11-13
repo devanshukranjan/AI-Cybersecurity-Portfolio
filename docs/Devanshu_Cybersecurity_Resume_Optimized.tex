@@ -1,0 +1,82 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper,top=0.56in,bottom=0.55in,left=0.65in,right=0.65in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[sfdefault]{roboto}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+\input{glyphtounicode}
+\pdfgentounicode=1
+\definecolor{accent}{RGB}{35,61,89}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{1em}
+\urlstyle{same}
+\titleformat{\section}{\bfseries\normalsize\color{accent}}{}{0pt}{}[\vspace{-3pt}\color{accent}\titlerule]
+\titlespacing*{\section}{0pt}{7.5pt}{3.5pt}
+\newcommand{\position}[4]{\textbf{#1}\hfill\textbf{#2}\\[-1pt]\textit{#3}\hfill\textit{#4}\vspace{-3pt}}
+\newcommand{\proj}[2]{\textbf{#1}\hfill{\footnotesize #2}\vspace{-4pt}}
+\newenvironment{tightbullets}{\begin{itemize}[leftmargin=1.25em,label=\textbullet,topsep=2pt,itemsep=2pt,parsep=0pt,partopsep=0pt]}{\end{itemize}\vspace{-4pt}}
+\newcommand{\skill}[2]{\textbf{#1:} #2\\[1pt]}
+\begin{document}
+\begin{center}
+{\fontsize{17.3}{20}\selectfont\bfseries Devanshu Kumar Ranjan}\\[2pt]
+{\small\bfseries JUNIOR SOC | SIEM DETECTION | SECURITY AUTOMATION}\\[4pt]
+{\footnotesize Bilaspur, Himachal Pradesh, India \quad | \quad +91-6206938457 \quad | \quad \href{mailto:devanshukranjan@gmail.com}{devanshukranjan@gmail.com}}\\[2pt]
+{\footnotesize \href{https://linkedin.com/in/devanshu-kumar-ranjan-06399221b}{linkedin.com/in/devanshu-kumar-ranjan-06399221b} \quad | \quad \href{https://github.com/devanshukranjan}{github.com/devanshukranjan}}\\[2pt]
+{\footnotesize \href{https://devanshukranjan.github.io/AI-Cybersecurity-Portfolio/}{devanshukranjan.github.io/AI-Cybersecurity-Portfolio}}
+\end{center}
+\vspace{-6pt}
+\section{Professional Summary}
+\small M.Tech Cyber Security graduate (NIT Patna) and employed AI Engineer with hands-on \textbf{Splunk SIEM lab}, SPL detection queries, Linux log analysis, network packet forensics, and Python-based threat-detection projects. Built production Python systems with secure input handling; seeking junior SOC, detection engineering, or security automation roles.\normalsize
+
+\section{Security Projects and Labs}
+\proj{\href{https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/siem-investigations/splunk-siem-lab}{Splunk SIEM: Attack Simulation, Hunting and Alerting}}{Apr -- May 2026}
+\begin{tightbullets}
+\item Built a \textbf{3-VM lab} (Kali attacker, Ubuntu target, Splunk) forwarding \texttt{auth.log}, \texttt{auditd}, and Apache logs to Splunk for investigation.
+\item Simulated \textbf{600+ failed SSH logins} with Hydra plus web scanning with Nikto; authored \textbf{SPL searches} to identify brute-force spikes, source IPs, and HTTP 404 clusters.
+\item Configured threshold-based alerts and security-monitoring dashboards, documenting the attack-to-alert workflow.
+\end{tightbullets}
+\proj{\href{https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/ai-intrusion-detection/hermes-ids}{Hermes: ML-based Intrusion Detection and Response Prototype}}{May -- Jun 2025}
+\begin{tightbullets}
+\item Benchmarked Random Forest (\textbf{98.6\% accuracy}) and a Tab2Image CNN on UGRansome2024/UNSW-NB15 network-flow data; incorporated autoencoder-based anomaly detection.
+\item Developed a Tkinter analyst console with detection visualization and simulated/controlled mitigation actions.
+\end{tightbullets}
+\proj{\href{https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/ai-intrusion-detection/bot-iot-ga-ids}{Bot-IoT Intrusion Detection with Genetic-Algorithm Selection}}{Mar -- Apr 2025}
+\begin{tightbullets}
+\item Reduced \textbf{43 network features to 22 (48.8\% reduction)} using a genetic algorithm; evaluated XGBoost on multiclass Bot-IoT network traffic.
+\end{tightbullets}
+\proj{Network and Disk Forensics Labs}{Jan -- Feb 2025}
+\begin{tightbullets}
+\item Inspected PCAPs from six lab DoS scenarios using Wireshark; acquired forensic disk images with FTK Imager, validated MD5/SHA-1 hashes, and recovered artifacts with Autopsy.
+\end{tightbullets}
+
+\section{Professional Experience}
+\position{KAS Global Commerce Inc.}{Bilaspur, HP}{AI Engineer}{Jul 2026 -- Present}
+\begin{tightbullets}
+\item Built a production Python/FastAPI-LangGraph RCA system with \textbf{30 completed diagnostics} across four domains, evidence retrieval via read-only PostgreSQL table access and AI-assisted explanations; implemented input and prompt-injection safeguards.
+\item Improved PostgreSQL analytics latency from \textbf{over 60 seconds to under 7 seconds}; automated scheduled data pipelines and recovery workflows.
+\end{tightbullets}
+\vspace{1pt}
+\position{KAS Global Commerce Inc.}{Bilaspur, HP}{AI Research Intern}{Sep 2025 -- Jun 2026}
+\begin{tightbullets}
+\item Built Python data-ingestion workflows and REST APIs; worked with Linux scheduling, PostgreSQL and MongoDB for service data.
+\end{tightbullets}
+
+\section{Technical Skills}
+{\small
+\skill{SOC and Detection}{Splunk Enterprise, Universal Forwarder, SPL searches, dashboards, alert rules, Linux/Apache log analysis}
+\skill{Network and Forensics}{Wireshark, TCP/IP, Nmap, Kali Linux, Hydra, Nikto, Autopsy, FTK Imager, file carving, hash validation}
+\skill{Programming and Security ML}{Python, Bash, SQL, Linux, FastAPI, Git, scikit-learn, XGBoost, CNNs, anomaly detection}
+}
+\section{Education and Certification}
+{\small\textbf{NIT Patna} --- M.Tech, Cyber Security (CSE), \textbf{9.06/10} \hfill 2024 -- 2026\\[1pt]
+\textbf{Graphic Era University} --- B.Tech, CSE, \textbf{8.83/10} \hfill 2019 -- 2023\\[1pt]
+\textbf{Certification:} Google Cybersecurity Specialization (Coursera), 2025}
+\end{document}

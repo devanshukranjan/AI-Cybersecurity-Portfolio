@@ -277,7 +277,8 @@ button {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  width: 250px;
+  width: min(21rem, calc(100vw - 5rem));
+  white-space: normal;
   background: var(--bg-panel-elevated);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-md);
@@ -319,6 +320,13 @@ button {
 .dropdown-item-content {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.dropdown-item > i {
+  flex-shrink: 0;
 }
 
 .dropdown-item-title {
@@ -3915,7 +3923,7 @@ input:focus-visible,
   line-height: 1.7;
 }
 
-/* Homepage contains exactly three concise flagship cards. */
+/* Homepage keeps the curated cards in the sticky split showcase. */
 .home-page #projects .mode-switcher-bar {
   display: none;
 }
@@ -3931,7 +3939,8 @@ input:focus-visible,
 
 .home-page #homepageCardsGrid .project-card[data-project="mtech-dissertation"],
 .home-page #homepageCardsGrid .project-card[data-project="hermes-ids"],
-.home-page #homepageCardsGrid .project-card[data-project="rca-engine"] {
+.home-page #homepageCardsGrid .project-card[data-project="rca-engine"],
+.home-page #homepageCardsGrid .project-card[data-project="marketplace-category-intelligence"] {
   display: flex !important;
   justify-content: flex-start;
   min-height: 360px;
@@ -4196,7 +4205,8 @@ input:focus-visible,
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .home-page #homepageCardsGrid .project-card[data-project="rca-engine"] {
+  .home-page #homepageCardsGrid .project-card[data-project="rca-engine"],
+  .home-page #homepageCardsGrid .project-card[data-project="marketplace-category-intelligence"] {
     grid-column: 1 / -1;
     min-height: 320px;
   }
@@ -4317,7 +4327,8 @@ input:focus-visible,
 
   .home-page #homepageCardsGrid .project-card[data-project="mtech-dissertation"],
   .home-page #homepageCardsGrid .project-card[data-project="hermes-ids"],
-  .home-page #homepageCardsGrid .project-card[data-project="rca-engine"] {
+  .home-page #homepageCardsGrid .project-card[data-project="rca-engine"],
+  .home-page #homepageCardsGrid .project-card[data-project="marketplace-category-intelligence"] {
     min-height: 0;
   }
 
@@ -5219,7 +5230,8 @@ html[data-theme="light"] .no-results-box {
 
 .home-page #projects .selected-work-stream #homepageCardsGrid .project-card[data-project="mtech-dissertation"],
 .home-page #projects .selected-work-stream #homepageCardsGrid .project-card[data-project="hermes-ids"],
-.home-page #projects .selected-work-stream #homepageCardsGrid .project-card[data-project="rca-engine"] {
+.home-page #projects .selected-work-stream #homepageCardsGrid .project-card[data-project="rca-engine"],
+.home-page #projects .selected-work-stream #homepageCardsGrid .project-card[data-project="marketplace-category-intelligence"] {
   grid-column: auto;
   min-height: clamp(380px, 52vh, 520px);
   padding: clamp(1.4rem, 2.5vw, 2rem);
@@ -5258,7 +5270,39 @@ html[data-theme="light"] .no-results-box {
 
   .home-page #projects .selected-work-stream #homepageCardsGrid .project-card[data-project="mtech-dissertation"],
   .home-page #projects .selected-work-stream #homepageCardsGrid .project-card[data-project="hermes-ids"],
-  .home-page #projects .selected-work-stream #homepageCardsGrid .project-card[data-project="rca-engine"] {
+  .home-page #projects .selected-work-stream #homepageCardsGrid .project-card[data-project="rca-engine"],
+  .home-page #projects .selected-work-stream #homepageCardsGrid .project-card[data-project="marketplace-category-intelligence"] {
     min-height: 0;
   }
+}
+
+/* Consolidated multimodal category intelligence card; compact two-lane design */
+.project-card {scroll-margin-top:110px;}
+.project-card:focus-visible {outline:2px solid var(--cyan); outline-offset:5px;}
+.legacy-project-anchor {display:block; position:absolute; top:0; height:0; overflow:hidden; scroll-margin-top:110px;}
+.architecture-lanes {display:grid; gap:0.8rem; padding:1rem;}
+.architecture-lane {border:1px solid var(--border-subtle); border-radius:8px; padding:0.75rem; background:rgba(255,255,255,0.025);}
+.architecture-lane strong {display:block; font:600 0.68rem var(--font-mono); letter-spacing:0.06em; color:var(--cyan); margin-bottom:0.4rem;}
+.architecture-lane .blueprint-flow {font-size:0.73rem; overflow-wrap:anywhere; line-height:1.65;}
+.architecture-storage {font:0.71rem var(--font-mono); color:var(--text-muted); overflow-wrap:anywhere;}
+.architecture-storage code {color:var(--cyan);}
+
+/* Public conceptual diagrams and case-study component cards */
+.architecture-box.has-conceptual-diagram {background:transparent; border:0; padding:0; box-shadow:none;}
+.case-architecture-lanes {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem;}
+.case-architecture-lanes.single-lane {grid-template-columns:minmax(0,1fr);}
+.case-architecture-lane, .case-detail-card {min-width:0; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-panel); padding:1rem;}
+.case-architecture-lane h5 {color:var(--cyan); font-size:0.95rem; margin-bottom:0.9rem;}
+.case-architecture-lane ol {list-style:none; padding:0; margin:0;}
+.case-architecture-lane li {position:relative; border:1px solid var(--border-medium); border-radius:var(--radius-sm); padding:0.8rem; margin-bottom:1.6rem; overflow-wrap:anywhere;}
+.case-architecture-lane li:last-child {margin-bottom:0;}
+.case-architecture-lane li:not(:last-child)::after {content:'↓'; position:absolute; bottom:-1.5rem; left:50%; color:var(--cyan);}
+.case-architecture-lane strong, .case-detail-card h5 {color:var(--text-primary); font-size:0.85rem; line-height:1.5;}
+.case-architecture-lane p, .case-detail-card p {color:var(--text-secondary); font-size:0.82rem; line-height:1.7; margin-top:0.4rem; overflow-wrap:anywhere;}
+.case-architecture-storage {border:1px solid var(--border-strong); background:rgba(111,211,255,0.05); border-radius:var(--radius-md); color:var(--cyan); padding:1rem; margin-top:1rem; font:0.8rem/1.7 var(--font-mono); overflow-wrap:anywhere;}
+.case-architecture figcaption {color:var(--text-muted); font-size:0.8rem; line-height:1.7; margin-top:0.9rem;}
+.case-architecture figcaption a {color:var(--cyan); text-decoration:underline;}
+.case-detail-cards {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0.8rem; margin-top:0.9rem;}
+@media (max-width:640px) {
+  .case-architecture-lanes, .case-detail-cards {grid-template-columns:minmax(0,1fr);}
 }

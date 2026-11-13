@@ -1,0 +1,79 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper,top=0.56in,bottom=0.55in,left=0.65in,right=0.65in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[sfdefault]{roboto}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+\input{glyphtounicode}
+\pdfgentounicode=1
+\definecolor{accent}{RGB}{35,61,89}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{1em}
+\urlstyle{same}
+\titleformat{\section}{\bfseries\normalsize\color{accent}}{}{0pt}{}[\vspace{-3pt}\color{accent}\titlerule]
+\titlespacing*{\section}{0pt}{7.5pt}{3.5pt}
+\newcommand{\position}[4]{\textbf{#1}\hfill\textbf{#2}\\[-1pt]\textit{#3}\hfill\textit{#4}\vspace{-3pt}}
+\newcommand{\proj}[2]{\textbf{#1}\hfill{\footnotesize #2}\vspace{-4pt}}
+\newenvironment{tightbullets}{\begin{itemize}[leftmargin=1.25em,label=\textbullet,topsep=2pt,itemsep=2pt,parsep=0pt,partopsep=0pt]}{\end{itemize}\vspace{-4pt}}
+\newcommand{\skill}[2]{\textbf{#1:} #2\\[1pt]}
+\begin{document}
+\begin{center}
+{\fontsize{17.3}{20}\selectfont\bfseries Devanshu Kumar Ranjan}\\[2pt]
+{\small\bfseries AI ENGINEER | AI APPLICATION SECURITY | SECURITY AUTOMATION}\\[4pt]
+{\footnotesize Bilaspur, Himachal Pradesh, India \quad | \quad +91-6206938457 \quad | \quad \href{mailto:devanshukranjan@gmail.com}{devanshukranjan@gmail.com}}\\[2pt]
+{\footnotesize \href{https://linkedin.com/in/devanshu-kumar-ranjan-06399221b}{linkedin.com/in/devanshu-kumar-ranjan-06399221b} \quad | \quad \href{https://github.com/devanshukranjan}{github.com/devanshukranjan}}\\[2pt]
+{\footnotesize \href{https://devanshukranjan.github.io/AI-Cybersecurity-Portfolio/}{devanshukranjan.github.io/AI-Cybersecurity-Portfolio}}
+\end{center}
+\vspace{-6pt}
+\section{Professional Summary}
+\small Production AI Engineer and NIT Patna M.Tech Cyber Security graduate focused on \textbf{evidence-grounded agentic AI}, prompt-injection safeguards and secure Python services. Built a LangGraph RCA investigator with 30 completed diagnostics, read-only PostgreSQL access and AI reasoning; developed Splunk and ML-IDS labs.\normalsize
+
+\section{Professional Experience}
+\position{KAS Global Commerce Inc.}{Bilaspur, HP}{AI Engineer}{Jul 2026 -- Present}
+\begin{tightbullets}
+\item Built a production \textbf{LangGraph RCA investigator} with Python evidence retrieval using read-only PostgreSQL table access and AI-generated causal explanations across \textbf{30 completed diagnostics} in advertising, orders, business and inventory for seller questions.
+\item Integrated \textbf{prompt-injection safeguards}, validated input, statistical comparison checks and typed evidence-backed reporting to constrain AI conclusions and recommendations.
+\item Lowered PostgreSQL analytics latency from \textbf{over 60 seconds to under 7 seconds (88\%+)} using parallel query execution and indexing.
+\item Automated monthly catalog ingestion and multimodal insight generation, with recovery handling, across \textbf{9 global marketplaces}.
+\end{tightbullets}
+\vspace{2pt}
+\position{KAS Global Commerce Inc.}{Bilaspur, HP}{AI Research Intern}{Sep 2025 -- Jun 2026}
+\begin{tightbullets}
+\item Built a two-stage Zyte/MongoDB catalog pipeline, reducing extraction from \textbf{2--3 months to 1.5 weeks}; deployed taxonomy vector search using \texttt{pgvector} with \textbf{sub-50 ms retrieval}.
+\item Built \textbf{Gemini 2.5 Flash} text/image category intelligence from scraped Amazon/ONDC listings for competitor patterns, buyer preferences and listing guidance; stored month-versioned insights in marketplace-specific PostgreSQL \textbf{JSONB} columns.
+\item Developed \textbf{3 FastAPI microservices}; \texttt{/api/v1/insights} served precomputed category intelligence to the MSC IQ seller assistant.
+\end{tightbullets}
+
+\section{Security and AI Research Projects}
+\proj{\href{https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/siem-investigations/splunk-siem-lab}{Splunk SIEM: Security Monitoring and Detection Lab}}{Apr -- May 2026}
+\begin{tightbullets}
+\item Built a \textbf{3-VM SOC lab}; collected Linux/Apache logs, simulated Hydra/Nikto events, and wrote SPL detection searches with automated threshold alerts.
+\end{tightbullets}
+\proj{\href{https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/ai-intrusion-detection/hermes-ids}{Hermes: AI-Assisted Intrusion Detection Prototype}}{May -- Jun 2025}
+\begin{tightbullets}
+\item Combined Random Forest (\textbf{98.6\% accuracy}), Tab2Image CNN, and autoencoder anomaly detection on network traffic datasets; built a Tkinter security analyst console.
+\end{tightbullets}
+\proj{Privacy-Preserving Federated Sequential Recommendation (M.Tech thesis)}{Aug 2025 -- May 2026}
+\begin{tightbullets}
+\item Developed \textbf{LDP-SeqMask} using client-side Laplace perturbation and view-based contrastive learning to protect interaction sequences in federated recommendation.
+\end{tightbullets}
+
+\section{Technical Skills}
+{\small
+\skill{AI Application Engineering}{Python, FastAPI, LangGraph, RAG, AI agents, LLM prompting, Gemini 2.5 Flash, PostgreSQL, pgvector}
+\skill{AI Security and Privacy}{Prompt-injection input safeguards (production), local differential privacy, federated learning, secure API design fundamentals}
+\skill{Detection and Investigation (Labs)}{Splunk, SPL, auth/Apache logs, Wireshark, network traffic analysis, IDS/ML, Linux, Git}
+}
+\section{Education and Certification}
+{\small\textbf{NIT Patna} --- M.Tech, Cyber Security (CSE), \textbf{9.06/10} \hfill 2024 -- 2026\\[1pt]
+\textbf{Graphic Era University} --- B.Tech, CSE, \textbf{8.83/10} \hfill 2019 -- 2023\\[1pt]
+\textbf{Certification:} Google Cybersecurity Specialization (Coursera), 2025}
+\end{document}
