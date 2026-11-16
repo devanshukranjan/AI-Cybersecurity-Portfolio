@@ -45,7 +45,7 @@
         <ul class="nav-links">
           <li><a href="#experience" class="nav-link">Experience</a></li>
           <li><a href="#projects" class="nav-link">Featured</a></li>
-          <li><a href="projects.html" class="nav-link">All Projects (14)</a></li>
+          <li><a href="projects.html" class="nav-link">All Projects (11)</a></li>
           <li><a href="#skills" class="nav-link">Skills</a></li>
           <li><a href="#credentials" class="nav-link">Credentials</a></li>
           <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -128,12 +128,12 @@
           <h2>Engineering outcomes, not just technology lists.</h2>
           <div class="hero-impact-list">
             <div class="hero-impact-item">
-              <strong>28</strong>
-              <span>completed RCA diagnostics across six seller domains</span>
+              <strong>30</strong>
+              <span>completed RCA diagnostics across four seller domains</span>
             </div>
             <div class="hero-impact-item">
               <strong>&lt;7s</strong>
-              <span>analytics response time, reduced from more than one minute</span>
+              <span>evidence-query fetch time, reduced from more than one minute</span>
             </div>
             <div class="hero-impact-item">
               <strong>1.5 weeks</strong>
@@ -217,10 +217,10 @@
           <div class="exp-kpi-strip">
             <div class="exp-kpi-tile">
               <span class="kpi-num">2–3mo &rarr; 1.5wk</span>
-              <span class="kpi-lbl">Catalog Scraping (90%+ Latency Cut)</span>
+              <span class="kpi-lbl">Catalog Harvesting Turnaround</span>
             </div>
             <div class="exp-kpi-tile">
-              <span class="kpi-num">28 Diagnostics</span>
+              <span class="kpi-num">30 Completed Diagnostics</span>
               <span class="kpi-lbl">Completed MSC IQ RCA Catalog</span>
             </div>
             <div class="exp-kpi-tile">
@@ -250,20 +250,20 @@
 
               <ul class="role-bullet-list">
                 <li>
-                  Architected and completed the production RCA engine behind <strong>MySellerCentral's MSC IQ assistant</strong>: <strong>28 diagnostic workflows across 6 domains</strong> route English/Hinglish seller questions through <code>/api/analyze</code> into evidence-backed <code>rca_report</code> dashboards; reduced PostgreSQL analytics fetch latency from <strong>&gt;1 minute down to &lt;7 seconds (88%+ speedup)</strong> via multi-query parallelization, compound B-tree/GIN indexing, and optimized relational joins.
-                  <a href="projects.html#proj-rca-engine" class="exp-bullet-link" title="Open RCA Engine in All Projects">↗</a>
+                  Architected and deployed a production LangGraph multi-agent RCA engine from scratch: <strong>30 completed diagnostics</strong> across four domains; Python analytics accesses PostgreSQL tables in read-only mode and provides evidence for AI to determine and explain root causes from seller questions (English/Hinglish); reduced PostgreSQL analytics fetch latency from <strong>&gt;1 minute down to &lt;7 seconds (88%+ speedup)</strong> via multi-query parallelization, compound B-tree/GIN indexing, and optimized relational joins.
+                  <a href="projects.html#proj-rca-engine" class="exp-bullet-link" title="Inspect RCA Engine System">↗</a>
                 </li>
                 <li>
-                  Cut monthly catalog harvesting and multimodal vision processing overhead to <strong>zero manual intervention</strong> via scheduled cron orchestrators and automated schema recovery.
-                  <a href="projects.html#proj-scraper-engine" class="exp-bullet-link" title="Open Scraping Pipeline in All Projects">↗</a>
+                  Automated the <strong>monthly integrated category intelligence platform</strong> (two-stage scraping &rarr; Gemini text/image insights &rarr; PostgreSQL JSONB &rarr; FastAPI retrieval) using cron orchestration and schema recovery, with zero routine manual intervention.
+                  <a href="projects.html#proj-marketplace-category-intelligence" class="exp-bullet-link" title="Inspect Scraping Pipeline">↗</a>
                 </li>
                 <li>
-                  Scaled catalog harvesting, normalization, and vision intelligence to <strong>9 global marketplaces</strong> (Amazon.in, Amazon.com, ONDC, Walmart, Flipkart, eBay, etc.).
-                  <a href="projects.html#proj-text-image-insights" class="exp-bullet-link" title="Open Multimodal Pipeline in All Projects">↗</a>
+                  Scaled the same catalog-to-insights platform to <strong>9 global marketplaces</strong>, preserving monthly marketplace-specific taxonomy JSONB and API retrieval.
+                  <a href="projects.html#proj-marketplace-category-intelligence" class="exp-bullet-link" title="Inspect Multimodal Pipeline">↗</a>
                 </li>
                 <li>
                   Analyzed visual design patterns, product placement, background settings, and headline messaging across competitor Amazon A+ content to generate structured insight JSONs for automated A+ content creation.
-                  <a href="projects.html#proj-aplus-engine" class="exp-bullet-link" title="Open A+ Content Engine in All Projects">↗</a>
+                  <a href="projects.html#proj-aplus-engine" class="exp-bullet-link" title="Inspect A+ Content Engine">↗</a>
                 </li>
               </ul>
 
@@ -280,8 +280,7 @@
               <div class="exp-related-row">
                 <span class="exp-related-lbl">Related Systems:</span>
                 <a href="projects.html#proj-rca-engine" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> RCA Engine</a>
-                <a href="projects.html#proj-scraper-engine" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Scraping Engine</a>
-                <a href="projects.html#proj-text-image-insights" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Multimodal Insights</a>
+                <a href="projects.html#proj-marketplace-category-intelligence" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Category Intelligence Platform</a>
                 <a href="projects.html#proj-aplus-engine" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> A+ Content Engine</a>
               </div>
             </div>
@@ -295,7 +294,7 @@
                   <span class="intern-role-period">Sept 2025 – June 2026 &bull; Bilaspur, HP</span>
                 </div>
                 <div class="intern-summary-right">
-                  <span class="intern-toggle-label" id="internToggleLabel">Show internship details (4 systems)</span>
+                  <span class="intern-toggle-label" id="internToggleLabel">Show internship details (integrated platform)</span>
                   <i class="fa-solid fa-chevron-down intern-chevron" id="internChevron"></i>
                 </div>
               </div>
@@ -303,20 +302,20 @@
               <div class="intern-collapse-body" id="internContent" style="display: none;">
                 <ul class="role-bullet-list">
                   <li>
-                    <strong>Distributed Two-Stage Web Scraping Engine:</strong> Engineered high-volume catalog harvesting across <strong>Amazon.in</strong>, <strong>Amazon.com</strong>, and <strong>ONDC</strong>; reduced full-catalog scraping time from <strong>2–3 months down to 1.5 weeks</strong> (90%+ latency reduction) via threaded Zyte API calls at <strong>1,000 req/min</strong> with MongoDB persistence.
-                    <a href="projects.html#proj-scraper-engine" class="exp-bullet-link" title="Open Two-Stage Scraping Architecture in All Projects">↗</a>
+                    <strong>Distributed Two-Stage Web Scraping Engine:</strong> Engineered high-volume catalog harvesting across <strong>Amazon.in</strong>, <strong>Amazon.com</strong>, and <strong>ONDC</strong>; reduced full-catalog scraping time from <strong>2–3 months down to 1.5 weeks</strong> via threaded Zyte API calls at <strong>1,000 req/min</strong> with MongoDB persistence.
+                    <a href="projects.html#proj-marketplace-category-intelligence" class="exp-bullet-link" title="Jump to Two-Stage Scraping Architecture">↗</a>
                   </li>
                   <li>
                     <strong>Taxonomy ETL &amp; Dense Vector Search:</strong> Developed taxonomy breadcrumb normalization and dense semantic vector search using OpenAI <code>text-embedding-3-large</code> (3,072 dimensions) and PostgreSQL with <code>pgvector</code> (IVFFLAT indexing) for cross-marketplace category mapping, achieving sub-50ms retrieval latency.
-                    <a href="projects.html#proj-vector-taxonomy" class="exp-bullet-link" title="Open pgvector Taxonomy Pipeline in All Projects">↗</a>
+                    <a href="projects.html#proj-marketplace-category-intelligence" class="exp-bullet-link" title="Jump to pgvector Taxonomy Pipeline">↗</a>
                   </li>
                   <li>
-                    <strong>Common API Endpoints &amp; Chatbot RAG:</strong> Built 3 core microservices (<code>/api/v1/category-mapper</code>, <code>/api/v1/insights</code>, <code>/api/v1/product-details</code>) enabling multi-turn conversational category RAG with dynamic chip disambiguation powering the MSC IQ assistant.
-                    <a href="projects.html#proj-common-api" class="exp-bullet-link" title="Open Chatbot RAG API Spec in All Projects">↗</a>
+                    <strong>Platform Retrieval APIs:</strong> Built 3 core microservices (<code>/api/v1/category-mapper</code>, <code>/api/v1/insights</code>, <code>/api/v1/product-details</code>) enabling semantic category disambiguation, precomputed monthly insight retrieval and product context for the MSC IQ assistant.
+                    <a href="projects.html#proj-marketplace-category-intelligence" class="exp-bullet-link" title="Jump to Chatbot RAG API Spec">↗</a>
                   </li>
                   <li>
-                    <strong>Multimodal Text &amp; Image Insight Pipeline (Amazon &amp; ONDC):</strong> Designed foundational category intelligence combining quantitative statistical analysis with Gemini 2.5 Flash inference for Amazon and ONDC product listings.
-                    <a href="projects.html#proj-text-image-insights" class="exp-bullet-link" title="Open Text &amp; Image Pipeline in All Projects">↗</a>
+                    <strong>Multimodal Category Intelligence (Amazon &amp; ONDC):</strong> Generated category-wise text/image insights using statistics and Gemini 2.5 Flash on scraped product data; stored monthly JSONB columns in marketplace-specific taxonomy tables and exposed them through <code>/api/v1/insights</code> to help sellers analyze competitors, buyer preferences and listings.
+                    <a href="projects.html#proj-marketplace-category-intelligence" class="exp-bullet-link" title="Jump to Text &amp; Image Pipeline Card">↗</a>
                   </li>
                 </ul>
 
@@ -331,8 +330,7 @@
 
                 <div class="exp-related-row">
                   <span class="exp-related-lbl">Related Systems:</span>
-                  <a href="projects.html#proj-vector-taxonomy" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Taxonomy pgvector</a>
-                  <a href="projects.html#proj-common-api" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Chatbot RAG APIs</a>
+                  <a href="projects.html#proj-marketplace-category-intelligence" class="exp-related-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Category Intelligence Platform</a>
                 </div>
               </div>
             </div>
@@ -358,7 +356,7 @@
                 <i class="fa-solid fa-layer-group"></i>
                 <span>Selected Work</span>
               </div>
-              <h2 class="section-title">Three systems that represent my work</h2>
+              <h2 class="section-title">Four systems that represent my work</h2>
               <p class="section-desc">
                 A focused selection spanning production AI, privacy-preserving research, and autonomous threat detection. Open any card for the complete case study and evidence.
               </p>
@@ -396,47 +394,86 @@
         </div>
 
         <div class="cards-grid" id="homepageCardsGrid">
-          <!-- Project 1: M.Tech Dissertation (Featured • AI x Security) -->
-          <article class="project-card featured-card" id="proj-thesis-recsys" data-featured="true" data-category="overlap" data-project="mtech-dissertation" data-tags="Federated Privacy,Adversarial AI,Differential Privacy">
-            <div class="provenance-badge badge-research">
-              <i class="fa-solid fa-graduation-cap"></i> NIT Patna &bull; M.Tech Research Thesis
+          <!-- RCA: first highlighted project -->
+          <article class="project-card featured-card" id="proj-rca-engine" data-featured="true" data-category="ai" data-project="rca-engine" data-tags="LangGraph,RAG & Agents,Vector Search">
+            <div class="provenance-badge badge-fulltime">
+              <i class="fa-solid fa-briefcase"></i> KAS Global Commerce &bull; AI Engineer (Full-Time)
             </div>
+
             <div class="project-card-header">
-              <span class="project-type-badge badge-overlap">
-                <i class="fa-solid fa-lock"></i>
-                M.Tech Research Thesis
+              <span class="project-type-badge badge-ai">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                Production Diagnostic Engine
               </span>
               <div class="project-links">
-                <button class="project-icon-link inspect-spec-btn" data-project="mtech-dissertation" title="Inspect Deep-Dive Case Study">
+                <button class="project-icon-link inspect-spec-btn" data-project="rca-engine" title="Inspect Deep-Dive Case Study">
                   <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </button>
               </div>
             </div>
 
-            <h3 class="project-title">Privacy-Preserving Federated Sequential Recommendation</h3>
-            <p class="project-desc">
-              Master's thesis at NIT Patna solving user trajectory and interaction leakage in centralized recommender models using Locally Differentially Private (LDP) mechanisms.
-            </p>
+            <h3 class="project-title">Root Cause Analysis (RCA) Diagnostic Engine</h3>
+            <p class="project-desc">Completed 30-diagnostic, evidence-grounded LangGraph investigator for sellers: Python services assemble marketplace evidence from PostgreSQL tables accessed in read-only mode, AI reasons over the findings, and MSC IQ renders ranked causes and recommendations.</p>
 
             <div class="blueprint-box">
-              <div class="blueprint-badge"><i class="fa-solid fa-code-fork"></i> ARCHITECTURAL FORMULATION</div>
+              <div class="blueprint-badge"><i class="fa-solid fa-chart-line"></i> DIAGNOSTIC ENGINE FLOW</div>
               <div class="blueprint-flow">
-                <code>[Client Interaction]</code> &rarr; <code>[LDP-SeqMask Noise]</code> &rarr; <code>[View-CL Invariance]</code> &rarr; <code>[Laplace Aggregation]</code>
+                <code>[Seller Query]</code> &rarr; <code>[MSC IQ / LangGraph]</code> &rarr; <code>[Python Analytics: Read-only PostgreSQL Access]</code> &rarr; <code>[AI Evidence Reasoning]</code> &rarr; <code>[30 Completed Diagnostics]</code> &rarr; <code>[Typed RCA Report]</code>
               </div>
             </div>
 
             <ul class="project-highlights">
-              <li><strong>LDP-SeqMask:</strong> Formulated local sequence perturbation so raw interaction clickstreams never leave edge client devices.</li>
-              <li><strong>Laplace Perturbation:</strong> Replaced unstable Exponential Mechanism item selection with a Laplace mechanism, eliminating gradient explosion.</li>
-              <li><strong>View-based Contrastive Learning (View-CL):</strong> Preserved top recommendation ranking accuracy (NDCG@10) even under heavy differential privacy noise.</li>
-            </ul>
+       <li><strong>30 completed diagnostics</strong> covering advertising, orders, business and inventory performance questions; evidence-grounded root-cause investigation and severity-ranked explanations.</li>
+       <li>Python analytics retrieves baseline/current measurements, thresholds and product/campaign breakdowns through read-only access to PostgreSQL tables for AI to evaluate; safeguards constrain unsupported inferences.</li>
+       <li>Optimized PostgreSQL evidence queries from <strong>&gt;60 seconds to &lt;7 seconds (88%+)</strong>; this is data-fetch latency, not total AI response time.</li>
+    </ul>
+
+            <div class="screenshot-preview-strip">
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/acos_spike_this_year.png" data-title="ACOS Annual Spike Investigation Report (Amazon.com)" data-query="Query: Why did my ACOS spike this year?">
+                <i class="fa-solid fa-chart-line"></i> ACOS Report (14 Causes)
+              </button>
+              <button class="screenshot-thumb-btn btn-amber open-lightbox-btn" data-img="assets/screenshots/wasted_spend.png" data-title="Wasted Ad Spend &amp; Negative Keywords (Amazon.com)" data-query="Query: Where am I wasting ad spend?">
+                <i class="fa-solid fa-ban"></i> Wasted Spend ($77.87 Flagged)
+              </button>
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/acos_spike_hindi.png" data-title="Hinglish Query Processing (Amazon.com)" data-query="Query: ACOS kyu badha pichle hafte?">
+                <i class="fa-solid fa-language"></i> Hinglish Anomaly Check
+              </button>
+              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/cpc_spike.png" data-title="CPC Cost Per Click Baseline Evaluation" data-query="Query: Why did my CPC increase this month?">
+                <i class="fa-solid fa-arrow-trend-down"></i> CPC Spike Check
+              </button>
+            </div>
 
             <div class="tech-stack">
-              <span class="tech-tag">Federated Learning</span>
-              <span class="tech-tag">Local Differential Privacy (LDP)</span>
-              <span class="tech-tag">PyTorch</span>
-              <span class="tech-tag">Contrastive Learning</span>
+              <span class="tech-tag">LangGraph Orchestrator</span>
+              <span class="tech-tag">FastAPI</span>
+              <span class="tech-tag">Statistical Thresholding</span>
+              <span class="tech-tag">Amazon Ads API</span>
             </div>
+          </article>
+
+          <article class="project-card featured-card" id="proj-marketplace-category-intelligence" data-featured="true" data-category="ai" data-project="marketplace-category-intelligence" data-tags="RAG & Agents,Vector Search,Computer Vision,Multimodal LLMs,Distributed Systems,ETL Pipelines">
+            <span class="legacy-project-anchor" id="proj-vector-taxonomy" aria-hidden="true"></span>
+            <span class="legacy-project-anchor" id="proj-scraper-engine" aria-hidden="true"></span>
+            <span class="legacy-project-anchor" id="proj-text-image-insights" aria-hidden="true"></span>
+            <span class="legacy-project-anchor" id="proj-common-api" aria-hidden="true"></span>
+            <div class="provenance-badge badge-fulltime"><i class="fa-solid fa-briefcase"></i> KAS Global Commerce &bull; Internship foundation &rarr; Full-time scale</div>
+            <div class="project-card-header">
+              <span class="project-type-badge badge-ai"><i class="fa-solid fa-layer-group"></i> Integrated Production GenAI Platform</span>
+              <div class="project-links"><button class="project-icon-link inspect-spec-btn" data-project="marketplace-category-intelligence" title="Inspect integrated case study"><i class="fa-solid fa-arrow-up-right-from-square"></i></button></div>
+            </div>
+            <h3 class="project-title">Multimodal Marketplace Category Intelligence Platform</h3>
+            <p class="project-desc">Turns marketplace catalog data into monthly category intelligence that helps sellers understand trends, competitor positioning, buyer preferences and listing improvements. Built during the internship; later automated and scaled to 9 marketplaces.</p>
+            <div class="blueprint-box architecture-lanes">
+              <div class="architecture-lane"><strong>MONTHLY BATCH PIPELINE</strong><div class="blueprint-flow">Cron + recovery &rarr; Two-stage scrape &rarr; Category products &rarr; Statistics + Gemini 2.5 Flash (text/vision) &rarr; Structured JSON &rarr; PostgreSQL taxonomy JSONB</div></div>
+              <div class="architecture-lane"><strong>SELLER REQUEST / READ PATH</strong><div class="blueprint-flow">MSC IQ seller query &rarr; Category Mapper (pgvector) &rarr; Insights + Product Details APIs &rarr; Category trends and recommendations</div></div>
+              <div class="architecture-storage">Shared marketplace taxonomy storage &rarr; online retrieval. Monthly JSONB columns: <code>text_insights_&lt;mm-yyyy&gt;</code> and <code>image_insights_&lt;mm-yyyy&gt;</code> (precomputed; no Gemini call on every Insights API request)</div>
+            </div>
+            <ul class="project-highlights">
+              <li><strong>Data engineering:</strong> Two-stage Zyte/MongoDB extraction reduced catalog turnaround from 2&ndash;3 months to 1.5 weeks (up to 1,000 requests/minute).</li>
+              <li><strong>GenAI + retrieval:</strong> Gemini-generated category JSONB insights combined with PostgreSQL/pgvector taxonomy matching (sub-50 ms lookup) and 3 FastAPI services for MSC IQ.</li>
+              <li><strong>Production evolution:</strong> Full-time monthly cron/recovery automation and expansion to <strong>9 marketplaces</strong> with no routine manual intervention.</li>
+            </ul>
+            <div class="tech-stack"><span class="tech-tag">Gemini 2.5 Flash</span><span class="tech-tag">Python / FastAPI</span><span class="tech-tag">Zyte / MongoDB</span><span class="tech-tag">PostgreSQL JSONB</span><span class="tech-tag">pgvector</span><span class="tech-tag">Cron orchestration</span></div>
           </article>
 
           <!-- Project 2: Autonomous AI Threat Detection Engine (Featured • AI x Security) -->
@@ -532,214 +569,52 @@
             </div>
           </article>
 
-          <!-- Project 4: RCA Engine (Featured • AI) -->
-          <article class="project-card featured-card" id="proj-rca-engine" data-featured="true" data-category="ai" data-project="rca-engine" data-tags="LangGraph,RAG & Agents,Vector Search">
-            <div class="provenance-badge badge-fulltime">
-              <i class="fa-solid fa-briefcase"></i> KAS Global Commerce &bull; AI Engineer (Full-Time)
+          <!-- M.Tech dissertation -->
+          <article class="project-card featured-card" id="proj-thesis-recsys" data-featured="true" data-category="overlap" data-project="mtech-dissertation" data-tags="Federated Privacy,Adversarial AI,Differential Privacy">
+            <div class="provenance-badge badge-research">
+              <i class="fa-solid fa-graduation-cap"></i> NIT Patna &bull; M.Tech Research Thesis
             </div>
-
             <div class="project-card-header">
-              <span class="project-type-badge badge-ai">
-                <i class="fa-solid fa-magnifying-glass-chart"></i>
-                Production Diagnostic Engine
+              <span class="project-type-badge badge-overlap">
+                <i class="fa-solid fa-lock"></i>
+                M.Tech Research Thesis
               </span>
               <div class="project-links">
-                <button class="project-icon-link inspect-spec-btn" data-project="rca-engine" title="Inspect Deep-Dive Case Study">
+                <button class="project-icon-link inspect-spec-btn" data-project="mtech-dissertation" title="Inspect Deep-Dive Case Study">
                   <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </button>
               </div>
             </div>
 
-            <h3 class="project-title">Root Cause Analysis (RCA) Diagnostic Engine</h3>
+            <h3 class="project-title">Privacy-Preserving Federated Sequential Recommendation</h3>
             <p class="project-desc">
-              Completed RCA system behind MSC IQ, turning English and Hinglish seller questions into evidence-backed reports across 28 diagnostics and six business domains.
+              Master's thesis at NIT Patna solving user trajectory and interaction leakage in centralized recommender models using Locally Differentially Private (LDP) mechanisms.
             </p>
 
             <div class="blueprint-box">
-              <div class="blueprint-badge"><i class="fa-solid fa-chart-line"></i> DIAGNOSTIC ENGINE FLOW</div>
+              <div class="blueprint-badge"><i class="fa-solid fa-code-fork"></i> ARCHITECTURAL FORMULATION</div>
               <div class="blueprint-flow">
-                <code>[Seller Query]</code> &rarr; <code>[MSC IQ / LangGraph]</code> &rarr; <code>[/api/analyze]</code> &rarr; <code>[28 Diagnostics]</code> &rarr; <code>[rca_report / RCAReport.jsx]</code>
+                <code>[Client Interaction]</code> &rarr; <code>[LDP-SeqMask Noise]</code> &rarr; <code>[View-CL Invariance]</code> &rarr; <code>[Laplace Aggregation]</code>
               </div>
             </div>
 
             <ul class="project-highlights">
-              <li>Completed <strong>28 diagnostic workflows</strong> across Marketing, Orders, Business, Inventory, Catalog, and Customer domains.</li>
-              <li>Connected MSC IQ authentication and LangGraph routing to concurrent intent/date interpretation, read-only PostgreSQL evidence, and typed report delivery.</li>
-              <li>Returns safe <code>rca_report</code> JSON that MSC IQ persists in MongoDB and renders through <code>RCAReport.jsx</code>.</li>
+              <li><strong>LDP-SeqMask:</strong> Formulated local sequence perturbation so raw interaction clickstreams never leave edge client devices.</li>
+              <li><strong>Laplace Perturbation:</strong> Replaced unstable Exponential Mechanism item selection with a Laplace mechanism, eliminating gradient explosion.</li>
+              <li><strong>View-based Contrastive Learning (View-CL):</strong> Preserved top recommendation ranking accuracy (NDCG@10) even under heavy differential privacy noise.</li>
             </ul>
 
-            <div class="screenshot-preview-strip">
-              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/acos_spike_this_year.png" data-title="ACOS Annual Spike Investigation Report (Amazon.com)" data-query="Query: Why did my ACOS spike this year?">
-                <i class="fa-solid fa-chart-line"></i> ACOS Report (14 Causes)
-              </button>
-              <button class="screenshot-thumb-btn btn-amber open-lightbox-btn" data-img="assets/screenshots/wasted_spend.png" data-title="Wasted Ad Spend &amp; Negative Keywords (Amazon.com)" data-query="Query: Where am I wasting ad spend?">
-                <i class="fa-solid fa-ban"></i> Wasted Spend ($77.87 Flagged)
-              </button>
-              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/acos_spike_hindi.png" data-title="Hinglish Query Processing (Amazon.com)" data-query="Query: ACOS kyu badha pichle hafte?">
-                <i class="fa-solid fa-language"></i> Hinglish Anomaly Check
-              </button>
-              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/cpc_spike.png" data-title="CPC Cost Per Click Baseline Evaluation" data-query="Query: Why did my CPC increase this month?">
-                <i class="fa-solid fa-arrow-trend-down"></i> CPC Spike Check
-              </button>
-            </div>
-
             <div class="tech-stack">
-              <span class="tech-tag">LangGraph Orchestrator</span>
-              <span class="tech-tag">FastAPI</span>
-              <span class="tech-tag">Statistical Thresholding</span>
-              <span class="tech-tag">Amazon Ads API</span>
+              <span class="tech-tag">Federated Learning</span>
+              <span class="tech-tag">Local Differential Privacy (LDP)</span>
+              <span class="tech-tag">PyTorch</span>
+              <span class="tech-tag">Contrastive Learning</span>
             </div>
           </article>
 
           <!-- Project 5: Taxonomy Embedding Pipeline (Featured • AI) -->
-          <article class="project-card featured-card" id="proj-vector-taxonomy" data-featured="true" data-category="ai" data-project="category-mapper" data-tags="Vector Search,RAG & Agents">
-            <div class="provenance-badge badge-intern">
-              <i class="fa-solid fa-flask"></i> KAS Global Commerce &bull; AI Research Intern
-            </div>
 
-            <div class="project-card-header">
-              <span class="project-type-badge badge-ai">
-                <i class="fa-solid fa-database"></i>
-                Vector Search Pipeline
-              </span>
-              <div class="project-links">
-                <button class="project-icon-link inspect-spec-btn" data-project="category-mapper" title="Inspect Deep-Dive Case Study">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </button>
-              </div>
-            </div>
 
-            <h3 class="project-title">Scaled Taxonomy Vector Search &amp; Embedding Pipeline</h3>
-            <p class="project-desc">
-              Automated breadcrumb normalization, dense embedding generation, and sub-50ms vector similarity matching across multi-marketplace taxonomies.
-            </p>
-
-            <div class="blueprint-box">
-              <div class="blueprint-badge"><i class="fa-solid fa-cubes"></i> VECTOR INGESTION &amp; QUERY</div>
-              <div class="blueprint-flow">
-                <code>[Taxonomy CSV]</code> &rarr; <code>[Cleaning &amp; Stopwords]</code> &rarr; <code>[text-embedding-3-large]</code> &rarr; <code>[pgvector IVFFLAT Index]</code>
-              </div>
-            </div>
-
-            <ul class="project-highlights">
-              <li>Embedded 100K+ marketplace category breadcrumbs using OpenAI <code>text-embedding-3-large</code> (3,072 dimensions).</li>
-              <li>Implemented PostgreSQL <code>pgvector</code> storage with IVFFLAT cosine indexing for low-latency category disambiguation in MSC IQ.</li>
-              <li>Engineered batch checkpointing and resume mechanisms handling gigabyte-scale taxonomy updates.</li>
-            </ul>
-
-            <div class="screenshot-preview-strip">
-              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/taxonomy_vector_mapping.png" data-title="pgvector Cosine Retrieval &amp; Category Mapping" data-query="Query: Map category for: lightweight waterproof hiking backpack with laptop compartment">
-                <i class="fa-solid fa-database"></i> pgvector Nearest Taxonomies
-              </button>
-            </div>
-
-            <div class="tech-stack">
-              <span class="tech-tag">PostgreSQL</span>
-              <span class="tech-tag">pgvector</span>
-              <span class="tech-tag">IVFFLAT Index</span>
-              <span class="tech-tag">OpenAI Embeddings</span>
-            </div>
-          </article>
-
-          <!-- Project 6: Distributed Web Scraping Pipeline (AI) -->
-          <article class="project-card" id="proj-scraper-engine" data-featured="false" data-category="ai" data-project="scraping-engine" data-tags="Distributed Systems,ETL Pipelines">
-            <div class="provenance-badge badge-intern">
-              <i class="fa-solid fa-flask"></i> KAS Global Commerce &bull; AI Research Intern
-            </div>
-
-            <div class="project-card-header">
-              <span class="project-type-badge badge-ai">
-                <i class="fa-solid fa-cloud-arrow-down"></i>
-                High-Throughput Scraping
-              </span>
-              <div class="project-links">
-                <button class="project-icon-link inspect-spec-btn" data-project="scraping-engine" title="Inspect Deep-Dive Case Study">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </button>
-              </div>
-            </div>
-
-            <h3 class="project-title">Distributed Two-Stage Web Scraping Engine</h3>
-            <p class="project-desc">
-              High-volume e-commerce catalog ingestion pipeline harvesting top 25 best-selling products per leaf category across global marketplaces with automated monthly scheduling.
-            </p>
-
-            <div class="blueprint-box">
-              <div class="blueprint-badge"><i class="fa-solid fa-server"></i> DISTRIBUTED INGESTION</div>
-              <div class="blueprint-flow">
-                <code>[Browse Node Queue]</code> &rarr; <code>[Zyte API @ 1,000 req/min]</code> &rarr; <code>[HTML Extraction]</code> &rarr; <code>[MongoDB Atlas]</code>
-              </div>
-            </div>
-
-            <ul class="project-highlights">
-              <li>Slashed full-catalog scraping time from <strong>2–3 months down to 1.5 weeks</strong> (90%+ latency reduction).</li>
-              <li>Ingests structured product specs, pricing, ratings, reviews, and high-res media for Amazon, Walmart, ONDC, and eBay.</li>
-            </ul>
-
-            <div class="screenshot-preview-strip">
-              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/mongodb-db_structure.png" data-title="MongoDB Database Schema &amp; Storage Collections" data-query="Collection: leaf_category_products &amp; browse_nodes">
-                <i class="fa-solid fa-database"></i> Database Architecture
-              </button>
-              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/mongobb_product_doc.png" data-title="MongoDB Scraped Product Document Schema" data-query="Document: scraped_product_details">
-                <i class="fa-solid fa-file-code"></i> Product Document
-              </button>
-              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/mongodb-category_doc.png" data-title="MongoDB Category Node Document Schema" data-query="Document: leaf_category_metadata">
-                <i class="fa-solid fa-folder-tree"></i> Category Document
-              </button>
-            </div>
-
-            <div class="tech-stack">
-              <span class="tech-tag">Zyte API</span>
-              <span class="tech-tag">Python AsyncIO</span>
-              <span class="tech-tag">MongoDB Atlas</span>
-              <span class="tech-tag">Distributed Workers</span>
-            </div>
-          </article>
-
-          <!-- Project 7: Multimodal Text & Image Insight Pipeline (AI) -->
-          <article class="project-card" id="proj-text-image-insights" data-featured="false" data-category="ai" data-project="text-image-insights" data-tags="Computer Vision,Multimodal LLMs">
-            <div class="provenance-badge badge-fulltime">
-              <i class="fa-solid fa-briefcase"></i> KAS Global Commerce &bull; Intern &rarr; Automated in Full-Time
-            </div>
-
-            <div class="project-card-header">
-              <span class="project-type-badge badge-ai">
-                <i class="fa-solid fa-images"></i>
-                Multimodal GenAI &amp; NLP
-              </span>
-              <div class="project-links">
-                <button class="project-icon-link inspect-spec-btn" data-project="text-image-insights" title="Inspect Deep-Dive Case Study">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </button>
-              </div>
-            </div>
-
-            <h3 class="project-title">Multimodal Text &amp; Image Insight Pipeline</h3>
-            <p class="project-desc">
-              Automated category-level NLP and computer vision pipeline analyzing text attributes (titles, bullets, specs) and 6 visual image types across top 25 category best-sellers.
-            </p>
-
-            <div class="blueprint-box">
-              <div class="blueprint-badge"><i class="fa-solid fa-layer-group"></i> DUAL-MODAL BATCH FLOW</div>
-              <div class="blueprint-flow">
-                <code>[Top 25 ASINs / Category]</code> &rarr; <code>[Gemini File API + Multi-Key Batch]</code> &rarr; <code>[Text &amp; 6-Type Image Synthesis]</code> &rarr; <code>[PostgreSQL text &amp; image columns]</code>
-              </div>
-            </div>
-
-            <ul class="project-highlights">
-              <li>Analyzes titles, bullet themes, and 6 image types (white bg, lifestyle, infographic, dimension, packaging, detail shots).</li>
-              <li>Engineered batch processing with Gemini File API, automatic cooldowns, and multi-key rotation to prevent rate-limiting.</li>
-              <li>Ingests structured YAML/JSON into marketplace PostgreSQL tables under <code>text_insights</code> and <code>image_insights</code> columns.</li>
-            </ul>
-
-            <div class="tech-stack">
-              <span class="tech-tag">Gemini File API</span>
-              <span class="tech-tag">Python Batch Runner</span>
-              <span class="tech-tag">PostgreSQL</span>
-              <span class="tech-tag">Computer Vision</span>
-              <span class="tech-tag">NLP Extraction</span>
-            </div>
-          </article>
 
           <!-- Project 8: Multimodal A+ Content Insights Pipeline (AI) -->
           <article class="project-card" id="proj-aplus-engine" data-featured="false" data-category="ai" data-project="multimodal-aplus" data-tags="Computer Vision,Multimodal LLMs,Vector Search">
@@ -785,57 +660,6 @@
             </div>
           </article>
 
-          <!-- Project 9: Common API Endpoints & MSC IQ RAG (AI) -->
-          <article class="project-card" id="proj-common-api" data-featured="false" data-category="ai" data-project="chatbot-rag" data-tags="RAG & Agents,Vector Search">
-            <div class="provenance-badge badge-intern">
-              <i class="fa-solid fa-flask"></i> KAS Global Commerce &bull; AI Research Intern
-            </div>
-
-            <div class="project-card-header">
-              <span class="project-type-badge badge-ai">
-                <i class="fa-solid fa-code"></i>
-                Backend &amp; RAG Architecture
-              </span>
-              <div class="project-links">
-                <button class="project-icon-link inspect-spec-btn" data-project="chatbot-rag" title="Inspect Deep-Dive Case Study">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </button>
-              </div>
-            </div>
-
-            <h3 class="project-title">Common API Endpoints &amp; MSC IQ Chatbot RAG</h3>
-            <p class="project-desc">
-              FastAPI microservice delivering category disambiguation, product detail extraction, and category strategy retrieval powering the MSC IQ conversational assistant.
-            </p>
-
-            <div class="blueprint-box">
-              <div class="blueprint-badge"><i class="fa-solid fa-comments"></i> CHATBOT RAG INTERACTION</div>
-              <div class="blueprint-flow">
-                <code>"Price for my shoes?"</code> &rarr; <code>[/category-mapper]</code> &rarr; <code>[Option Chips]</code> &rarr; <code>[/insights RAG]</code> &rarr; <code>[Pricing Guidance]</code>
-              </div>
-            </div>
-
-            <ul class="project-highlights">
-              <li>Built 3 core production APIs: <code>/api/v1/category-mapper</code>, <code>/api/v1/insights</code>, and <code>/api/v1/product-details</code>.</li>
-              <li>Enabled multi-turn Category RAG: user selects a mapped category chip, triggering contextual data extraction from category insight JSONs.</li>
-            </ul>
-
-            <div class="screenshot-preview-strip">
-              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/category_pricing_rag.png" data-title="MSC IQ Conversational Category Pricing RAG" data-query="Query: What is the optimal pricing and coupon strategy for running shoes on Amazon?">
-                <i class="fa-solid fa-tags"></i> Category Pricing RAG
-              </button>
-              <button class="screenshot-thumb-btn open-lightbox-btn" data-img="assets/screenshots/agent_creative_generation.png" data-title="Multi-Agent Creative Generation &amp; Content Dispatcher" data-query="Query: Generate Amazon compliant bullet points and lifestyle creative directives for our new hydration pack">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> Creative Agent Dispatcher
-              </button>
-            </div>
-
-            <div class="tech-stack">
-              <span class="tech-tag">FastAPI</span>
-              <span class="tech-tag">LangGraph</span>
-              <span class="tech-tag">Category RAG</span>
-              <span class="tech-tag">Docker</span>
-            </div>
-          </article>
 
           <!-- Project 10: AegisAgent Flagship Blueprint (Overlap) -->
           <article class="project-card" id="proj-aegis-agent" data-featured="false" data-category="overlap" data-project="aegis-agent" data-tags="LangGraph,RAG & Agents,Adversarial AI">
@@ -1084,12 +908,12 @@
             <div class="archive-banner-text">
               <h3 class="archive-banner-title">Explore the Complete Engineering Archive</h3>
               <p class="archive-banner-desc">
-                Browse all 14 production systems, adversarial SOC labs, and academic dissertations with two-level filtering (disciplines + multiselect capability tags like LangGraph, pgvector, Computer Vision, SIEM SPL, DFIR, OSINT) and shareable URL state.
+                Browse all 11 production systems, adversarial SOC labs, and academic dissertations with two-level filtering (disciplines + multiselect capability tags like LangGraph, pgvector, Computer Vision, SIEM SPL, DFIR, OSINT) and shareable URL state.
               </p>
             </div>
           </div>
           <a href="projects.html" class="btn btn-primary btn-archive-cta">
-            <span>View all projects (14 systems)</span>
+            <span>View all projects (11 systems)</span>
             <i class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
@@ -1567,6 +1391,8 @@
               <div class="mission-brief-card" id="caseStudyObjective"></div>
             </section>
 
+            <div id="caseStudyDetails"></div>
+
             <!-- 2. System Architecture & Interactive Execution Pipeline Section -->
             <section class="case-study-section" id="caseStudyArchSection">
               <div class="case-study-section-header">
@@ -1616,6 +1442,7 @@
                 </div>
               </div>
               <div class="architecture-box">
+                <div id="caseStudyDiagramSection" hidden><figure id="caseStudyDiagram" class="case-architecture"></figure></div>
                 <pre class="arch-content" id="caseStudyArchitecture"></pre>
               </div>
             </section>

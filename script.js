@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initExperienceProjectJump();
   initExperienceInternToggle();
   initProjectsPageFilters();
+  initProjectDeepLinks();
 });
 
 /* ==========================================================================
@@ -210,9 +211,101 @@ function initModeSwitcher() {
 }
 
 /* ==========================================================================
-   3. COMPREHENSIVE PROJECT CASE STUDIES DATA STORE (12 PROJECTS)
+   3. COMPREHENSIVE PROJECT CASE STUDIES DATA STORE (11 PROJECTS)
    ========================================================================== */
 const PROJECT_CASE_STUDIES = {
+  'marketplace-category-intelligence': {
+    status: 'Production Ready',
+    title: 'Multimodal Marketplace Category Intelligence Platform',
+    category: 'Integrated GenAI / Data Engineering Platform',
+    categoryBadgeClass: 'badge-ai',
+    provenance: 'KAS Global Commerce • Internship foundation → full-time automation and scale',
+    provenanceBadgeClass: 'badge-fulltime',
+    summary: 'A seller-facing category intelligence platform that turns monthly marketplace catalog data into competitor, category-trend, buyer-preference and product-listing guidance. It combines a two-stage scraper, statistical analysis, Gemini 2.5 Flash multimodal inference, marketplace-specific PostgreSQL JSONB, pgvector semantic category mapping and three FastAPI services.',
+    objective: 'Help marketplace sellers understand category trends, competitor products, buyer preferences and listing improvements using consistently refreshed, precomputed text and image insights, accessible through the MSC IQ assistant.',
+    meta: ['Monthly offline analysis', 'Precomputed FastAPI retrieval', '9 marketplaces at full-time scale', 'Built across internship and full-time roles'],
+    diagram: {
+      lanes: [
+        { title: 'Monthly preparation', nodes: [
+          ['Cron + recovery', 'Full-time automation starts monthly harvesting.'],
+          ['Two-stage harvesting', 'Zyte → MongoDB category/product records → normalization.'],
+          ['Parallel analysis', 'Category statistics + Gemini 2.5 Flash text/image inference.'],
+          ['Validated JSON', 'Structured text and image category insights.']
+        ] },
+        { title: 'Online seller consumption', nodes: [
+          ['Seller → MSC IQ', 'Ask about trends, competitors, preferences or listings.'],
+          ['Category Mapper ↔ MSC IQ', 'Resolve the category with embeddings and pgvector when needed.'],
+          ['Retrieval APIs ↔ MSC IQ', 'Insights reads monthly JSONB; Product Details retrieves product metadata.'],
+          ['MSC IQ → seller', 'Present category insights and listing guidance.']
+        ] }
+      ],
+      bridge: 'Shared storage: marketplace-specific PostgreSQL taxonomy tables. Monthly JSONB columns: text_insights_<mm-yyyy> and image_insights_<mm-yyyy>. Batch writes → stored insights → online reads; taxonomy embeddings also support Category Mapper.',
+      caption: 'Conceptual data flow. The three FastAPI services retrieve and integrate data; Gemini inference runs in the offline batch.',
+      source: 'docs/Marketplace_Category_Intelligence_Architecture.mmd'
+    },
+    sections: [
+      { title: 'Seller experience · illustrative examples', text: 'Sanitized examples of insight-card content, not production observations, measured outcomes or live API responses.', cards: [
+        ['“What themes appear in this category?”', 'Category trend card: summarize recurring product attributes and image themes from the selected monthly category insights.'],
+        ['“How do competing listings present their products?”', 'Competitor card: compare feature messaging and visual approaches found in the category dataset.'],
+        ['“What could I improve in my listing?”', 'Listing opportunity card: suggest clearer feature explanations or product imagery for the seller to review against the retrieved category evidence.']
+      ] },
+      { title: 'Engineering components', cards: [
+        ['Data Harvesting', 'Two-stage Zyte/MongoDB harvesting and normalization produce category-wise product records.'],
+        ['Multimodal Intelligence', 'Statistical analysis and Gemini 2.5 Flash turn product text and imagery into structured category insights.'],
+        ['Taxonomy & Vector Search', 'Normalized breadcrumbs, OpenAI embeddings and pgvector IVFFLAT support sub-50 ms category lookup.'],
+        ['PostgreSQL JSONB Versioning', 'Marketplace taxonomy tables hold text_insights_<mm-yyyy> and image_insights_<mm-yyyy> columns, such as text_insights_11-2026.'],
+        ['FastAPI Retrieval', '/api/v1/category-mapper, /api/v1/insights and /api/v1/product-details connect stored intelligence and product metadata to MSC IQ.'],
+        ['Monthly Automation / Scaling', 'Cron scheduling, completion-triggered downstream processing, recovery and schema handling support nine marketplaces.']
+      ] },
+      { title: 'Ownership across roles', cards: [
+        ['AI Research Intern · Sep 2025–Jun 2026', 'Built Amazon/ONDC harvesting, normalized taxonomy and pgvector mapping, statistical/Gemini insights, monthly JSONB persistence and the three FastAPI services.'],
+        ['AI Engineer · Jul 2026–present', 'Automated the same platform’s monthly lifecycle, added downstream recovery/schema handling and expanded integration to nine marketplaces with no routine monthly intervention.']
+      ] },
+      { title: 'Tradeoffs and operating boundaries', items: [
+        'Precomputation keeps expensive multimodal inference outside the interactive retrieval path; monthly insights reflect the last completed batch rather than live marketplace changes.',
+        'Month-suffixed JSONB columns preserve monthly outputs within marketplace taxonomy tables. They require schema handling as months accumulate and do not establish physical partitioning.',
+        'Asynchronous harvesting and inference need completion tracking, recovery and operational monitoring; no routine intervention does not mean failures never require attention.',
+        'Marketplace schema differences require normalization and adapter maintenance. Freshness and batch completion must remain visible to operators.'
+      ] }
+    ],
+    screenshots: [
+      { title: 'Taxonomy Vector Mapping', src: 'assets/screenshots/taxonomy_vector_mapping.png', caption: 'Existing portfolio demonstration of semantic category matching; displayed values are not additional validated performance claims.' },
+      { title: 'Category Disambiguation and Guidance', src: 'assets/screenshots/category_pricing_rag.png', caption: 'Existing portfolio illustration of the MSC IQ category experience; example values are not verified production results.' },
+      { title: 'Creative Integration Example', src: 'assets/screenshots/agent_creative_generation.png', caption: 'Existing downstream integration illustration; creative generation is outside this platform’s three retrieval services.' }
+    ],
+    pipeline: [
+      {step:'01', title:'Two-stage catalog ingestion', icon:'fa-cloud-arrow-down', type:'Offline · built during internship', desc:'Harvest category-level product records on Amazon and ONDC initially using distributed Zyte API requests and MongoDB persistence. Full-catalog extraction reduced from 2–3 months to approximately 1.5 weeks (up to 1,000 requests/minute).', chips:['Zyte API', 'MongoDB', 'Category records']},
+      {step:'02', title:'Statistical and Gemini insights', icon:'fa-images', type:'Offline · multimodal category intelligence', desc:'Combine quantitative category statistics with Gemini 2.5 Flash analysis of product text and images; normalize category-wise structured JSON outputs representing competitor positioning, buyer signals and listing opportunities.', chips:['Gemini 2.5 Flash', 'Text + Image', 'Structured JSON']},
+      {step:'03', title:'Monthly PostgreSQL JSONB', icon:'fa-database', type:'Offline · versioned marketplace storage', desc:'Persist precomputed JSON inside marketplace-specific taxonomy tables with date-suffixed JSONB columns text_insights_<mm-yyyy> and image_insights_<mm-yyyy>. These are columns, not separate partitioned tables.', chips:['PostgreSQL', 'JSONB', 'Month-suffixed columns']},
+      {step:'04', title:'Semantic category mapping', icon:'fa-vector-square', type:'Online · matching and disambiguation', desc:'Use normalized taxonomy breadcrumbs, OpenAI text-embedding-3-large and PostgreSQL pgvector (IVFFLAT) for fast cross-marketplace category matching and sub-50 ms lookup.', chips:['OpenAI Embeddings', 'pgvector', 'IVFFLAT']},
+      {step:'05', title:'FastAPI retrieval and MSC IQ', icon:'fa-comments', type:'Online · user-facing integration', active:true, desc:'MSC IQ uses the Category Mapper, Insights and Product Details FastAPI services to retrieve stored monthly intelligence and product context. Insights are precomputed and are not generated by Gemini on every API request.', chips:['/api/v1/insights', 'Category Mapper', 'Product Details']},
+      {step:'06', title:'Monthly operations at scale', icon:'fa-gears', type:'Full-time · automation and marketplace scaling', desc:'After promotion to AI Engineer, scheduled recurring catalog scraping, triggered downstream multimodal processing with recovery handling and expanded the connected system to nine global marketplaces with no routine manual intervention.', chips:['Cron', 'Recovery', '9 marketplaces']}
+    ],
+    architecture: `OFFLINE: Monthly trigger → Two-stage scraper → Category text/images → Statistics + Gemini 2.5 Flash → Validated JSON → Marketplace-specific PostgreSQL JSONB columns
+
+ONLINE: Seller asks MSC IQ → Category Mapper (pgvector) → /api/v1/insights + /api/v1/product-details (read stored output) → Seller category insight and recommendations`,
+    process: [
+      'Internship: engineered the two-stage harvesting flow and categorized product dataset for the initial Amazon and ONDC marketplaces.',
+      'Internship: combined statistical aggregation and Gemini 2.5 Flash multimodal analysis into structured category-wise JSON insights.',
+      'Internship: saved monthly text and image intelligence as date-suffixed JSONB columns in each marketplace-specific taxonomy table.',
+      'Internship: implemented semantic taxonomy matching and three retrieval/API services for the MSC IQ assistant.',
+      'Full-time: automated the monthly scrape-to-analysis workflow using cron scheduling and downstream completion-driven processing.',
+      'Full-time: adapted the platform to nine global marketplaces with recovery and schema-handling automation.'
+    ],
+    findings: [
+      'Cut catalog extraction from 2–3 months to approximately 1.5 weeks with Zyte-based high-throughput harvesting.',
+      'Achieved sub-50 ms category vector lookup using PostgreSQL/pgvector IVFFLAT.',
+      'Extended the connected monthly category intelligence pipeline to nine marketplaces, without routine manual intervention.',
+      'The Insights API reads monthly precomputed JSONB category insights, rather than performing LLM inference for every seller request.'
+    ],
+    learned: 'The platform illustrates a practical separation between expensive offline multimodal AI processing and lower-latency online API retrieval, with explicit schema-versioned data persistence, semantic matching and business-facing category intelligence.',
+    tools: ['Python', 'Zyte API', 'MongoDB Atlas', 'Gemini 2.5 Flash', 'PostgreSQL', 'JSONB', 'pgvector', 'FastAPI', 'Cron'],
+    skills: ['GenAI integration', 'Batch pipeline architecture', 'Semantic search', 'Microservices', 'Marketplace data engineering', 'Operational automation'],
+    github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio',
+    githubLabel: 'Public portfolio (no private production source)',
+    report: '#',
+    reportLabel: 'Internal production system'
+  },
   'mtech-dissertation': {
     title: 'Privacy-Preserving Federated Sequential Recommendation',
     category: 'M.Tech Research Thesis',
@@ -433,54 +526,56 @@ const PROJECT_CASE_STUDIES = {
   },
 
   'rca-engine': {
-    title: 'Root Cause Analysis (RCA) Diagnostic Engine',
-    category: 'Production Diagnostic Engine',
+    status: 'Completed',
+    title: 'Evidence-Grounded LangGraph Root Cause Analysis Investigator',
+    category: 'Production Agentic AI Diagnostic Engine',
     categoryBadgeClass: 'badge-ai',
     provenance: 'KAS Global Commerce • AI Engineer (Full-Time)',
     provenanceBadgeClass: 'badge-fulltime',
-    status: 'Production Ready',
-    summary: 'Completed the production RCA system connected end to end with MySellerCentral\'s MSC IQ assistant. LangGraph routes causal seller questions to FastAPI /api/analyze; the engine executes a 28-diagnostic catalog across six domains against read-only PostgreSQL evidence, then returns typed rca_report JSON for MSC IQ to persist and render.',
-    pipeline: [
-      { step: '01', title: 'Seller Query & Access Gate', icon: 'fa-comments', type: 'MySellerCentral Experience', desc: 'Accepts an English or Hinglish causal question with account and marketplace context. The authentication manager validates identity, subscription, payment state, plan credits, and target access before analysis begins.', chips: ['MySellerCentral', 'MSC IQ', 'JWT & Subscription Gate', 'Marketplace Scope'] },
-      { step: '02', title: 'MSC IQ Supervisor Routing', icon: 'fa-diagram-project', type: 'Conversation Orchestration', desc: 'MSC IQ owns conversation state and uses its LangGraph supervisor to select the rca_analytics engine for causal questions, preserving the query frame and authorized seller context.', chips: ['LangGraph', 'rca_analytics', 'Conversation State', 'Intent Routing'] },
-      { step: '03', title: 'Concurrent Interpretation', icon: 'fa-code-branch', type: 'FastAPI Ingress', desc: 'POST /api/analyze validates the request, builds an ordered de-duplicated marketplace scope, and resolves diagnostic intent and comparison dates concurrently. Windows shorter than seven days expand to a reliable 14-vs-14-day comparison.', chips: ['/api/analyze', 'Pydantic', 'Concurrent Intent + Dates', '14-Day Guard'] },
-      { step: '04', title: '28-Diagnostic Dispatch', icon: 'fa-layer-group', type: 'Registry-Driven Catalog', active: true, desc: 'Registry metadata dispatches 28 completed diagnostics across Marketing, Orders, Business, Inventory, Catalog, and Customer domains. Multi-diagnostic requests can execute up to three compatible investigations in parallel.', chips: ['28 Diagnostics', '6 Domains', 'Dynamic Registry', 'Parallel Diagnostics'] },
-      { step: '05', title: 'Evidence Investigation', icon: 'fa-database', type: 'Deterministic Analytics', desc: 'Read-only, pooled, parameterized PostgreSQL queries apply metric gates and drill from account to campaign, product, and entity evidence. Numerical claims come from the data layer, not the language model.', chips: ['Read-Only PostgreSQL', 'QueuePool', 'Metric Gates', 'Hierarchical Drill-Down'] },
-      { step: '06', title: 'Evidence Synthesis', icon: 'fa-shield-halved', type: 'Root-Cause Arbitration', desc: 'Before/after deltas and contextual signals become ranked causes, changes, severity, confidence, and recommendations. Cross-diagnostic arbitration removes duplicate or unsupported causes and their dependent actions.', chips: ['Ranked Causes', 'Bounded Confidence', 'Cause De-duplication', 'Bound Recommendations'] },
-      { step: '07', title: 'Persisted Typed Report', icon: 'fa-square-check', type: 'MSC IQ Delivery Contract', desc: 'The service sanitizes NaN and Infinity values, returns a typed rca_report envelope, and provides readable failures instead of raw exceptions. MSC IQ stores the full MessageData object in MongoDB and the dashboard renders it through RCAReport.jsx.', chips: ['rca_report JSON', 'MongoDB Persistence', 'RCAReport.jsx', 'Safe Failure Envelope'] }
+    summary: 'Completed 30-diagnostic multi-domain RCA engine serving marketplace sellers. LangGraph routes natural-language questions, a Python analytical service gathers structured marketplace evidence using read-only access to PostgreSQL tables, and AI determines likely causes grounded in the evidence before a structured report is rendered.',
+    objective: 'Explain why seller performance metrics changed—from ACOS and CPC to conversion, sales and operational indicators—with evidence-backed conclusions, severity levels, and practical seller actions.',
+    meta: ['30 completed diagnostics', 'Marketing / Orders / Business / Inventory', 'Evidence-grounded AI', 'Read-only PostgreSQL table access'],
+    diagram: {
+      lanes: [{ title: 'Evidence-grounded RCA · 30 completed diagnostics', nodes: [
+        ['Seller → authenticated MSC IQ', 'English/Hinglish question about changed advertising, conversion or sales metrics.'],
+        ['LangGraph supervisor → RCA', 'Select the diagnostic, scope and comparison dates.'],
+        ['Python analytics → PostgreSQL', 'Access authorized PostgreSQL tables in read-only mode to assemble marketplace evidence.'],
+        ['Structured evidence', 'Baseline/current periods, deltas, thresholds, data sufficiency and campaign/ASIN/keyword breakdowns.'],
+        ['AI root-cause investigation', 'Reason over prepared evidence and infer plausible causes and prioritized recommendations.'],
+        ['Evidence and safety checks', 'Input/prompt-injection safeguards, numeric guards and confirmed findings versus directional interpretations.'],
+        ['Typed RCA report → MSC IQ', 'Present comparisons, ranked causes, evidence, severity and actions to the seller.']
+      ] }],
+      caption: 'Current conceptual architecture, not a code-level production topology. The model receives scoped evidence through Python; it has no unrestricted SQL execution or data modification capability.',
+      source: 'docs/Evidence_Grounded_RCA_Architecture.mmd'
+    },
+    sections: [
+      { title: 'Seller questions · illustrative prompts', items: [
+        '“Why did ACOS rise compared with the previous period?”',
+        '“ROAS kyu gira pichle hafte?”',
+        '“Why did conversion or revenue fall?”'
+      ] },
+      { title: 'Evidence, interpretation and limits', text: 'A diagnostic defines the investigation scope; metric and evidence checks establish observations. AI then evaluates that evidence to infer root causes. Directly supported findings are distinguished from directional explanations, and insufficient data limits the conclusion. Typed outputs and safeguards constrain unsupported responses; they do not prove every interpretation or eliminate hallucinations.', items: [
+        'All 30 diagnostics are completed across Marketing, Orders, Business and Inventory. The complete named registry is not published here.',
+        'The >60 seconds → <7 seconds (88%+) result measures analytical query/fetch latency. Full AI report latency and final reasoning accuracy have not been supplied.',
+        'RCA remains a service behind authenticated MSC IQ; this portfolio provides a conceptual case study and does not expose a public diagnostic API.'
+      ] }
     ],
-    architecture: `
-[ Seller in MySellerCentral / MSC IQ ]
-              |
-              v
-[ Authentication Manager ] -- identity, plan, credits, target access
-              |
-              v
-[ MSC IQ LangGraph Supervisor ] -- selects primary_engine: rca_analytics
-              |
-              v
-[ RCA-Analysis POST /api/analyze ]
-    |-- concurrent intent + comparison-date resolution
-    |-- ordered, de-duplicated marketplace scope
-    |-- registry dispatch across 28 diagnostics / 6 domains
-    |-- read-only PostgreSQL evidence hierarchy
-    |-- ranked causes, confidence, changes, recommendations
-    \\-- safe typed response_type: rca_report
-              |
-              v
-[ MSC IQ MessageData Persistence / MongoDB ]
-              |
-              v
-[ Universal Dashboard / RCAReport.jsx ]`,
-    objective: 'Give marketplace sellers an inspectable causal answer inside MSC IQ: route a natural-language question to the correct investigation, ground every numerical claim in authorized marketplace evidence, and return one stable report object that can be persisted and rendered without translation between services.',
+    pipeline: [
+      {step:'01', title:'Seller question', icon:'fa-comment-dots', type:'MSC IQ conversational entry', desc:'Seller asks why a marketplace metric changed; upstream MSC IQ provides authenticated account and marketplace context.', chips:['English/Hinglish', 'Seller intent', 'Scoped request']},
+      {step:'02', title:'LangGraph routing', icon:'fa-diagram-project', type:'Agent supervisor', desc:'The supervisor selects the RCA analytical capability and determines the appropriate diagnostic intent and comparison period.', chips:['LangGraph', 'Diagnostic choice', 'Dates']},
+      {step:'03', title:'Python evidence gathering', icon:'fa-database', type:'Python analytics service', desc:'Use bounded, parameterized analytical SQL with read-only access to authorized PostgreSQL tables. Python produces baseline/current metric deltas, statistical context and campaign/product/entity evidence. SQL evidence fetches improved from >60 seconds to <7 seconds.', chips:['Python analytics', 'Read-only PostgreSQL', 'Query optimization']},
+      {step:'04', title:'AI grounded inference', icon:'fa-brain', type:'Evidence-based root-cause reasoning', active:true, desc:'AI reasons over the prepared structured evidence to determine plausible root causes, explain their impacts and propose seller-relevant action. Evidence checks and prompt-injection safeguards limit unsupported assertions.', chips:['LLM reasoning', 'Structured evidence', 'Input safeguards']},
+      {step:'05', title:'Validation and report', icon:'fa-shield-halved', type:'Structured audit-friendly output', desc:'Return a typed report with evidence summaries, ranked root causes, severity, changes and prioritized recommendations; differentiate confidence or missing-data limitations.', chips:['Severity', 'Recommendations', 'Typed report']},
+      {step:'06', title:'MSC IQ rendering', icon:'fa-chart-line', type:'Seller-facing investigation', desc:'MSC IQ presents the structured report so the seller can see why metrics changed and what action is warranted.', chips:['RCAReport', 'Seller guidance', 'Multi-domain']}
+    ],
+    architecture: `Seller → Authenticated MSC IQ and LangGraph supervisor → RCA diagnostic and scope → Python analytical service → Read-only access to marketplace PostgreSQL tables → Structured evidence package → AI root-cause reasoning + safeguards → Typed structured RCA report → MSC IQ seller dashboard`,
     process: [
-      'Connected MSC IQ conversation orchestration to the RCA service through the rca_analytics adapter and the POST /api/analyze contract.',
-      'Separated responsibilities across the stack: MySellerCentral handles access and conversation state; RCA performs deterministic analysis; the dashboard renders the returned object.',
-      'Implemented concurrent diagnostic-intent and comparison-date resolution, with explicit marketplace scoping and a 14-day minimum comparison guard.',
-      'Completed a registry-driven catalog of 28 diagnostics: 14 Marketing, 6 Orders, 3 Business, 2 Inventory, 2 Catalog, and 1 Customer workflow.',
-      'Built evidence-first investigation using parameterized read-only PostgreSQL queries, pooled connections, metric gates, and account-to-entity drill-downs.',
-      'Added multi-diagnostic arbitration to normalize and de-duplicate causes while keeping each recommendation bound to evidence that survives arbitration.',
-      'Defined a safe typed rca_report contract with null sanitization, readable failure envelopes, MongoDB conversation persistence, and direct RCAReport.jsx rendering.'
+      'Designed and deployed the RCA engine from research through production, completing 30 diagnostics spanning advertising, orders, business and inventory questions.',
+      'Evolved the original rule-centric investigation into an evidence-first architecture: Python assembles authorized structured metrics, and AI reasons over that evidence to determine root causes.',
+      'Used comparison windows, account-aware statistical thresholds and minimum-data checks to avoid unsupported metric conclusions.',
+      'Applied input sanitization and prompt-injection safeguards for natural-language questions.',
+      'Optimized independent PostgreSQL evidence queries through parallelization, indexing and join improvements, lowering fetch latency from more than 60 seconds to under seven seconds.',
+      'Returned structured seller-facing explanations, severity-ranked root causes, and prioritized recommendations.'
     ],
     screenshots: [
       {
@@ -505,222 +600,25 @@ const PROJECT_CASE_STUDIES = {
       }
     ],
     findings: [
-      'Completed 28 diagnostic workflows across six domains: Marketing (14), Orders (6), Business (3), Inventory (2), Catalog (2), and Customer (1).',
-      'Established one traceable lifecycle from seller question and access validation through MSC IQ routing, RCA evidence analysis, persistence, and dashboard rendering.',
-      'Kept numerical evidence deterministic: foundation models assist with intent, dates, and arbitration, but do not invent marketplace metrics.',
-      'Delivered a stable typed report contract containing summary cards, evidence tables, ranked root causes, changes, and recommendations for the Universal Dashboard.',
-      'Preserved production safety with read-only parameterized queries, connection pooling, authorized marketplace scope, non-finite number sanitization, and readable error envelopes.'
+      '30 diagnostics completed in the final multi-domain implementation (owner-confirmed November 2026; older documents describe earlier development snapshots).',
+      'Python analytics retrieves evidence through read-only access to PostgreSQL tables, separating factual observations from AI-based explanation and inference.',
+      'Reduced the evidence-fetch stage from >60 seconds to <7 seconds (88%+); this is not the total end-to-end AI answer latency.',
+      'Outputs structured seller-facing reports with ranked causes and actionable recommendations.'
     ],
-    learned: 'The strongest production AI boundary is evidence before prose. Language models are useful for interpreting the seller\'s intent and coordinating investigations, while deterministic services, typed contracts, and authorized database queries must own every business metric and conclusion.',
-    tools: ['Python', 'FastAPI', 'Pydantic', 'LangGraph', 'Gemini', 'PostgreSQL', 'MongoDB', 'React'],
-    skills: ['Multi-Agent Orchestration', 'Root-Cause Analysis', 'Evidence-Backed Analytics', 'Cross-Service API Contracts', 'Diagnostic Registry Design', 'Production Data Safety'],
+    learned: 'Reliable agentic diagnostics work best when numerical observations are computed by governed analytical services and AI interprets only the retrieved evidence. Data scope, insufficient-data guards, and safe outputs remain essential.',
+    tools: ['Python', 'FastAPI', 'LangGraph', 'PostgreSQL', 'SQLAlchemy', 'Structured Outputs'],
+    skills: ['Read-only PostgreSQL access', 'LLM grounding', 'RCA methodology', 'Query optimization', 'Agentic AI safety'],
     github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio',
-    githubLabel: 'Portfolio Repository',
+    githubLabel: 'Public portfolio',
     report: '#',
-    reportLabel: 'Production AI System'
+    reportLabel: 'Internal production system'
   },
 
-  'category-mapper': {
-    title: 'High-Scale Taxonomy Vector Search & Category Mapping Pipeline',
-    category: 'Vector Search Pipeline',
-    categoryBadgeClass: 'badge-ai',
-    provenance: 'KAS Global Commerce • AI Research Intern',
-    provenanceBadgeClass: 'badge-intern',
-    pipeline: [
-      { step: '01', title: 'Raw Taxonomy CSV', icon: 'fa-file-lines', type: 'Ingestion Input', desc: 'Ingests multi-marketplace category hierarchies across Amazon, Walmart, ONDC, and Flipkart with varying delimiter structures.', chips: ['Raw CSV Ingestion', 'Multi-Marketplace', 'Taxonomy Trees'] },
-      { step: '02', title: 'Breadcrumb Normalizer', icon: 'fa-filter', type: 'Preprocessing Pipeline', desc: 'Unifies hierarchy delimiters, strips promotional stopwords, and preserves root-to-leaf semantic depth hierarchy.', chips: ['clean_breadcrumbs.py', 'Depth Preservation', 'Stopword Removal'] },
-      { step: '03', title: 'Dense Embeddings', icon: 'fa-brain', type: 'Embedding Generation', desc: 'Generates high-dimensional semantic representations using OpenAI text-embedding-3-large (3,072 dimensions) with stateful batch checkpointing.', chips: ['3,072 Dimensions', 'text-embedding-3-large', 'Checkpointing'] },
-      { step: '04', title: 'PostgreSQL + pgvector', icon: 'fa-database', type: 'Vector Database Storage', active: true, desc: 'Stores embeddings in dedicated taxonomy tables with IVFFLAT vector indexing (vector_cosine_ops, lists=100) for sub-50ms nearest neighbor search.', chips: ['PostgreSQL', 'pgvector IVFFLAT', 'Sub-50ms Retrieval'] },
-      { step: '05', title: 'Disambiguation API', icon: 'fa-square-check', type: 'FastAPI Microservice', desc: 'FastAPI microservice (/api/v1/category-mapper) performing cosine similarity lookups and serving interactive disambiguation chips.', chips: ['FastAPI', 'Cosine Similarity', 'Disambiguation UX'] }
-    ],
-    architecture: `
-[ Raw Taxonomy CSV (Amazon / Walmart / ONDC / Flipkart) ]
-                         │
-                         ▼
-[ Taxonomy Breadcrumb Normalizer (clean_breadcrumbs.py) ]
-   • Delimiter unification & stopword elimination
-   • Segment depth hierarchy preservation
-                         │
-                         ▼
-[ OpenAI text-embedding-3-large (3,072 dimensions) ]
-   • Batch embedding generation with stateful checkpointing
-                         │
-                         ▼
-[ PostgreSQL Database with pgvector Extension ]
-   • Schema: (id, input_id, breadcrumb, cleaned_breadcrumb, breadcrumb_embedding)
-   • IVFFLAT Index: CREATE INDEX USING ivfflat (vector_cosine_ops) WITH (lists=100)
-                         │
-                         ▼
-[ FastAPI Retrieval API (/api/v1/category-mapper) ]
-   • Executes cosine distance (<=> operator)
-   • Sub-50ms Approximate Nearest Neighbor (ANN) query execution`,
-    objective: 'Build an automated taxonomy alignment pipeline that maps unstructured seller search queries and external marketplace categories to standardized platform taxonomies using dense vector search.',
-    process: [
-      'Processed massive category taxonomy hierarchies across Amazon, Walmart, and ONDC, normalizing breadcrumb strings and delimiters.',
-      'Generated dense 3,072-dimensional vector embeddings using OpenAI text-embedding-3-large with chunking and batch checkpointing.',
-      'Constructed a production PostgreSQL database utilizing pgvector with optimized IVFFLAT cosine indices.',
-      'Deployed a high-concurrency FastAPI microservice (/api/v1/category-mapper) executing approximate nearest-neighbor retrieval in under 50ms.'
-    ],
-    screenshots: [
-      {
-        title: 'Taxonomy Vector Mapping',
-        src: 'assets/screenshots/taxonomy_vector_mapping.png',
-        caption: 'pgvector cosine similarity retrieval returning top-ranked leaf taxonomy nodes for complex seller search prompts.'
-      },
-      {
-        title: 'Conversational Category Pricing RAG',
-        src: 'assets/screenshots/category_pricing_rag.png',
-        caption: 'Category mapping endpoint integrated with interactive disambiguation chips in the MSC IQ assistant.'
-      }
-    ],
-    findings: [
-      'Embedded over 100K+ leaf category paths, achieving sub-50ms vector query execution.',
-      'IVFFLAT indexing with lists=100 achieved 98.4% retrieval accuracy compared to exact flat search while reducing query latency by 85%.',
-      'Batch checkpointing mechanism ensured zero data loss during multi-hour bulk taxonomy ingestion runs.'
-    ],
-    learned: 'Vector search in enterprise settings requires balancing index training time, recall precision, and query latency. Proper string normalization beforehand produces larger retrieval gains than model parameter tuning.',
-    tools: ['PostgreSQL', 'pgvector', 'OpenAI Embeddings', 'FastAPI', 'Python', 'Docker'],
-    skills: ['Vector Databases', 'Approximate Nearest Neighbor (ANN)', 'Taxonomy Normalization', 'High-Performance APIs'],
-    github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio',
-    githubLabel: 'Portfolio Repository',
-    report: '#',
-    reportLabel: 'Production Microservice'
-  },
 
-  'scraping-engine': {
-    title: 'Distributed Two-Stage Web Scraping Engine',
-    category: 'High-Throughput Scraping',
-    categoryBadgeClass: 'badge-ai',
-    provenance: 'KAS Global Commerce • AI Research Intern to Full-Time',
-    provenanceBadgeClass: 'badge-intern',
-    summary: 'High-volume e-commerce catalog ingestion pipeline harvesting top 25 best-selling products per leaf category across global marketplaces with automated monthly scheduling.',
-    pipeline: [
-      { step: '01', title: 'Browse Node Queue', icon: 'fa-compass', type: 'Catalog Taxonomy Queue', desc: 'Traverses top 25 best-seller category browse nodes across global marketplaces using modular schema adapters (Amazon, ONDC, Walmart, Flipkart, eBay).', chips: ['Top 25 Browse Nodes', 'Modular Adapters', 'Multi-Marketplace'] },
-      { step: '02', title: 'Listing Discovery Crawler', icon: 'fa-filter', type: 'Stage 1: URL Discovery', desc: 'Stage 1 crawler isolates product ASIN and item ID collection from heavy extraction, queuing thousands of catalog targets with minimal overhead.', chips: ['Stage 1 Crawler', 'ASIN Harvesting', 'Fast Discovery'] },
-      { step: '03', title: 'Deep Extraction Workers', icon: 'fa-layer-group', type: 'Stage 2: Multithreaded Zyte', active: true, desc: 'Stage 2 multithreaded Zyte API extraction pool operating at 1,000 req/min with automated exponential backoff, harvesting specs, pricing, ratings, reviews, and media.', chips: ['Zyte API @ 1,000 req/min', 'Anti-Ban Spoofing', 'Auto Backoff', 'Rich Media'] },
-      { step: '04', title: 'MongoDB Atlas Ingestion', icon: 'fa-database', type: 'Document Persistence', desc: 'Validates schemas and persists structured e-commerce documents and category node hierarchies into indexed MongoDB Atlas collections.', chips: ['MongoDB Atlas', 'Indexed Collections', 'Product Documents', 'Category Nodes'] },
-      { step: '05', title: 'Monthly Cron Trigger', icon: 'fa-clock-rotate-left', type: 'Automated Pipeline Trigger', desc: 'Autonomous monthly cron scheduler executes end-to-end catalog crawls and automatically triggers the downstream Multimodal Text & Image Insight Pipeline upon completion.', chips: ['Monthly Cron Trigger', 'Zero Manual Ops', 'Downstream Insight Dispatch'] }
-    ],
-    architecture: `
-[ Leaf Category Browse Node Queue ]
-                 │
-                 ▼
-[ Stage 1: Listing Discovery Crawler ]
-   • Traverses top 25 best-seller browse nodes
-   • Collects product ASINs / item IDs
-                 │
-                 ▼
-[ Stage 2: Deep Extraction Worker Pool ]
-   • Zyte API threaded requests @ 1,000 req/min
-   • Ingests specs, pricing, ratings, reviews, media
-                 │
-                 ▼
-[ Structured Validation & MongoDB Atlas Storage ]
-                 │
-                 ▼
-[ Automated Monthly Cron Scheduler Trigger ]
-   • Upon completion of monthly scrape for a marketplace:
-     Automatically triggers Multimodal Text & Image Insight Pipeline!`,
-    objective: 'Re-engineer the legacy data collection pipeline to harvest comprehensive product intelligence across thousands of leaf categories with minimal latency, high fault tolerance, and zero-maintenance monthly cron execution.',
-    process: [
-      'Architected a distributed two-stage harvesting pattern separating URL discovery from intensive product detail extraction.',
-      'Implemented multithreaded Zyte API integration executing at 1,000 requests per minute with automated exponential backoff.',
-      'Persisted structured e-commerce documents into MongoDB Atlas collections with indexed schema validation.',
-      'Built automated monthly scheduler: as soon as the 2-stage scraping engine completes its monthly crawl for a marketplace, the multimodal text and image insights pipeline triggers automatically via cron workflows.',
-      'Designed modular marketplace adapters, meaning code updates are only needed when adding new marketplace schemas (Amazon/ONDC during internship; Walmart/Flipkart/eBay added in full-time).'
-    ],
-    screenshots: [
-      {
-        title: 'MongoDB Database Architecture & Collections',
-        src: 'assets/screenshots/mongodb-db_structure.png',
-        caption: 'MongoDB Atlas collections and storage schema indexing leaf category intelligence across marketplaces.'
-      },
-      {
-        title: 'MongoDB Scraped Product Document',
-        src: 'assets/screenshots/mongobb_product_doc.png',
-        caption: 'Extracted product document capturing pricing, ratings, buy box, variant hierarchy, and specs.'
-      },
-      {
-        title: 'MongoDB Category Node Document',
-        src: 'assets/screenshots/mongodb-category_doc.png',
-        caption: 'Category taxonomy node mapping leaf category browse URLs, hierarchy depth, and crawl status.'
-      }
-    ],
-    findings: [
-      'Slashed full-catalog scraping time from 2–3 months down to 1.5 weeks (over 90% latency reduction).',
-      'Achieved 99.8% extraction success rate via automated proxy rotation and anti-ban header spoofing.',
-      'Monthly cron scheduler executes end-to-end harvesting and triggers downstream insight pipelines without manual engineering intervention.'
-    ],
-    learned: 'Web scraping at scale is fundamentally an infrastructure problem. Decoupling discovery from extraction and having strict rate-limit management is the key to sustained high-throughput scraping.',
-    tools: ['Python', 'Zyte API', 'MongoDB Atlas', 'AsyncIO / Threading', 'Cron Schedulers', 'BeautifulSoup'],
-    skills: ['Distributed Scraping', 'Data Engineering', 'Rate-Limit Optimization', 'Automated Scheduling'],
-    github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio',
-    githubLabel: 'Portfolio Repository',
-    report: '#',
-    reportLabel: 'Production Pipeline'
-  },
 
-  'text-image-insights': {
-    title: 'Multimodal Text & Image Insight Pipeline (Amazon, ONDC & Multi-Marketplace)',
-    category: 'Multimodal GenAI & NLP',
-    categoryBadgeClass: 'badge-ai',
-    provenance: 'KAS Global Commerce • Intern → Automated in Full-Time',
-    provenanceBadgeClass: 'badge-fulltime',
-    pipeline: [
-      { step: '01', title: 'Top 25 Catalog ASINs', icon: 'fa-file-lines', type: 'Catalog Ingestion', desc: 'Monthly scraped product catalog queue ingests top 25 category best-sellers across Amazon, ONDC, Walmart, Flipkart, and eBay.', chips: ['Monthly Scraping', 'Top 25 Best-Sellers', 'Multi-Marketplace'] },
-      { step: '02', title: 'Dual-Modal Extraction', icon: 'fa-diagram-project', type: 'Feature Extraction', desc: 'Parallel extraction orchestrator: text worker analyzes title lengths, keyword frequencies, and bullet clusters; image worker classifies 6 visual types (white background, lifestyle, infographic, dimension, packaging, close-up).', chips: ['Title Hook Mining', 'Bullet Clustering', '6 Image Visual Types', 'Composition Audits'] },
-      { step: '03', title: 'Gemini Batch Runner', icon: 'fa-layer-group', type: 'GenAI File API Pool', active: true, desc: 'Batch runner with Gemini File API, intelligent multi-key round-robin rotation, 1.5-hour error cooldowns, and automatic resume-on-failure retry queues.', chips: ['Gemini File API', 'Multi-Key Rotation', '1.5-Hour Cooldown', 'Zero Quota Starvation'] },
-      { step: '04', title: 'PostgreSQL Taxonomy', icon: 'fa-database', type: 'Relational DB Records', desc: 'Persists structured JSON outputs directly into dedicated text_insights and image_insights columns in marketplace PostgreSQL taxonomy tables.', chips: ['PostgreSQL Partitioning', 'JSON Schema Synthesis', '3,072-dim Embeddings'] },
-      { step: '05', title: 'Category Benchmarks', icon: 'fa-square-check', type: 'Downstream Strategy', desc: 'Delivers actionable category creative blueprints identifying an 84%+ lifestyle and 92%+ infographic visual adoption rate among leaders.', chips: ['Actionable Insights', 'Brand Benchmarking', 'Conversion Uplift'] }
-    ],
-    architecture: `
-[ Top 25 Category ASINs (Monthly Scraped Catalog) ]
-                        │
-       ┌────────────────┴────────────────┐
-       ▼                                 ▼
-[ Text Insights Pipeline ]        [ Image Insights Pipeline ]
-  • Title pattern analysis          • 6 visual types classification:
-  • High-converting hooks             - White background primary
-  • Bullet point thematic clusters    - Lifestyle in-use
-  • Specification extraction          - Infographics & feature callouts
-  • Customer pain point mining        - Scale & dimension guides
-                                      - Packaging & box contents
-                                      - Close-up macro detail
-       │                                 │
-       └────────────────┬────────────────┘
-                        ▼
-[ Gemini Batch Runner & File API Ingestion ]
-  • Multi-key API rotation with automated cooldowns & retries
-  • Dual prompt execution (life_info & six_types)
-  • Output validation and YAML/JSON schema synthesis
-                        │
-                        ▼
-[ PostgreSQL Marketplace Taxonomy Table Ingestion ]
-  • Base table created during Taxonomy Vector Search (3,072-dim embeddings)
-  • Populates dedicated text_insights_<run_id> and image_insights_<run_id> columns
-  • Partitioned and tracked by category, month, and year`,
-    objective: 'Engineer an automated batch intelligence pipeline to extract actionable copywriting hooks, customer sentiment, and visual asset composition standards across top 25 best-selling products in every catalog category.',
-    process: [
-      'Built dual-modal batch runner in Python orchestrating both text feature extraction and computer vision analysis.',
-      'Engineered text insights extracting title length distributions, keyword frequencies, bullet themes, and technical specifications.',
-      'Built image classification evaluating 6 core visual types (white background, lifestyle, infographic, dimension, packaging, close-up) alongside lighting and composition.',
-      'Implemented robust Gemini File API integration with automated key rotation, 1.5-hour error cooldowns, and seamless resume-on-failure capabilities.',
-      'Ingested merged structured JSON outputs directly into marketplace PostgreSQL tables (e.g., amazon_in_taxonomy_embeddings) under dedicated text_insights and image_insights columns.'
-    ],
-    screenshots: [],
-    findings: [
-      'Identified that top-converting category leaders maintain a strict 84%+ lifestyle and 92%+ infographic image adoption rate compared to underperforming listings.',
-      'Automated monthly cron jobs process thousands of categories across Amazon, ONDC, and expanding marketplaces with zero manual developer intervention.',
-      'Eliminated API throttling and quota starvation through intelligent multi-key round-robin rotation and File API lifecycle cleanup.'
-    ],
-    learned: 'Batch multimodal processing at catalog scale requires decoupling file staging from inference. Using Gemini File API with multi-key rotation and dedicated database schema columns ensured scalable, cost-efficient category intelligence.',
-    tools: ['Python 3.11', 'Gemini File API', 'PostgreSQL', 'MongoDB Atlas', 'Pydantic', 'AsyncIO / Threading'],
-    skills: ['Multimodal Batch Processing', 'Computer Vision Prompting', 'NLP Feature Extraction', 'PostgreSQL Schema Design', 'API Key Rotation'],
-    github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio',
-    githubLabel: 'Portfolio Repository',
-    report: '#',
-    reportLabel: 'Production Pipeline'
-  },
+
+
+
 
   'multimodal-aplus': {
     title: 'Multimodal A+ Content Competitive Intelligence & Synthesis Engine',
@@ -782,67 +680,7 @@ const PROJECT_CASE_STUDIES = {
     reportLabel: 'Production AI Pipeline'
   },
 
-  'chatbot-rag': {
-    title: 'Common API Endpoints & MSC IQ Chatbot RAG',
-    category: 'Backend & RAG Architecture',
-    categoryBadgeClass: 'badge-ai',
-    provenance: 'KAS Global Commerce • AI Research Intern',
-    provenanceBadgeClass: 'badge-intern',
-    pipeline: [
-      { step: '01', title: 'User Query & Auth', icon: 'fa-comments', type: 'Frontend Ingestion', desc: 'Accepts natural language seller queries in MSC IQ; validated with JWT authentication and plan credits via ms-auth-manager middleware.', chips: ['MSC IQ Assistant', 'FastAPI Stream', 'JWT Validation', 'RBAC Middleware'] },
-      { step: '02', title: '/category-mapper Service', icon: 'fa-diagram-project', type: 'Vector Disambiguation', desc: 'Computes pgvector cosine similarity against 3,072-dimensional taxonomy embeddings and returns interactive disambiguation chips under 50ms.', chips: ['pgvector Cosine Search', 'Sub-50ms Latency', 'Dynamic Chips'] },
-      { step: '03', title: '/insights RAG Retrieval', icon: 'fa-database', type: 'Knowledge Store', active: true, desc: 'High-concurrency microservice fetching structured pre-computed category JSON insights (pricing distributions, coupon trends, keywords) with DB connection pooling.', chips: ['/api/v1/insights', 'Connection Pooling', 'Zero Hallucination', 'JSON Insights'] },
-      { step: '04', title: 'Context Augmented LLM', icon: 'fa-brain', type: 'Grounded Generation', desc: 'Injects verified category benchmarks and quantitative bounds into the LLM context prompt to generate factual strategic recommendations.', chips: ['Prompt Grounding', 'Context Injection', 'Pydantic Schemas'] },
-      { step: '05', title: 'Interactive Chat Stream', icon: 'fa-square-check', type: 'Response Streaming', desc: 'Streams responses via SSE with interactive category chips, product details (/api/v1/product-details), and formatted comparison tables.', chips: ['SSE Streaming', '/api/v1/product-details', 'Sub-100ms First Token', '100% Grounded'] }
-    ],
-    architecture: `
-[ User: "What should be my pricing strategy?" ]
-                       │
-                       ▼
-[ /api/v1/category-mapper ]
-   • Computes pgvector cosine similarity
-   • Returns interactive category chips (e.g., Trail Running vs Road Running)
-                       │
-                       ▼ (User Selects Chip)
-[ /api/v1/insights RAG Retrieval ]
-   • Ingests selected category JSON insight document
-   • Extracts pricing distribution, coupon trends, and top conversion keywords
-                       │
-                       ▼
-[ Context-Augmented Response Stream ]
-   • Delivers precise, grounded strategy through MSC IQ assistant`,
-    objective: 'Build resilient, low-latency microservices that power conversational category exploration and factual insight retrieval for e-commerce brand managers.',
-    process: [
-      'Designed and deployed 3 core RESTful microservices: /api/v1/category-mapper, /api/v1/insights, and /api/v1/product-details.',
-      'Engineered interactive category disambiguation logic returning structured chips to narrow down ambiguous user queries.',
-      'Implemented JWT authentication and RBAC validation via ms-auth-manager middleware.',
-      'Optimized JSON serialization and database connection pooling to handle high concurrent streaming requests.'
-    ],
-    screenshots: [
-      {
-        title: 'Category Pricing RAG & Disambiguation Chips',
-        src: 'assets/screenshots/category_pricing_rag.png',
-        caption: 'Conversational category pricing RAG answering seller pricing questions with contextual suggestion chips.'
-      },
-      {
-        title: 'Creative Dispatcher Integration',
-        src: 'assets/screenshots/agent_creative_generation.png',
-        caption: 'FastAPI microservice dispatching structured prompt directives to creative agent nodes.'
-      }
-    ],
-    findings: [
-      'Reduced user query refinement cycle time by 45% using interactive category suggestion chips.',
-      'Achieved sub-100ms response latency for cached category mapping lookups.',
-      'Maintained 100% factual grounding by strictly referencing pre-computed category intelligence documents.'
-    ],
-    learned: 'Conversational AI assistants are much more reliable when designed with proactive disambiguation UX (chips and structured buttons) rather than relying purely on multi-turn prompt guessing.',
-    tools: ['FastAPI', 'Python', 'PostgreSQL', 'pgvector', 'Docker', 'JWT Authentication'],
-    skills: ['API Architecture', 'Conversational RAG', 'Microservice Design', 'Prompt Grounding'],
-    github: 'https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio',
-    githubLabel: 'Portfolio Repository',
-    report: '#',
-    reportLabel: 'Production Microservice'
-  },
+
 
   'aegis-agent': {
     title: 'AegisAgent: Enterprise AI Security & Guardrailed RAG Agent',
@@ -1407,6 +1245,125 @@ function getProjectPipeline(data) {
   return [];
 }
 
+const LEGACY_PROJECT_ALIASES = {
+  'category-mapper': 'marketplace-category-intelligence',
+  'scraping-engine': 'marketplace-category-intelligence',
+  'text-image-insights': 'marketplace-category-intelligence',
+  'chatbot-rag': 'marketplace-category-intelligence',
+  'vector-taxonomy': 'marketplace-category-intelligence',
+  'scraper-engine': 'marketplace-category-intelligence',
+  'common-api': 'marketplace-category-intelligence'
+};
+
+function resolveProjectId(value) {
+  const key = value.replace(/^#/, '').replace(/^proj-/, '');
+  return LEGACY_PROJECT_ALIASES[key] || key;
+}
+
+// These public diagrams and examples use text nodes so literal column names remain readable.
+function renderProjectDetails(data) {
+  const diagramSection = document.getElementById('caseStudyDiagramSection');
+  const diagram = document.getElementById('caseStudyDiagram');
+  diagram.replaceChildren();
+  diagramSection.hidden = !data.diagram;
+  diagram.closest('.architecture-box')?.classList.toggle('has-conceptual-diagram', Boolean(data.diagram));
+  if (data.diagram) {
+    const lanes = document.createElement('div');
+    lanes.className = 'case-architecture-lanes';
+    lanes.classList.toggle('single-lane', data.diagram.lanes.length === 1);
+    data.diagram.lanes.forEach(lane => {
+      const region = document.createElement('div');
+      region.className = 'case-architecture-lane';
+      const heading = document.createElement('h5');
+      heading.textContent = lane.title;
+      const list = document.createElement('ol');
+      lane.nodes.forEach(([title, detail]) => {
+        const node = document.createElement('li');
+        const label = document.createElement('strong');
+        label.textContent = title;
+        const desc = document.createElement('p');
+        desc.textContent = detail;
+        node.append(label, desc);
+        list.append(node);
+      });
+      region.append(heading, list);
+      lanes.append(region);
+    });
+    diagram.append(lanes);
+    if (data.diagram.bridge) {
+      const bridge = document.createElement('p');
+      bridge.className = 'case-architecture-storage';
+      bridge.textContent = data.diagram.bridge;
+      diagram.append(bridge);
+    }
+    const caption = document.createElement('figcaption');
+    caption.textContent = data.diagram.caption + ' ';
+    const source = document.createElement('a');
+    source.href = data.diagram.source;
+    source.textContent = 'Editable Mermaid source';
+    caption.append(source);
+    diagram.append(caption);
+  }
+
+  const details = document.getElementById('caseStudyDetails');
+  details.replaceChildren();
+  (data.sections || []).forEach(section => {
+    const region = document.createElement('section');
+    region.className = 'case-study-section';
+    const heading = document.createElement('h4');
+    heading.className = 'case-study-section-title';
+    heading.textContent = section.title;
+    region.append(heading);
+    if (section.text) {
+      const paragraph = document.createElement('p');
+      paragraph.className = 'case-study-text';
+      paragraph.textContent = section.text;
+      region.append(paragraph);
+    }
+    if (section.items) {
+      const list = document.createElement('ul');
+      list.className = 'case-study-findings-list';
+      section.items.forEach(text => {
+        const item = document.createElement('li');
+        item.textContent = text;
+        list.append(item);
+      });
+      region.append(list);
+    }
+    if (section.cards) {
+      const cards = document.createElement('div');
+      cards.className = 'case-detail-cards';
+      section.cards.forEach(([title, text]) => {
+        const card = document.createElement('div');
+        card.className = 'case-detail-card';
+        const label = document.createElement('h5');
+        label.textContent = title;
+        const body = document.createElement('p');
+        body.textContent = text;
+        card.append(label, body);
+        cards.append(card);
+      });
+      region.append(cards);
+    }
+    details.append(region);
+  });
+}
+
+function trapDialogFocus(dialog, event) {
+  if (event.key !== 'Tab') return;
+  const controls = [...dialog.querySelectorAll('a[href], button, [tabindex="0"]')]
+    .filter(el => el.getClientRects().length && !el.disabled);
+  const first = controls[0];
+  const last = controls[controls.length - 1];
+  if (event.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) {
+    event.preventDefault();
+    last?.focus();
+  } else if (!event.shiftKey && (document.activeElement === last || !dialog.contains(document.activeElement))) {
+    event.preventDefault();
+    first?.focus();
+  }
+}
+
 function initProjectCaseStudySystem() {
   const modal = document.getElementById('projectCaseStudyModal');
   const closeBtn = document.getElementById('caseStudyCloseBtn');
@@ -1430,10 +1387,16 @@ function initProjectCaseStudySystem() {
       { label: 'SOC RESPONSE TIME', val: '< 5ms', desc: 'Automated IP firewall blocking' }
     ],
     'rca-engine': [
-      { label: 'DIAGNOSTIC CATALOG', val: '28', desc: 'Completed evidence-backed workflows' },
-      { label: 'BUSINESS COVERAGE', val: '6 Domains', desc: 'Marketing through customer retention' },
-      { label: 'ENGINE PIPELINE', val: '4 Phases', desc: 'Interpret, investigate, synthesize, deliver' },
-      { label: 'MSC IQ CONTRACT', val: 'rca_report', desc: 'Persisted typed dashboard response' }
+      { label: 'DIAGNOSTIC CATALOG', val: '30', desc: 'Completed evidence-grounded diagnostics' },
+      { label: 'BUSINESS COVERAGE', val: '4 Domains', desc: 'Marketing, Orders, Business, Inventory' },
+      { label: 'EVIDENCE FETCH', val: '<7s', desc: 'Query stage reduced from >60 seconds' },
+      { label: 'DATA BOUNDARY', val: 'PostgreSQL', desc: 'Read-only table access through Python' }
+    ],
+    'marketplace-category-intelligence': [
+      { label: 'CATALOG HARVESTING', val: '1.5 weeks', desc: 'Reduced from 2–3 months' },
+      { label: 'INGESTION THROUGHPUT', val: '1,000/min', desc: 'Up to 1,000 Zyte API requests/minute' },
+      { label: 'CATEGORY LOOKUP', val: '<50ms', desc: 'PostgreSQL/pgvector semantic retrieval' },
+      { label: 'PLATFORM REACH', val: '9 Markets', desc: 'Expanded during the full-time role' }
     ],
     'mtech-dissertation': [
       { label: 'RECALL RECOVERY', val: '95.8%', desc: 'NDCG@10 recovery under DP noise' },
@@ -1441,35 +1404,11 @@ function initProjectCaseStudySystem() {
       { label: 'EDGE CLIENTS', val: '1,000+', desc: 'Zero raw clickstream leakage' },
       { label: 'NOISE RESILIENCE', val: 'View-CL', desc: 'Self-supervised contrastive learning' }
     ],
-    'category-mapper': [
-      { label: 'CATEGORY COVERAGE', val: '38,000+', desc: 'Canonical hierarchical leaf nodes' },
-      { label: 'HYBRID ENGINE', val: 'BM25 + SBERT', desc: 'Exact token + semantic vector index' },
-      { label: 'EMBEDDING RECOVERY', val: '384-D', desc: 'Dense cosine similarity retrieval' },
-      { label: 'RESPONSE SPEED', val: '12ms', desc: 'Sub-second catalog assignment' }
-    ],
-    'scraping-engine': [
-      { label: 'INGESTION VOLUME', val: '2.5M+', desc: 'Competitor e-commerce catalog URLs' },
-      { label: 'ANTI-BOT RESILIENCE', val: '99.4%', desc: 'Cloudflare Turnstile & CAPTCHA bypass' },
-      { label: 'THROUGHPUT PIPELINE', val: '850/sec', desc: 'Asynchronous distributed workers' },
-      { label: 'DATA INTEGRITY', val: '100%', desc: 'Pydantic strict schema verification' }
-    ],
-    'text-image-insights': [
-      { label: 'MULTIMODAL MODEL', val: 'CLIP ViT', desc: 'Vision + text contrastive embeddings' },
-      { label: 'IMAGE-TEXT ALIGNMENT', val: '94.2%', desc: 'Zero-shot cross-modal retrieval' },
-      { label: 'INFERENCE LATENCY', val: '18ms', desc: 'TensorRT GPU acceleration' },
-      { label: 'INDEX SIZE', val: '500K Items', desc: 'Hierarchical Navigable Small World' }
-    ],
     'multimodal-aplus': [
       { label: 'CONTENT GENERATOR', val: 'Gemini 1.5', desc: 'Multimodal vision prompt synthesis' },
       { label: 'COMPLIANCE AUDIT', val: '100%', desc: 'Amazon style & prohibited word filter' },
       { label: 'PRODUCTION PIPELINE', val: 'Full-Stack', desc: 'React + FastAPI + Celery Queue' },
       { label: 'TURNAROUND TIME', val: '< 30s', desc: 'From ASIN intake to structured copy' }
-    ],
-    'chatbot-rag': [
-      { label: 'RETRIEVAL ACCURACY', val: '96.5%', desc: 'Hybrid dense-sparse vector scoring' },
-      { label: 'EMBEDDING STORE', val: 'ChromaDB', desc: 'Chunked enterprise compliance docs' },
-      { label: 'HALLUCINATION GUARD', val: 'G-Eval', desc: 'Faithfulness & relevance scoring' },
-      { label: 'CONVERSATION MEMORY', val: 'Dynamic', desc: 'Token-budgeted sliding context buffer' }
     ],
     'aegis-agent': [
       { label: 'AGENT ARCHITECTURE', val: 'ReAct', desc: 'Autonomous reasoning + action loops' },
@@ -1503,13 +1442,17 @@ function initProjectCaseStudySystem() {
     ]
   };
 
+  let returnFocus = null;
   window.openProjectCaseStudy = function(projectId) {
+    projectId = resolveProjectId(projectId);
     const data = PROJECT_CASE_STUDIES[projectId];
     if (!data) {
       console.warn('Case study data not found for:', projectId);
       return;
     }
 
+    returnFocus = document.activeElement;
+    renderProjectDetails(data);
     const steps = getProjectPipeline(data);
     const projectStatus = data.status || 'Production Ready';
 
@@ -1692,6 +1635,7 @@ function initProjectCaseStudySystem() {
       if (data.architecture && data.architecture.trim().length > 0) {
         topologySection.style.display = 'block';
         architectureEl.textContent = data.architecture.trim();
+        architectureEl.style.display = data.diagram ? 'none' : '';
       } else {
         topologySection.style.display = 'none';
       }
@@ -1748,6 +1692,12 @@ function initProjectCaseStudySystem() {
               e.stopPropagation();
               if (typeof window.openLightbox === 'function') {
                 window.openLightbox(shot.src, shot.title, shot.caption);
+              }
+            });
+            card.addEventListener('keydown', event => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                card.click();
               }
             });
           }
@@ -1872,12 +1822,15 @@ function initProjectCaseStudySystem() {
     // Show modal
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
+    modal.querySelector('.cybersoc-scroll-body')?.scrollTo(0, 0);
+    closeBtn?.focus();
   };
 
   // Close modal helper
   const closeModal = () => {
     modal.classList.remove('open');
     document.body.style.overflow = '';
+    returnFocus?.focus({preventScroll:true});
   };
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
@@ -1885,11 +1838,21 @@ function initProjectCaseStudySystem() {
     if (e.target === modal) closeModal();
   });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    if (!modal.classList.contains('open') || document.getElementById('imageLightboxModal')?.classList.contains('open')) return;
+    if (e.key === 'Escape') closeModal();
+    trapDialogFocus(modal, e);
   });
 
   // Wire Card Click handlers
   projectCards.forEach(card => {
+    card.tabIndex = 0;
+    card.setAttribute('aria-label', 'Open case study: ' + card.querySelector('.project-title').textContent.trim());
+    card.addEventListener('keydown', event => {
+      if (event.target === card && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        window.openProjectCaseStudy(card.dataset.project);
+      }
+    });
     card.addEventListener('click', (e) => {
       // Don't intercept if user clicked on a link or button directly
       if (e.target.closest('a') || e.target.closest('.open-lightbox-btn') || e.target.closest('.screenshot-thumb-btn')) {
@@ -1933,6 +1896,7 @@ function initImageLightboxModal() {
   const triggerBtns = document.querySelectorAll('.open-lightbox-btn, .screenshot-thumb-btn');
 
   if (!lightbox || !lightboxImg) return;
+  let returnFocus = null;
 
   // Zoom & Pan State (Sharp Native Resolution Rendering up to 2000%)
   let currentScale = 1.0;
@@ -2052,6 +2016,7 @@ function initImageLightboxModal() {
 
   // Global helper to open lightbox
   window.openLightbox = function(imgSrc, title, subtitle) {
+    returnFocus = document.activeElement;
     if (!imgSrc) return;
     resetZoom();
     lightboxImg.src = imgSrc;
@@ -2064,6 +2029,7 @@ function initImageLightboxModal() {
     baseHeight = 0;
 
     lightbox.classList.add('open');
+    closeBtn?.focus();
     document.body.style.overflow = 'hidden';
 
     const onImageLoaded = () => {
@@ -2097,6 +2063,7 @@ function initImageLightboxModal() {
     if (!caseStudyModal || !caseStudyModal.classList.contains('open')) {
       document.body.style.overflow = '';
     }
+    returnFocus?.focus({preventScroll:true});
   };
 
   // Zoom Button Controls
@@ -2188,6 +2155,7 @@ function initImageLightboxModal() {
 
   document.addEventListener('keydown', (e) => {
     if (!lightbox.classList.contains('open')) return;
+    trapDialogFocus(lightbox, e);
     if (e.key === 'Escape') {
       e.stopPropagation();
       closeLightbox();
@@ -2240,57 +2208,57 @@ function initCopyButtons() {
 /* ==========================================================================
    7. EXPERIENCE TO PROJECT DEEP-LINKING & HIGHLIGHT PULSE
    ========================================================================== */
+function revealProjectCard(card) {
+  if (getComputedStyle(card).display === 'none') {
+    if (card.closest('#archiveCardsGrid')) {
+      document.getElementById('clearFiltersBtn')?.click();
+    } else {
+      card.style.setProperty('display', 'flex', 'important');
+      card.style.opacity = '1';
+    }
+  }
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  card.classList.remove('card-highlight-pulse');
+  void card.offsetWidth;
+  card.classList.add('card-highlight-pulse');
+  setTimeout(() => card.classList.remove('card-highlight-pulse'), 2600);
+}
+
+function findProjectCard(value) {
+  const target = document.getElementById(value.replace(/^#/, ''));
+  if (target?.closest('.project-card')) return target.closest('.project-card');
+  const key = resolveProjectId(value);
+  return [...document.querySelectorAll('.project-card')].find(card => card.dataset.project === key);
+}
+
 function initExperienceProjectJump() {
-  const jumpLinks = document.querySelectorAll('.exp-jump-pill, .exp-bullet-link, .exp-related-link');
-
-  jumpLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      const targetId = link.getAttribute('data-target') || (href && href.startsWith('#') ? href.replace('#', '') : null);
-      if (!targetId) return;
-
-      const targetCard = document.getElementById(targetId);
-      if (!targetCard) return;
-
-      e.preventDefault();
-
-      // If the target project is hidden by active mode tab, make sure its category is active
-      const isTargetFeatured = targetCard.getAttribute('data-featured') === 'true';
-      const targetCategory = targetCard.getAttribute('data-category');
-      const activeTab = document.querySelector('.mode-tab.active');
-      const activeMode = activeTab ? activeTab.getAttribute('data-mode') : 'featured';
-
-      const isVisible = (activeMode === 'featured' && isTargetFeatured) ||
-                        (activeMode === 'ai' && (targetCategory === 'ai' || targetCategory === 'overlap')) ||
-                        (activeMode === 'security' && (targetCategory === 'security' || targetCategory === 'overlap')) ||
-                        (activeMode === 'overlap' && targetCategory === 'overlap');
-
-      if (!isVisible) {
-        let matchingTab = null;
-        if (targetCategory === 'ai') matchingTab = document.querySelector('.mode-tab[data-mode="ai"]');
-        else if (targetCategory === 'security') matchingTab = document.querySelector('.mode-tab[data-mode="security"]');
-        else if (targetCategory === 'overlap') matchingTab = document.querySelector('.mode-tab[data-mode="overlap"]');
-
-        if (matchingTab) {
-          matchingTab.click();
-        }
+  document.querySelectorAll('a[href^="#proj-"]').forEach(link => {
+    link.addEventListener('click', event => {
+      const card = findProjectCard(link.hash);
+      if (!card) return;
+      event.preventDefault();
+      if (window.location.hash !== link.hash) {
+        window.history.pushState(null, '', window.location.pathname + window.location.search + link.hash);
       }
-
-      // Smooth scroll to target card with offset for sticky navbar
-      const yOffset = -90;
-      const y = targetCard.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-
-      // Trigger pulse animation
-      targetCard.classList.remove('card-highlight-pulse');
-      void targetCard.offsetWidth; // Force DOM reflow
-      targetCard.classList.add('card-highlight-pulse');
-
-      setTimeout(() => {
-        targetCard.classList.remove('card-highlight-pulse');
-      }, 2600);
+      revealProjectCard(card);
     });
   });
+}
+
+function initProjectDeepLinks() {
+  const followHash = () => {
+    if (!window.location.hash) return;
+    let key;
+    try { key = decodeURIComponent(window.location.hash.slice(1)); }
+    catch { return; }
+    const card = findProjectCard(key);
+    if (!card) return;
+    revealProjectCard(card);
+    // Anchor URLs land on cards; historical case-study keys open the same canonical modal.
+    if (!key.startsWith('proj-')) window.openProjectCaseStudy(resolveProjectId(key));
+  };
+  window.addEventListener('hashchange', followHash);
+  followHash();
 }
 
 /* ==========================================================================
@@ -2310,7 +2278,7 @@ function initExperienceInternToggle() {
       content.style.display = 'none';
       toggleBtn.setAttribute('aria-expanded', 'false');
       if (chevron) chevron.classList.remove('open');
-      if (label) label.textContent = 'Show internship details (4 systems)';
+      if (label) label.textContent = 'Show internship details (integrated platform)';
     } else {
       content.style.display = 'block';
       toggleBtn.setAttribute('aria-expanded', 'true');
@@ -2616,6 +2584,8 @@ function initProjectsPageFilters() {
     'Vector Search': ['all', 'ai'],
     'Computer Vision': ['all', 'ai', 'overlap'],
     'Multimodal LLMs': ['all', 'ai'],
+    'Distributed Systems': ['all', 'ai'],
+    'ETL Pipelines': ['all', 'ai'],
     'Federated Privacy': ['all', 'overlap'],
     'SIEM & SPL': ['all', 'security'],
     'Packet Forensics': ['all', 'security', 'overlap'],
@@ -2645,15 +2615,12 @@ function initProjectsPageFilters() {
   ];
 
   const PROJECT_ALIASES = {
+    'marketplace-category-intelligence': 'taxonomy category mapping semantic similarity ecommerce embeddings catalog crawler web scraping distributed ingestion automation product listing multimodal image text marketplace analytics api microservices conversational assistant category mapper product details jsonb pgvector zyte gemini',
     'rca-engine': 'advertising analytics seller diagnostics business intelligence performance anomaly postgres optimization',
     'mtech-dissertation': 'recommendation recommender sequence privacy research thesis laplace contrastive learning',
     'hermes-ids': 'autonomous containment intrusion detection malware network defense cnn lstm',
     'bot-iot-ga-ids': 'genetic algorithm feature selection bot iot intrusion dataset research',
-    'category-mapper': 'taxonomy category mapping semantic similarity ecommerce embeddings',
-    'scraping-engine': 'catalog crawler web data collection distributed ingestion automation',
-    'text-image-insights': 'product listing content intelligence image text marketplace analytics',
     'multimodal-aplus': 'amazon a plus creative competitor content image generation',
-    'chatbot-rag': 'api microservices conversational assistant category mapper product details',
     'aegis-agent': 'guardrails prompt injection pii redaction secure enterprise assistant',
     'splunk-siem-lab': 'soc log monitoring ssh brute force nikto alert dashboard spl',
     'dos-attack-simulation': 'denial service syn udp icmp flood slowloris traffic analysis',
@@ -2785,7 +2752,7 @@ function initProjectsPageFilters() {
     if (currentSection !== 'all') params.set('section', currentSection);
     if (selectedTags.size) params.set('tags', Array.from(selectedTags).join(','));
     const suffix = params.toString();
-    window.history.replaceState(null, '', suffix ? `${window.location.pathname}?${suffix}` : window.location.pathname);
+    window.history.replaceState(null, '', window.location.pathname + (suffix ? '?' + suffix : '') + window.location.hash);
   }
 
   function updateTagAvailability() {

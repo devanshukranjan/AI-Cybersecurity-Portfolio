@@ -1,0 +1,15 @@
+flowchart TB
+    SELLER["Seller asks why a metric changed\nEnglish or Hinglish"] --> UI["MSC IQ conversation UI"]
+    UI --> AUTH["Upstream authentication,\nscope and permissions"]
+    AUTH --> SUP["LangGraph supervisor\nSelect RCA investigator"]
+    SUP --> RCA["RCA FastAPI diagnostic service\n30 completed diagnostics · scope and dates"]
+    RCA --> FETCH["Python analytical evidence service\nRead-only PostgreSQL table access"]
+    FETCH --> PG[("Marketplace PostgreSQL\nSales, ads, inventory and other authorized metrics")]
+    PG --> EVIDENCE["Structured evidence package\nBaseline vs current, threshold checks,\nmetric deltas and entity breakdowns"]
+    EVIDENCE --> REASON["LLM evidence-grounded reasoning\nIdentify and explain plausible root causes"]
+    REASON --> CHECK["Evidence and safety validation\nInsufficient-data guards, severity,\nconfirmed vs directional distinctions"]
+    CHECK --> REPORT["Typed structured RCA report\nCauses, evidence and recommendations"]
+    REPORT --> UI_OUT["MSC IQ RCA report renderer\nSeller-facing explanation and actions"]
+    SEC["Input sanitization and prompt-injection\nsafeguards across the workflow"] -.-> SUP
+    SEC -.-> REASON
+    EVIDENCE -. "Only approved evidence passed to AI" .-> REASON

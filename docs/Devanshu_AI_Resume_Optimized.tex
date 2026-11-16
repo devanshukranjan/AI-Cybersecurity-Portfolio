@@ -1,0 +1,76 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper,top=0.56in,bottom=0.55in,left=0.65in,right=0.65in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[sfdefault]{roboto}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+\input{glyphtounicode}
+\pdfgentounicode=1
+\definecolor{accent}{RGB}{35,61,89}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{1em}
+\urlstyle{same}
+\titleformat{\section}{\bfseries\normalsize\color{accent}}{}{0pt}{}[\vspace{-3pt}\color{accent}\titlerule]
+\titlespacing*{\section}{0pt}{7.5pt}{3.5pt}
+\newcommand{\position}[4]{\textbf{#1}\hfill\textbf{#2}\\[-1pt]\textit{#3}\hfill\textit{#4}\vspace{-3pt}}
+\newcommand{\proj}[2]{\textbf{#1}\hfill{\footnotesize #2}\vspace{-4pt}}
+\newenvironment{tightbullets}{\begin{itemize}[leftmargin=1.25em,label=\textbullet,topsep=2pt,itemsep=2pt,parsep=0pt,partopsep=0pt]}{\end{itemize}\vspace{-4pt}}
+\newcommand{\skill}[2]{\textbf{#1:} #2\\[1pt]}
+\begin{document}
+\begin{center}
+{\fontsize{17.3}{20}\selectfont\bfseries Devanshu Kumar Ranjan}\\[2pt]
+{\small\bfseries AI ENGINEER | GENAI, AGENTS AND PYTHON BACKEND}\\[4pt]
+{\footnotesize Bilaspur, Himachal Pradesh, India \quad | \quad +91-6206938457 \quad | \quad \href{mailto:devanshukranjan@gmail.com}{devanshukranjan@gmail.com}}\\[2pt]
+{\footnotesize \href{https://linkedin.com/in/devanshu-kumar-ranjan-06399221b}{linkedin.com/in/devanshu-kumar-ranjan-06399221b} \quad | \quad \href{https://github.com/devanshukranjan}{github.com/devanshukranjan}}\\[2pt]
+{\footnotesize \href{https://devanshukranjan.github.io/AI-Cybersecurity-Portfolio/}{devanshukranjan.github.io/AI-Cybersecurity-Portfolio}}
+\end{center}
+\vspace{-6pt}
+\section{Professional Summary}
+\small Production AI Engineer building evidence-grounded LangGraph agents and multimodal category intelligence for e-commerce sellers. Delivered 30 completed RCA diagnostics, reduced PostgreSQL evidence-query latency by over 88\%, and integrated Gemini-powered category insights with FastAPI. M.Tech Cyber Security, NIT Patna.\normalsize
+
+\section{Professional Experience}
+\position{KAS Global Commerce Inc.}{Bilaspur, HP}{AI Engineer}{Jul 2026 -- Present}
+\begin{tightbullets}
+\item Built a production \textbf{LangGraph multi-agent RCA investigator}: Python analytics fetches evidence via read-only PostgreSQL table access; AI infers and explains root causes for English/Hinglish seller queries across \textbf{30 completed diagnostics} (ads, orders, business, inventory).
+\item Cut PostgreSQL analytics query latency from \textbf{over 60 seconds to under 7 seconds (88\%+)} through parallel independent queries, B-tree/GIN indexes, and optimized joins.
+\item Applied \textbf{prompt-injection safeguards}, validated inputs, statistical baselines and evidence checks to constrain AI-generated findings; returned structured reports and recommendations.
+\item Automated the \textbf{monthly catalog-to-multimodal-insights pipeline} with cron orchestration and recovery, expanding the integrated system to \textbf{9 marketplaces} with no routine manual intervention.
+\end{tightbullets}
+\vspace{2pt}
+\position{KAS Global Commerce Inc.}{Bilaspur, HP}{AI Research Intern}{Sep 2025 -- Jun 2026}
+\begin{tightbullets}
+\item Built a two-stage Zyte API/MongoDB catalog ingestion pipeline at up to \textbf{1,000 requests/min}, cutting extraction time from \textbf{2--3 months to 1.5 weeks}.
+\item Implemented taxonomy normalization and vector search with OpenAI embeddings and PostgreSQL/\texttt{pgvector} (IVFFLAT), achieving \textbf{sub-50 ms retrieval}.
+\item Created \textbf{Gemini 2.5 Flash multimodal category intelligence} from scraped Amazon/ONDC product text and images, revealing category trends, competitor patterns, buyer preferences and listing opportunities; persisted month-versioned \textbf{JSONB} insights in marketplace-specific PostgreSQL taxonomy tables.
+\item Delivered \textbf{3 FastAPI microservices} for category mapping, product details and precomputed insight retrieval; \texttt{/api/v1/insights} served category intelligence to MSC IQ to support sellers' product and listing decisions.
+\end{tightbullets}
+
+\section{Technical Skills}
+{\small
+\skill{GenAI and LLM Systems}{LangGraph, multi-agent workflows, RAG, embeddings, Gemini 2.5 Flash, prompt engineering, multimodal AI}
+\skill{Backend and Data}{Python, FastAPI, Pydantic, Asyncio, REST APIs, PostgreSQL, SQL, pgvector, MongoDB, Git, Linux}
+\skill{Machine Learning}{PyTorch, scikit-learn, XGBoost, CNNs, federated learning, local differential privacy}
+}
+\section{Selected Projects}
+\proj{Privacy-Preserving Federated Sequential Recommendation (M.Tech thesis)}{Aug 2025 -- May 2026}
+\begin{tightbullets}
+\item Designed \textbf{LDP-SeqMask} with calibrated Laplace perturbation on client interaction sequences; used view-based contrastive learning to stabilize learning and maintain recommendation quality under privacy noise.
+\end{tightbullets}
+\proj{\href{https://github.com/devanshukranjan/AI-Cybersecurity-Portfolio/tree/main/ai-intrusion-detection/hermes-ids}{Hermes: AI Intrusion Detection System}}{May -- Jun 2025}
+\begin{tightbullets}
+\item Built an IDS research prototype combining Tab2Image CNN, Random Forest (\textbf{98.6\% test accuracy}), and autoencoder anomaly detection on UGRansome2024/UNSW-NB15 data; developed a Tkinter analyst console.
+\end{tightbullets}
+
+\section{Education and Certification}
+{\small\textbf{NIT Patna} --- M.Tech, Cyber Security (CSE), \textbf{9.06/10} \hfill 2024 -- 2026\\[1pt]
+\textbf{Graphic Era University} --- B.Tech, Computer Science and Engineering, \textbf{8.83/10} \hfill 2019 -- 2023\\[1pt]
+\textbf{Certification:} Google Cybersecurity Specialization (Coursera), 2025; Python Developer Associate (PDAC), 2024}
+\end{document}

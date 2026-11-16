@@ -1,0 +1,23 @@
+flowchart TB
+    subgraph Monthly["MONTHLY INTELLIGENCE PIPELINE · internship foundation, later automated + scaled"]
+      TRIG["Monthly scheduler and recovery controls\nFull-time automation"] --> SCRAPE["Two-stage catalog harvesting\nAmazon / ONDC initially; expanded to 9 marketplaces"]
+      SCRAPE --> RAW["Category-wise product records\nTitles, specs, images, pricing and reviews"]
+      RAW --> STATS["Statistical category analysis"]
+      RAW --> GEMINI["Gemini 2.5 Flash\nMultimodal text and image inference"]
+      STATS --> VALIDATE["Structured category-level JSON\nSchema validation and normalization"]
+      GEMINI --> VALIDATE
+      VALIDATE --> DB[("Marketplace-specific PostgreSQL taxonomy tables\nMonthly JSONB columns:\ntext_insights_<mm-yyyy>\nimage_insights_<mm-yyyy>")]
+    end
+    subgraph Seller["SELLER-FACING MSC IQ WORKFLOW · precomputed insights, not an LLM call on each request"]
+      USER["Seller asks about trends, competitors,\nbuyer preferences or listing improvements"] --> MSC["MSC IQ conversational assistant"]
+      MSC --> MAP["FastAPI: Category Mapper\nSemantic taxonomy matching with pgvector"]
+      MSC --> INSIGHTS["FastAPI: Insights API\nRetrieve stored category intelligence"]
+      MSC --> DETAILS["FastAPI: Product Details\nRetrieve product metadata"]
+      MAP --> MSC
+      INSIGHTS --> MSC
+      DETAILS --> MSC
+      MSC --> ANSWER["Category insights and seller-facing guidance"]
+    end
+    DB -. "month-specific JSONB read" .-> INSIGHTS
+    DB -. "taxonomy data and embeddings" .-> MAP
+    RAW -. "product record storage / lookup" .-> DETAILS
